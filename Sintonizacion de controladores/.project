@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>Sintonizacion de controladores completo</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>jcommon</name>
+			<type>2</type>
+			<location>C:/Users/Adrián y Pablo/Desktop/jcommon-1.0.18/source</location>
+		</link>
+		<link>
+			<name>jfreechart</name>
+			<type>2</type>
+			<location>C:/Users/Adrián y Pablo/Desktop/jfreechart-1.0.15/source</location>
+		</link>
+	</linkedResources>
+</projectDescription>
