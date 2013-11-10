@@ -273,7 +273,7 @@ public class PanelLACC extends JPanel {
 							if(modelo.getValueAt(0, 1) != null && modelo.getValueAt(0, 0) != null && (double)modelo.getValueAt(0, 1) >= 0.0 && (double)modelo.getValueAt(0, 0) >= 0.0) {
 								double k = (double)modelo.getValueAt(0, 0);
 								double tau = (double)modelo.getValueAt(0, 1);
-									graficador.insertarCurva(k, tau);
+									graficador.insertarCurva(k, tau, 2);
 									/**
 									 * DIBUJO EL GRAFICO
 									 */
@@ -283,16 +283,14 @@ public class PanelLACC extends JPanel {
 								if(graficador.getCurvaActual() != null) {
 									Curva curvaActual = graficador.getCurvaActual();
 									
-									double valueKc = (4/3)*(curvaActual.getL()/(curvaActual.getT()));
-									
-									double kc = (valueKc)*(curvaActual.getT()/curvaActual.getL());
-									
+									double vT = curvaActual.getT();
+									double vL = curvaActual.getL();
 									
 									vCohenCoon.setModel(new DefaultTableModel(
 											new Object[][] {
-													{"P", redondear(curvaActual.getT()/curvaActual.getL()), 0.0, 0.0},
-													{"PI", redondear(0.9*(curvaActual.getT()/curvaActual.getL())), redondear(curvaActual.getL()/0.03), 0.0},
-													{"PID", redondear(kc), redondear(2*curvaActual.getL()), redondear(0.5*curvaActual.getL())}},
+													{"P", redondear((vT/vL) * (1 + (vL/(3*vT)))), 0.0, 0.0},
+													{"PI", redondear((vT/vL) * (0.9 + (vL/(12*vT)))), redondear((vL*(30*vT + 3*vL))/(9*vT + 20*vL)), 0.0},
+													{"PID", redondear((vT/vL) * (4/3 + (vL/(4*vT)))), redondear((vL*(32*vT + 6*vL))/(13*vT + 8*vL)), redondear((4*vL*vT)/(11*vT+2*vL))}},
 											new String[] {"Tipo de controlador", "Kp", "Ti", "Td"} ) {
 											/**
 											 * 

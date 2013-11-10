@@ -50,7 +50,7 @@ public class Graficador {
 
 	
 	//Genera los datos para graficar
-	public void insertarCurva(double k, double tau) {
+	public void insertarCurva(double k, double tau, int tipo) {
 		limpiar();
 		curvaActual = new Curva(k, tau);
 		conjuntoDatos.addSeries(curvaActual.getDibujoCurva());
