@@ -135,9 +135,9 @@ public class PanelLACC extends JPanel {
 				vCohenCoon = new JTable();
 				vCohenCoon.setModel(new DefaultTableModel(
 					new Object[][] {
-							{"P", "T/L", "0", "0"},
-							{"PI", "0.9(T/L)", "L/0.03", "0"},
-							{"PID", "1.2(T/L)", "2L", "0.5L"},
+							{"P", "0", "0", "0"},
+							{"PI", "0", "0", "0"},
+							{"PID", "0", "0", "0"},
 					},
 					new String[] {"Tipo de controlador", "Kp", "Ti", "Td"}) {
 					
@@ -198,13 +198,13 @@ public class PanelLACC extends JPanel {
 				
 				JLabel lblModeloAsumidoDe = new JLabel("Modelo asumido de la planta:");
 				lblModeloAsumidoDe.setFont(new Font("Tahoma", Font.PLAIN, 15));
-				lblModeloAsumidoDe.setBounds(695, 460, 190, 19);
+				lblModeloAsumidoDe.setBounds(695, 243, 190, 19);
 				contentPane.add(lblModeloAsumidoDe);
 				
 				JLabel lblEcuacionImagen = new JLabel("");
 				lblModeloAsumidoDe.setLabelFor(lblEcuacionImagen);
-				lblEcuacionImagen.setIcon(new ImageIcon(Ventana.class.getResource("/iconos/ecuacion.png")));
-				lblEcuacionImagen.setBounds(894, 443, 58, 51);
+				lblEcuacionImagen.setIcon(new ImageIcon(Ventana.class.getResource("/iconos/EcuacionesCohenCoon.jpg")));
+				lblEcuacionImagen.setBounds(695, 443, 200, 200);
 				contentPane.add(lblEcuacionImagen);
 				
 				JLabel lblSoftwareEducativo = new JLabel("Software educativo");
@@ -357,9 +357,9 @@ public class PanelLACC extends JPanel {
 						
 						
 						vCohenCoon.setModel(new DefaultTableModel(
-								new Object[][] {{"P", "T/L", "0", "0"},
-										{"PI", "0.9(T/L)", "L/0.03", "0"},
-										{"PID", "1.2(T/L)", "2L", "0.5L"}},
+								new Object[][] {{"P", "0", "0", "0"},
+										{"PI", "0", "0", "0"},
+										{"PID", "0", "0", "0"},},
 								new String[] {"Tipo de controlador", "Kp", "Ti", "Td"}) {
 								
 								private static final long serialVersionUID = 1L;
