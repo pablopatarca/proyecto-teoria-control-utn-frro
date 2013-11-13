@@ -106,6 +106,20 @@ public class Ventana extends JFrame {
 			}
 		});
 		
+		/* Lopez - Lazo abierto */
+		
+		JMenu lopez = new JMenu("Lopez");
+		lopez.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				contentPane.removeAll();
+				PanelLALopez panel = new PanelLALopez(frame);
+				contentPane.add(panel.getContentPane(), BorderLayout.CENTER);
+				contentPane.updateUI();
+				setLocationRelativeTo(null);
+			}
+		});
+		
 		
 		/* Salir */
 		
@@ -174,6 +188,7 @@ public class Ventana extends JFrame {
 		
 		menuBar.add(cohenCoon);		//Cohen y Coon
 		
+		menuBar.add(lopez);
 		
 		//Lazo cerrado
 		menuBar.add(oscilaciones);	//Ziegler y Nichols

@@ -2,6 +2,7 @@ package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -31,7 +32,7 @@ public class PanelLACC extends JPanel {
 	private JPanel contentPane;
 	private Graficador graficador;
 	private JTable tablaGraficos;
-	private JTable vCohenCoon;
+	private JTable vTableValues;
 	private JTable valoresTL;
 	private String mensaje = "El M�todo consiste en obtener la respuesta de la se�al medida "
 			+ "a una entrada escal�n en un sistema de lazo abierto. Si la planta no "
@@ -132,8 +133,8 @@ public class PanelLACC extends JPanel {
 				JScrollPane scrollPane = new JScrollPane();
 				ziegerynichols.add(scrollPane, BorderLayout.CENTER);
 				
-				vCohenCoon = new JTable();
-				vCohenCoon.setModel(new DefaultTableModel(
+				vTableValues = new JTable();
+				vTableValues.setModel(new DefaultTableModel(
 					new Object[][] {
 							{"P", "0", "0", "0"},
 							{"PI", "0", "0", "0"},
@@ -158,12 +159,13 @@ public class PanelLACC extends JPanel {
 						return columnEditables[column];
 					}
 				});
-				vCohenCoon.getColumnModel().getColumn(0).setPreferredWidth(106);
-				
+				vTableValues.getColumnModel().getColumn(0).setPreferredWidth(106);
 				TablaRender miRender = new TablaRender();
-				vCohenCoon.setDefaultRenderer(String.class, miRender);
+				vTableValues.setDefaultRenderer(String.class, miRender);
 				
-				scrollPane.setViewportView(vCohenCoon);
+				
+				
+				scrollPane.setViewportView(vTableValues);
 				
 				JPanel panel_1 = new JPanel();
 				panel_1.setBorder(new TitledBorder(null, "Valores de L y T", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -203,7 +205,9 @@ public class PanelLACC extends JPanel {
 				
 				JLabel lblEcuacionImagen = new JLabel("");
 				lblModeloAsumidoDe.setLabelFor(lblEcuacionImagen);
-				lblEcuacionImagen.setIcon(new ImageIcon(Ventana.class.getResource("/iconos/EcuacionesCohenCoon.jpg")));
+				ImageIcon img = new ImageIcon(Ventana.class.getResource("/iconos/ecuacion.png"));
+				
+				lblEcuacionImagen.setIcon(img);
 				lblEcuacionImagen.setBounds(695, 443, 200, 200);
 				contentPane.add(lblEcuacionImagen);
 				
@@ -253,7 +257,7 @@ public class PanelLACC extends JPanel {
 				});
 				btnDescripcinDelMtodo.setBounds(844, 518, 143, 33);
 				contentPane.add(btnDescripcinDelMtodo);
-						
+
 				/**
 				 * INSERTAR UNA CURVA
 				 */
@@ -264,79 +268,81 @@ public class PanelLACC extends JPanel {
 					}
 					
 					public void actionPerformed(ActionEvent arg0) {
-							if(tablaGraficos.isEditing()){
-								tablaGraficos.getCellEditor().stopCellEditing();
-							}
-							tablaGraficos.clearSelection();
-							TableModel modelo = tablaGraficos.getModel();
-							
-							if(modelo.getValueAt(0, 1) != null && modelo.getValueAt(0, 0) != null && (double)modelo.getValueAt(0, 1) >= 0.0 && (double)modelo.getValueAt(0, 0) >= 0.0) {
-								double k = (double)modelo.getValueAt(0, 0);
-								double tau = (double)modelo.getValueAt(0, 1);
-									graficador.insertarCurva(k, tau, 2);
+						if(tablaGraficos.isEditing()){
+							tablaGraficos.getCellEditor().stopCellEditing();
+						}
+						tablaGraficos.clearSelection();
+						TableModel modelo = tablaGraficos.getModel();
+						
+						if(modelo.getValueAt(0, 1) != null && modelo.getValueAt(0, 0) != null && (double)modelo.getValueAt(0, 1) >= 0.0 && (double)modelo.getValueAt(0, 0) >= 0.0) {
+							double k = (double)modelo.getValueAt(0, 0);
+							double tau = (double)modelo.getValueAt(0, 1);
+							graficador.insertarCurva(k, tau, 2);
+							/**
+							 * DIBUJO EL GRAFICO
+							 */
+							grafico.removeAll();
+							grafico.add(graficador.getDiagrama(),BorderLayout.CENTER);
+							grafico.validate();
+							if(graficador.getCurvaActual() != null) {
+								Curva curvaActual = graficador.getCurvaActual();
+								
+								double vT = curvaActual.getT();
+								double vL = curvaActual.getL();
+								
+								JTable vCohenCoon = vTableValues;
+								
+								vCohenCoon.setModel(new DefaultTableModel(
+									new Object[][] {
+											{"P", redondear((vT/vL) * (1 + (vL/(3*vT)))), 0.0, 0.0},
+											{"PI", redondear((vT/vL) * (0.9 + (vL/(12*vT)))), redondear((vL*(30*vT + 3*vL))/(9*vT + 20*vL)), 0.0},
+											{"PID", redondear((vT/vL) * (4/3 + (vL/(4*vT)))), redondear((vL*(32*vT + 6*vL))/(13*vT + 8*vL)), redondear((4*vL*vT)/(11*vT+2*vL))}},
+									new String[] {"Tipo de controlador", "Kp", "Ti", "Td"} ) {
 									/**
-									 * DIBUJO EL GRAFICO
+									 * 
 									 */
-									grafico.removeAll();
-									grafico.add(graficador.getDiagrama(),BorderLayout.CENTER);
-									grafico.validate();
-								if(graficador.getCurvaActual() != null) {
-									Curva curvaActual = graficador.getCurvaActual();
-									
-									double vT = curvaActual.getT();
-									double vL = curvaActual.getL();
-									
-									vCohenCoon.setModel(new DefaultTableModel(
-											new Object[][] {
-													{"P", redondear((vT/vL) * (1 + (vL/(3*vT)))), 0.0, 0.0},
-													{"PI", redondear((vT/vL) * (0.9 + (vL/(12*vT)))), redondear((vL*(30*vT + 3*vL))/(9*vT + 20*vL)), 0.0},
-													{"PID", redondear((vT/vL) * (4/3 + (vL/(4*vT)))), redondear((vL*(32*vT + 6*vL))/(13*vT + 8*vL)), redondear((4*vL*vT)/(11*vT+2*vL))}},
-											new String[] {"Tipo de controlador", "Kp", "Ti", "Td"} ) {
-											/**
-											 * 
-											 */
-											private static final long serialVersionUID = 1L;
-											Class[] columnTypes = new Class[] {
-												String.class, Double.class, Double.class, Double.class
-											};
-											public Class getColumnClass(int columnIndex) {
-												return columnTypes[columnIndex];
-											}
-											boolean[] columnEditables = new boolean[] {
-												false, false, false, false
-											};
-											public boolean isCellEditable(int row, int column) {
-												return columnEditables[column];
-											}
-										});
-										vCohenCoon.getColumnModel().getColumn(0).setPreferredWidth(106);
-										TablaRender miRender = new TablaRender();
-										vCohenCoon.setDefaultRenderer(String.class, miRender);
-										vCohenCoon.setDefaultRenderer(Double.class, miRender);
-										
-										valoresTL.setModel(new DefaultTableModel(
-												new Object[][] {{redondear(curvaActual.getL()), redondear(curvaActual.getT())}},
-												new String[] {"L", "T"}) {
+									private static final long serialVersionUID = 1L;
+									Class[] columnTypes = new Class[] {
+										String.class, Double.class, Double.class, Double.class
+									};
+									public Class getColumnClass(int columnIndex) {
+										return columnTypes[columnIndex];
+									}
+									boolean[] columnEditables = new boolean[] {
+										false, false, false, false
+									};
+									public boolean isCellEditable(int row, int column) {
+										return columnEditables[column];
+									}
+								});
+								vCohenCoon.getColumnModel().getColumn(0).setPreferredWidth(106);
+								TablaRender miRender = new TablaRender();
+								vCohenCoon.setDefaultRenderer(String.class, miRender);
+								vCohenCoon.setDefaultRenderer(Double.class, miRender);
+								
+								valoresTL.setModel(new DefaultTableModel(
+									new Object[][] {{redondear(curvaActual.getL()), redondear(curvaActual.getT())}},
+									new String[] {"L", "T"}) {
 
-												private static final long serialVersionUID = 1L;
-												Class[] columnTypes = new Class[] {
-													Double.class, Double.class
-												};
-												public Class getColumnClass(int columnIndex) {
-													return columnTypes[columnIndex];
-												}
-												boolean[] columnEditables = new boolean[] {
-													false, false
-												};
-												public boolean isCellEditable(int row, int column) {
-													return columnEditables[column];
-												}
-											});
-								}
+									private static final long serialVersionUID = 1L;
+									Class[] columnTypes = new Class[] {
+										Double.class, Double.class
+									};
+									public Class getColumnClass(int columnIndex) {
+										return columnTypes[columnIndex];
+									}
+									boolean[] columnEditables = new boolean[] {
+										false, false
+									};
+									public boolean isCellEditable(int row, int column) {
+										return columnEditables[column];
+									}
+								});
 							}
-							else {
-								JOptionPane.showMessageDialog(null, "Es necesario ingresar un valor de constante de tiempo y de ganancia distintos de cero", "Error", JOptionPane.ERROR_MESSAGE, null);
-							}
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "Es necesario ingresar un valor de constante de tiempo y de ganancia distintos de cero", "Error", JOptionPane.ERROR_MESSAGE, null);
+						}
 					}
 				});
 				
@@ -356,51 +362,50 @@ public class PanelLACC extends JPanel {
 						grafico.validate();
 						
 						
-						vCohenCoon.setModel(new DefaultTableModel(
-								new Object[][] {{"P", "0", "0", "0"},
-										{"PI", "0", "0", "0"},
-										{"PID", "0", "0", "0"},},
-								new String[] {"Tipo de controlador", "Kp", "Ti", "Td"}) {
-								
-								private static final long serialVersionUID = 1L;
-								Class[] columnTypes = new Class[] {
-									String.class, String.class, String.class, String.class
-								};
-								public Class getColumnClass(int columnIndex) {
-									return columnTypes[columnIndex];
-								}
-								boolean[] columnEditables = new boolean[] {
-									false, false, false, false
-								};
-								public boolean isCellEditable(int row, int column) {
-									return columnEditables[column];
-								}
-							});
-						vCohenCoon.getColumnModel().getColumn(0).setPreferredWidth(106);
+						vTableValues.setModel(new DefaultTableModel(
+							new Object[][] {{"P", "0", "0", "0"},
+									{"PI", "0", "0", "0"},
+									{"PID", "0", "0", "0"},},
+							new String[] {"Tipo de controlador", "Kp", "Ti", "Td"}) {
 							
-							TablaRender miRender = new TablaRender();
-							vCohenCoon.setDefaultRenderer(String.class, miRender);
+							private static final long serialVersionUID = 1L;
+							Class[] columnTypes = new Class[] {
+								String.class, String.class, String.class, String.class
+							};
+							public Class getColumnClass(int columnIndex) {
+								return columnTypes[columnIndex];
+							}
+							boolean[] columnEditables = new boolean[] {
+								false, false, false, false
+							};
+							public boolean isCellEditable(int row, int column) {
+								return columnEditables[column];
+							}
+						});
+						vTableValues.getColumnModel().getColumn(0).setPreferredWidth(106);	
+						TablaRender miRender = new TablaRender();
+						vTableValues.setDefaultRenderer(String.class, miRender);
 							
-							valoresTL.setModel(new DefaultTableModel(
-									new Object[][] {{null, null}},
-									new String[] {"L", "T"}) {
-									/**
-									 * 
-									 */
-									private static final long serialVersionUID = 1L;
-									Class[] columnTypes = new Class[] {
-										Double.class, Double.class
-									};
-									public Class getColumnClass(int columnIndex) {
-										return columnTypes[columnIndex];
-									}
-									boolean[] columnEditables = new boolean[] {
-										false, false
-									};
-									public boolean isCellEditable(int row, int column) {
-										return columnEditables[column];
-									}
-								});
+						valoresTL.setModel(new DefaultTableModel(
+							new Object[][] {{null, null}},
+							new String[] {"L", "T"}) {
+							/**
+							 * 
+							 */
+							private static final long serialVersionUID = 1L;
+							Class[] columnTypes = new Class[] {
+								Double.class, Double.class
+							};
+							public Class getColumnClass(int columnIndex) {
+								return columnTypes[columnIndex];
+							}
+							boolean[] columnEditables = new boolean[] {
+								false, false
+							};
+							public boolean isCellEditable(int row, int column) {
+								return columnEditables[column];
+							}
+						});
 					}
 				});
 			}
