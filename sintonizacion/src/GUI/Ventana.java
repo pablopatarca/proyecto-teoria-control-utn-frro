@@ -114,7 +114,7 @@ public class Ventana extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				contentPane.removeAll();
 				PanelLALopez panel = new PanelLALopez(frame);
-				contentPane.add(panel.getContentPane(), BorderLayout.CENTER);
+				contentPane.add(panel.getMainPanel(), BorderLayout.CENTER);
 				contentPane.updateUI();
 				setLocationRelativeTo(null);
 			}
@@ -164,19 +164,6 @@ public class Ventana extends JFrame {
 		});
 		
 		
-		/* Acerca de... */
-		
-		JMenu mnAcercaDe = new JMenu("Acerca de...");
-		mnAcercaDe.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				AcercaDe dialog = new AcercaDe();
-				dialog.setVisible(true);
-				dialog.setLocationRelativeTo(frame);
-			}
-		});
-		
-		
 		
 		
 		/* Agrego opciones del según orden */
@@ -194,8 +181,7 @@ public class Ventana extends JFrame {
 		menuBar.add(oscilaciones);	//Ziegler y Nichols
 		
 		
-		
-		menuBar.add(mnAcercaDe);
+
 		menuBar.add(mnSalir);
 	}
 }

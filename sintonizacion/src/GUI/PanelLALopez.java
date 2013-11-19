@@ -2,12 +2,12 @@ package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -24,30 +24,13 @@ import logicaLazoAbierto.Graficador;
 import logicaLazoAbierto.TablaRender;
 
 public class PanelLALopez extends JPanel {
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
+	private JPanel mainPanel; //Panel principal
 	private Graficador graficador;
-	private JTable tablaGraficos;
-	private JTable vTableValues;
-	private JTable valoresTL;
-	private JTable constantesMetodo;
-	private int [][] constantesM = {{0, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0}};
-	private String mensaje = "El M�todo consiste en obtener la respuesta de la se�al medida "
-			+ "a una entrada escal�n en un sistema de lazo abierto. Si la planta no "
-			+ "contiene integradores ni polos dominantes complejos conjugados, la curva "
-			+ "puede tener la forma de una S (si la respuesta no exhibe esta forma de S, "
-			+ "este m�todo no es pertinente)."
-			+ "\n\n"
-			+ "Tales curvas de respuesta se generan experimentalmente o a partir de una "
-			+ "simulaci�n din�mina de la planta y est�n caracterizadas por dos par�metros: "
-			+ "el tiempo de retardo L y la constante de tiempo T. Estos par�metros se "
-			+ "determinan dibujando una recta tangente en el punto de inflexi�n de la curva "
-			+ "y determinando las intersecciones de esta tangente con el eje del tiempo "
-			+ "y la l�nea Y(t) = K, es decir, la ganancia aplicada.";
+	private JTable inputTable;
+	private JTable vTableControllers;
+	private JTable tableTL;
 	
 	
 	/**
@@ -55,33 +38,35 @@ public class PanelLALopez extends JPanel {
 	 */
 	
 	public PanelLALopez(final Ventana ventana) {
+		
+		JPanel vControllerPanel;
 
 		
 		setBounds(100, 100, 1005, 637);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
+		mainPanel = new JPanel();
+		mainPanel.setBorder(new EmptyBorder(0, 0, 0, 0));
 		
 		graficador = new Graficador();
 		
-		final JPanel grafico = new JPanel();
-		grafico.setBounds(10, 41, 625, 510);
-		grafico.setLayout(new BorderLayout(0, 0));
-		grafico.add(graficador.getDiagrama(),BorderLayout.CENTER);
+		final JPanel graphicPanel = new JPanel();
+		graphicPanel.setBounds(10, 41, 625, 510);
+		graphicPanel.setLayout(new BorderLayout(0, 0));
+		graphicPanel.add(graficador.getDiagrama(),BorderLayout.CENTER);
 		
 		final JButton btnDibujar = new JButton("Dibujar");
 		btnDibujar.setBounds(896, 41, 75, 33);
 		
 		final JButton btnLimpiar = new JButton("Limpiar");
 		btnLimpiar.setBounds(898, 80, 73, 33);
-		contentPane.setLayout(null);
-		contentPane.add(grafico);
-		contentPane.add(btnLimpiar);
-		contentPane.add(btnDibujar);
+		mainPanel.setLayout(null);
+		mainPanel.add(graphicPanel);
+		mainPanel.add(btnLimpiar);
+		mainPanel.add(btnDibujar);
 		
-		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(null, "Referencias", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(645, 320, 342, 86);
-		contentPane.add(panel);
+		JPanel referencePanel = new JPanel();
+		referencePanel.setBorder(new TitledBorder(null, "Referencias", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		referencePanel.setBounds(645, 320, 342, 86);
+		mainPanel.add(referencePanel);
 		
 		JLabel blanco = new JLabel("Ganancia");
 		blanco.setBounds(16, 27, 24, 8);
@@ -103,151 +88,92 @@ public class PanelLALopez extends JPanel {
 		
 		JLabel lblRectaTangenteAl = new JLabel("Recta tangente al punto de inflexi\u00F3n");
 		lblRectaTangenteAl.setBounds(50, 62, 175, 14);
-		panel.setLayout(null);
-		panel.add(blanco);
-		panel.add(azul);
-		panel.add(rojo);
-		panel.add(lblGanancia);
-		panel.add(lblRespuesta);
-		panel.add(lblRectaTangenteAl);
+		referencePanel.setLayout(null);
+		referencePanel.add(blanco);
+		referencePanel.add(azul);
+		referencePanel.add(rojo);
+		referencePanel.add(lblGanancia);
+		referencePanel.add(lblRespuesta);
+		referencePanel.add(lblRectaTangenteAl);
 		
 		JLabel label = new JLabel("");
 		label.setIcon(new ImageIcon(Ventana.class.getResource("/iconos/amarillo.png")));
 		label.setBounds(191, 27, 24, 8);
-		panel.add(label);
+		referencePanel.add(label);
 		
 		JLabel label_1 = new JLabel("");
 		label_1.setIcon(new ImageIcon(Ventana.class.getResource("/iconos/verde.png")));
 		label_1.setBounds(191, 46, 24, 8);
-		panel.add(label_1);
+		referencePanel.add(label_1);
 		
 		JLabel lblRetardol = new JLabel("Retardo (L)");
 		lblRetardol.setBounds(225, 24, 62, 14);
-		panel.add(lblRetardol);
+		referencePanel.add(lblRetardol);
 		
 		JLabel lblCteDeTiempo = new JLabel("Cte. de tiempo (T)");
 		lblCteDeTiempo.setBounds(225, 43, 88, 14);
-		panel.add(lblCteDeTiempo);
+		referencePanel.add(lblCteDeTiempo);
 		
-		JPanel ziegerynichols = new JPanel();
-		ziegerynichols.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Valores propuestos por Ziegler y Nichols", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		ziegerynichols.setBounds(645, 207, 349, 99);
-		contentPane.add(ziegerynichols);
-		ziegerynichols.setLayout(new BorderLayout(0, 0));
+		/*************** Panel de valores de sintonización *****************/
+		vControllerPanel = new JPanel();
+		vControllerPanel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Valores Sintonización", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		vControllerPanel.setBounds(645, 207, 349, 110);
+		vControllerPanel.setLayout(new BorderLayout(0, 0));
 		
-		JScrollPane scrollPane = new JScrollPane();
-		ziegerynichols.add(scrollPane, BorderLayout.CENTER);
-		
-		vTableValues = new JTable();
-		vTableValues.setModel(new DefaultTableModel(
-			new Object[][] {
-					{"P", "0", "0", "0"},
-					{"PI", "0", "0", "0"},
-					{"PID", "0", "0", "0"},
-			},
-			new String[] {"Tipo de controlador", "Kp", "Ti", "Td"}) {
-			
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-			Class[] columnTypes = new Class[] {
-				String.class, String.class, String.class, String.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-			boolean[] columnEditables = new boolean[] {
-				false, false, false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
-		vTableValues.getColumnModel().getColumn(0).setPreferredWidth(106);
+		vTableControllers = new JTable() ;
+		vTableControllers.setModel( getModelValuesControllers() );
+		vTableControllers.getColumnModel().getColumn(0).setPreferredWidth(106);
 		TablaRender miRender = new TablaRender();
-		vTableValues.setDefaultRenderer(String.class, miRender);
+		vTableControllers.setDefaultRenderer(String.class, miRender);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setViewportView(vTableControllers);
 		
+		vControllerPanel.add(scrollPane, BorderLayout.CENTER);
 		
+		mainPanel.add(vControllerPanel);
 		
-		scrollPane.setViewportView(vTableValues);
-		
+		/************** Panel Valores L y T  *********************************/
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(null, "Valores de L y T", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_1.setBounds(645, 124, 173, 66);
-		contentPane.add(panel_1);
+		panel_1.setBounds(645, 124, 173, 70);
 		panel_1.setLayout(new BorderLayout(0, 0));
+		mainPanel.add(panel_1);
 		
-		JScrollPane panelValoresTL = new JScrollPane();
-		panel_1.add(panelValoresTL, BorderLayout.CENTER);
-		
-		//Panel de Constantes
-		JPanel panel_2 = new JPanel();
-		panel_2.setBorder(new TitledBorder(null, "Constantes Metodo Lopez", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_2.setBounds(980, 40, 380, 120);
-		contentPane.add(panel_2);
-		panel_2.setLayout(new BorderLayout(0, 0));
-		JScrollPane panelConstantes = new JScrollPane();
-		panel_2.add(panelConstantes, BorderLayout.CENTER);
-		
+		JScrollPane paneltableTL = new JScrollPane();
+		panel_1.add(paneltableTL, BorderLayout.CENTER);
 		// Tabla de valores L y T
-		valoresTL = new JTable();
-		valoresTL.setModel(new DefaultTableModel(
-			new Object[][] {null, null},new String[] {"L", "T"} ) {
-			
-			private static final long serialVersionUID = 1L;
-			Class[] columnTypes = new Class[] {
-				Double.class, Double.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-			boolean[] columnEditables = new boolean[] {
-				false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
-		panelValoresTL.setViewportView(valoresTL);
-		valoresTL.setRowSelectionAllowed(false);
-		valoresTL.setCellSelectionEnabled(true);
+		tableTL = new JTable();
+		tableTL.setModel( getTableLT() );
+		tableTL.setRowSelectionAllowed(false);
+		tableTL.setCellSelectionEnabled(true);
+		paneltableTL.setViewportView(tableTL);
+		
 		
 		//Constantes para ecuaciónes del metodo de Lopez
+		final JTable constantTable = getConstantTable();
+		JButton buttonValues = new JButton("Tabla Constantes");
 		
-		constantesMetodo = new JTable();
-		constantesMetodo.setModel(new DefaultTableModel(
-				new Object[][] {
-						{"IAE", constantesM[0][0], constantesM[0][1], constantesM[0][2], constantesM[0][3], constantesM[0][4], constantesM[0][5]},
-						{"ITAE", constantesM[1][0], constantesM[1][1], constantesM[1][2], constantesM[1][3], constantesM[1][4], constantesM[1][5]},
-						{"ISE", constantesM[2][0], constantesM[2][1], constantesM[2][2], constantesM[2][3], constantesM[2][4], constantesM[2][5]}
-				},
+		buttonValues.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				
-				new String[] {"Criterios","a", "b", "c", "d", "e", "f"} ) {
+				JDialog dialog =  new JDialog();
+				dialog.setTitle("Constantes Metodo de Lopez");
+				dialog.setBounds(100, 100, 500, 200);
+			    dialog.add(new JScrollPane(constantTable));
+			    dialog.setVisible(true);
+				dialog.setLocationRelativeTo(ventana);
 				
-				private static final long serialVersionUID = 1L;
-				/*Class[] columnTypes = new Class[] {
-					Double.class, Double.class
-				};
-				public Class getColumnClass(int columnIndex) {
-					return columnTypes[columnIndex];
-				}
-				boolean[] columnEditables = new boolean[] {
-					false, false
-				};
-				public boolean isCellEditable(int row, int column) {
-					return columnEditables[column];
-				}*/
-			});
-		panelConstantes.setViewportView(constantesMetodo);
-		constantesMetodo.setRowSelectionAllowed(false);
-		constantesMetodo.setCellSelectionEnabled(true);
+			}
+		});
+		
+		buttonValues.setBounds(980, 40, 150, 33);
+		mainPanel.add(buttonValues);
 		
 		
 		JLabel lblModeloAsumidoDe = new JLabel("Modelo asumido de la planta:");
 		lblModeloAsumidoDe.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblModeloAsumidoDe.setBounds(695, 243, 190, 19);
-		contentPane.add(lblModeloAsumidoDe);
+		mainPanel.add(lblModeloAsumidoDe);
 		
 		JLabel lblEcuacionImagen = new JLabel("");
 		lblModeloAsumidoDe.setLabelFor(lblEcuacionImagen);
@@ -255,43 +181,33 @@ public class PanelLALopez extends JPanel {
 		
 		lblEcuacionImagen.setIcon(img);
 		lblEcuacionImagen.setBounds(695, 443, 200, 200);
-		contentPane.add(lblEcuacionImagen);
+		mainPanel.add(lblEcuacionImagen);
 		
 		JLabel lblSoftwareEducativo = new JLabel("Software educativo");
 		lblSoftwareEducativo.setBounds(10, 568, 94, 14);
-		contentPane.add(lblSoftwareEducativo);
+		mainPanel.add(lblSoftwareEducativo);
 		
 		final JScrollPane graficos = new JScrollPane();
-		graficos.setBounds(700, 49, 186, 45);
-		contentPane.add(graficos);
+		graficos.setBounds(650, 50, 200, 60);
+		mainPanel.add(graficos);
 		
-		tablaGraficos = new JTable();
-		tablaGraficos.setModel(new DefaultTableModel(
-			new Object[][] {null, null},new String[] {"Ganancia", "Cte. de tiempo"}) {
-			
-			private static final long serialVersionUID = 1L;
-			Class[] columnTypes = new Class[] {
-				Double.class, Double.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-		});
+		inputTable = new JTable();
+		inputTable.setModel( getInputTableModel() );
 		
-		tablaGraficos.getColumnModel().getColumn(0).setResizable(false);
-		tablaGraficos.getColumnModel().getColumn(0).setPreferredWidth(58);
-		tablaGraficos.getColumnModel().getColumn(1).setResizable(false);
-		tablaGraficos.getColumnModel().getColumn(1).setPreferredWidth(98);
+		inputTable.getColumnModel().getColumn(0).setResizable(false);
+		inputTable.getColumnModel().getColumn(0).setPreferredWidth(58);
+		inputTable.getColumnModel().getColumn(1).setResizable(false);
+		inputTable.getColumnModel().getColumn(1).setPreferredWidth(98);
 		
-		tablaGraficos.setRowSelectionAllowed(false);
-		tablaGraficos.setCellSelectionEnabled(true);
+		inputTable.setRowSelectionAllowed(false);
+		inputTable.setCellSelectionEnabled(true);
 		
-		graficos.setViewportView(tablaGraficos);
+		graficos.setViewportView(inputTable);
 		
 		JLabel lblMtodoDeLa = new JLabel("M\u00E9todo de la curva de reacci\u00F3n");
 		lblMtodoDeLa.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblMtodoDeLa.setBounds(402, 11, 226, 19);
-		contentPane.add(lblMtodoDeLa);
+		lblMtodoDeLa.setBounds(402, 11, 226, 20);
+		mainPanel.add(lblMtodoDeLa);
 		
 		JButton btnDescripcinDelMtodo = new JButton("Descripci\u00F3n del m\u00E9todo");
 		btnDescripcinDelMtodo.addActionListener(new ActionListener() {
@@ -302,92 +218,62 @@ public class PanelLALopez extends JPanel {
 			}
 		});
 		btnDescripcinDelMtodo.setBounds(844, 518, 143, 33);
-		contentPane.add(btnDescripcinDelMtodo);
+		mainPanel.add(btnDescripcinDelMtodo);
 
 		/**
-		 * INSERTAR UNA CURVA
+		 * Insertar grafica
 		 */
 		btnDibujar.addActionListener(new ActionListener() {
 			
-			private double redondear(double numero) {
-				return (Math.rint(numero*100)/100);
-			}
-			
 			public void actionPerformed(ActionEvent arg0) {
-				if(tablaGraficos.isEditing()){
-					tablaGraficos.getCellEditor().stopCellEditing();
-				}
-				tablaGraficos.clearSelection();
-				TableModel modelo = tablaGraficos.getModel();
 				
-				if(modelo.getValueAt(0, 1) != null && modelo.getValueAt(0, 0) != null && (double)modelo.getValueAt(0, 1) >= 0.0 && (double)modelo.getValueAt(0, 0) >= 0.0) {
-					double k = (double)modelo.getValueAt(0, 0);
-					double tau = (double)modelo.getValueAt(0, 1);
+				if(inputTable.isEditing()){
+					inputTable.getCellEditor().stopCellEditing();
+				}
+				inputTable.clearSelection();
+				
+				TableModel modelo = inputTable.getModel();
+				
+				System.out.println("Valor 0: " + modelo.getValueAt(0,0));
+				System.out.println("Valor 1: " + modelo.getValueAt(0,1));
+				
+				double k =  Double.parseDouble((String) modelo.getValueAt(0,0));
+				double tau = Double.parseDouble((String) modelo.getValueAt(0,1));
+				
+				if(modelo.getValueAt(0, 1) != null && 
+						modelo.getValueAt(0, 0) != null && 
+						(double) modelo.getValueAt(0, 1) >= 0.0 && 
+						(double) modelo.getValueAt(0, 0) >= 0.0) {
+					
 					graficador.insertarCurva(k, tau, 2);
 					/**
 					 * DIBUJO EL GRAFICO
 					 */
-					grafico.removeAll();
-					grafico.add(graficador.getDiagrama(),BorderLayout.CENTER);
-					grafico.validate();
+					graphicPanel.removeAll();
+					graphicPanel.add(graficador.getDiagrama(),BorderLayout.CENTER);
+					graphicPanel.validate();
+					
 					if(graficador.getCurvaActual() != null) {
 						Curva curvaActual = graficador.getCurvaActual();
 						
 						double vT = curvaActual.getT();
 						double vL = curvaActual.getL();
 						
-						JTable vCohenCoon = vTableValues;
+						vTableControllers.setModel(setModelValuesControllers(vL, vT));
 						
-						vCohenCoon.setModel(new DefaultTableModel(
-							new Object[][] {
-									{"P", redondear((vT/vL) * (1 + (vL/(3*vT)))), 0.0, 0.0},
-									{"PI", redondear((vT/vL) * (0.9 + (vL/(12*vT)))), redondear((vL*(30*vT + 3*vL))/(9*vT + 20*vL)), 0.0},
-									{"PID", redondear((vT/vL) * (4/3 + (vL/(4*vT)))), redondear((vL*(32*vT + 6*vL))/(13*vT + 8*vL)), redondear((4*vL*vT)/(11*vT+2*vL))}},
-							new String[] {"Tipo de controlador", "Kp", "Ti", "Td"} ) {
-							/**
-							 * 
-							 */
-							private static final long serialVersionUID = 1L;
-							Class[] columnTypes = new Class[] {
-								String.class, Double.class, Double.class, Double.class
-							};
-							public Class getColumnClass(int columnIndex) {
-								return columnTypes[columnIndex];
-							}
-							boolean[] columnEditables = new boolean[] {
-								false, false, false, false
-							};
-							public boolean isCellEditable(int row, int column) {
-								return columnEditables[column];
-							}
-						});
-						vCohenCoon.getColumnModel().getColumn(0).setPreferredWidth(106);
+						vTableControllers.getColumnModel().getColumn(0).setPreferredWidth(106);
 						TablaRender miRender = new TablaRender();
-						vCohenCoon.setDefaultRenderer(String.class, miRender);
-						vCohenCoon.setDefaultRenderer(Double.class, miRender);
+						vTableControllers.setDefaultRenderer(String.class, miRender);
+						vTableControllers.setDefaultRenderer(Double.class, miRender);
 						
-						valoresTL.setModel(new DefaultTableModel(
-							new Object[][] {{redondear(curvaActual.getL()), redondear(curvaActual.getT())}},
-							new String[] {"L", "T"}) {
-
-							private static final long serialVersionUID = 1L;
-							Class[] columnTypes = new Class[] {
-								Double.class, Double.class
-							};
-							public Class getColumnClass(int columnIndex) {
-								return columnTypes[columnIndex];
-							}
-							boolean[] columnEditables = new boolean[] {
-								false, false
-							};
-							public boolean isCellEditable(int row, int column) {
-								return columnEditables[column];
-							}
-						});
+						tableTL.setModel(setTableLT(curvaActual.getL(), curvaActual.getT()));
+						
 					}
 				}
 				else {
-					JOptionPane.showMessageDialog(null, "Es necesario ingresar un valor de constante de tiempo y de ganancia distintos de cero", "Error", JOptionPane.ERROR_MESSAGE, null);
+					JOptionPane.showMessageDialog(null, 
+							"Debe ingresar constantes de tiempo y ganancia distintos de cero", 
+							"Error", JOptionPane.ERROR_MESSAGE, null);
 				}
 			}
 		});
@@ -397,66 +283,114 @@ public class PanelLALopez extends JPanel {
 		 */
 		btnLimpiar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				tablaGraficos.getModel().setValueAt(null, 0, 0);
-				tablaGraficos.getModel().setValueAt(null, 0, 1);
-				graficador.limpiar();
-				/**
-				 * DIBUJO EL GRAFICO
-				 */
-				grafico.removeAll();
-				grafico.add(graficador.getDiagrama(),BorderLayout.CENTER);
-				grafico.validate();
-				
-				
-				vTableValues.setModel(new DefaultTableModel(
-					new Object[][] {{"P", "0", "0", "0"},
-							{"PI", "0", "0", "0"},
-							{"PID", "0", "0", "0"},},
-					new String[] {"Tipo de controlador", "Kp", "Ti", "Td"}) {
-					
-					private static final long serialVersionUID = 1L;
-					Class[] columnTypes = new Class[] {
-						String.class, String.class, String.class, String.class
-					};
-					public Class getColumnClass(int columnIndex) {
-						return columnTypes[columnIndex];
-					}
-					boolean[] columnEditables = new boolean[] {
-						false, false, false, false
-					};
-					public boolean isCellEditable(int row, int column) {
-						return columnEditables[column];
-					}
-				});
-				vTableValues.getColumnModel().getColumn(0).setPreferredWidth(106);	
-				TablaRender miRender = new TablaRender();
-				vTableValues.setDefaultRenderer(String.class, miRender);
-					
-				valoresTL.setModel(new DefaultTableModel(
-					new Object[][] {{null, null}},
-					new String[] {"L", "T"}) {
-					/**
-					 * 
-					 */
-					private static final long serialVersionUID = 1L;
-					Class[] columnTypes = new Class[] {
-						Double.class, Double.class
-					};
-					public Class getColumnClass(int columnIndex) {
-						return columnTypes[columnIndex];
-					}
-					boolean[] columnEditables = new boolean[] {
-						false, false
-					};
-					public boolean isCellEditable(int row, int column) {
-						return columnEditables[column];
-					}
-				});
+				limpiaGrafica(graphicPanel);
 			}
 		});
 	}
 	
-	public JPanel getContentPane() {
-		return contentPane;
+	private void limpiaGrafica(JPanel panel){
+		inputTable.setModel( getInputTableModel() );
+		graficador.limpiar();
+		/**
+		 * DIBUJO EL GRAFICO
+		 */
+		panel.removeAll();
+		panel.add(graficador.getDiagrama(),BorderLayout.CENTER);
+		panel.validate();
+		
+		vTableControllers.setModel( getModelValuesControllers() );
+		
+		vTableControllers.getColumnModel().getColumn(0).setPreferredWidth(106);	
+		TablaRender miRender = new TablaRender();
+		vTableControllers.setDefaultRenderer(String.class, miRender);
+			
+		tableTL.setModel( getTableLT() );
 	}
+	
+	
+	
+	//Retorno Panel Principal
+	public JPanel getMainPanel() {
+		return mainPanel;
+	}
+	
+	//Retorno Table Model de valores de entrada
+	private DefaultTableModel getInputTableModel() {
+		return new DefaultTableModel(
+				new Object[][] {{null, null}},
+				new String[] {"Ganancia", "Cte. de tiempo"});
+	}
+	
+	private double redondear(double numero) {
+		return (Math.rint(numero*100)/100);
+	}
+	
+	private JTable getConstantTable(){
+		JTable constantesMetodo;
+		double [][] constantesM = {{5, 2, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0}};
+		constantesMetodo = new JTable();
+		constantesMetodo.setModel(new DefaultTableModel(
+			new Object[][] { 
+				{"IAE", constantesM[0][0], constantesM[0][1], constantesM[0][2], constantesM[0][3], constantesM[0][4], constantesM[0][5]},
+				{"ITAE", constantesM[1][0], constantesM[1][1], constantesM[1][2], constantesM[1][3], constantesM[1][4], constantesM[1][5]},
+				{"ISE", constantesM[2][0], constantesM[2][1], constantesM[2][2], constantesM[2][3], constantesM[2][4], constantesM[2][5]} },
+				
+				new String[] {"Criterios","a", "b", "c", "d", "e", "f"} ) {
+					private static final long serialVersionUID = 1L;
+			});
+		
+		constantesMetodo.setRowSelectionAllowed(false);
+		constantesMetodo.setCellSelectionEnabled(true);
+		return constantesMetodo;
+		}
+	
+	//Retorno table model de L y T 
+	private DefaultTableModel getTableLT(){
+		return new DefaultTableModel(
+				new Object[][] {{null, null}},
+				new String[] {"L", "T"});
+	}
+	
+	//Retorno table model de L y T seteados
+	private DefaultTableModel setTableLT(double vL, double vT){
+		return new DefaultTableModel(
+				new Object[][] {{redondear(vL), redondear(vT)}},
+				new String[] {"L", "T"});
+	}
+	
+	private DefaultTableModel getModelValuesControllers(){
+
+		return new DefaultTableModel( new Object[][] {
+						{"P", "0", "0", "0"},
+						{"PI", "0", "0", "0"},
+						{"PID", "0", "0", "0"},},
+				new String[] {"Tipo de controlador", "Kp", "Ti", "Td"});
+
+	}
+	
+	//Devuelvo valores calculados
+	private DefaultTableModel setModelValuesControllers( double vL, double vT){
+		
+		return new DefaultTableModel( new Object[][] {
+				{"P", redondear((vT/vL) * (1 + (vL/(3*vT)))), 0.0, 0.0},
+				{"PI", redondear((vT/vL) * (0.9 + (vL/(12*vT)))), redondear((vL*(30*vT + 3*vL))/(9*vT + 20*vL)), 0.0},
+				{"PID", redondear((vT/vL) * (4/3 + (vL/(4*vT)))), redondear((vL*(32*vT + 6*vL))/(13*vT + 8*vL)), redondear((4*vL*vT)/(11*vT+2*vL))}},
+		new String[] {"Tipo de controlador", "Kp", "Ti", "Td"} );
+		
+	}
+	
+	
+	private String mensaje = "El Método consiste en obtener la respuesta de la señal medida "
+			+ "a una entrada escalón en un sistema de lazo abierto. Si la planta no "
+			+ "contiene integradores ni polos dominantes complejos conjugados, la curva "
+			+ "puede tener la forma de una S (si la respuesta no exhibe esta forma de S, "
+			+ "este método no es pertinente)."
+			+ "\n\n"
+			+ "Tales curvas de respuesta se generan experimentalmente o a partir de una "
+			+ "simulación dinámina de la planta y están caracterizadas por dos parámetros: "
+			+ "el tiempo de retardo L y la constante de tiempo T. Estos parámetros se "
+			+ "determinan dibujando una recta tangente en el punto de inflexión de la curva "
+			+ "y determinando las intersecciones de esta tangente con el eje del tiempo "
+			+ "y la línea Y(t) = K, es decir, la ganancia aplicada.";
+	
 }

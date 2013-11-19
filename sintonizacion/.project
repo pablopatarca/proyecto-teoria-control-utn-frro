@@ -18,12 +18,12 @@
 		<link>
 			<name>jcommon</name>
 			<type>2</type>
-			<location>/home/pablo/workspace/proyecto-teoria-control/jcommon-1.0.20/source</location>
+			<location>/home/pablo/workspace/proyecto-teoria-control-utn-frro/jcommon-1.0.20/source</location>
 		</link>
 		<link>
 			<name>source</name>
 			<type>2</type>
-			<location>/home/pablo/workspace/proyecto-teoria-control/jfreechart-1.0.16/source</location>
+			<location>/home/pablo/workspace/proyecto-teoria-control-utn-frro/jfreechart-1.0.16/source</location>
 		</link>
 	</linkedResources>
 </projectDescription>
