@@ -41,7 +41,6 @@ public class PanelLALopez extends JPanel {
 		
 		JPanel vControllerPanel;
 
-		
 		setBounds(100, 100, 1005, 637);
 		mainPanel = new JPanel();
 		mainPanel.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -53,20 +52,39 @@ public class PanelLALopez extends JPanel {
 		graphicPanel.setLayout(new BorderLayout(0, 0));
 		graphicPanel.add(graficador.getDiagrama(),BorderLayout.CENTER);
 		
-		final JButton btnDibujar = new JButton("Dibujar");
-		btnDibujar.setBounds(896, 41, 75, 33);
+		mainPanel.add(graphicPanel);		
 		
-		final JButton btnLimpiar = new JButton("Limpiar");
-		btnLimpiar.setBounds(898, 80, 73, 33);
-		mainPanel.setLayout(null);
-		mainPanel.add(graphicPanel);
-		mainPanel.add(btnLimpiar);
-		mainPanel.add(btnDibujar);
-		
+		//Panel de datos de referencia
 		JPanel referencePanel = new JPanel();
 		referencePanel.setBorder(new TitledBorder(null, "Referencias", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		referencePanel.setBounds(645, 320, 342, 86);
 		mainPanel.add(referencePanel);
+		
+		//Panel de Información adicional
+		JPanel aditionalInfo = new JPanel();
+		aditionalInfo.setBorder(new TitledBorder(null, "Información Adicional", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		aditionalInfo.setBounds(645, 410, 342, 86);
+		mainPanel.add(aditionalInfo);
+		
+		//Define Buttons
+		JButton btnDibujar = new JButton("Dibujar");
+		btnDibujar.setBounds(850, 50, 140, 35);
+		
+		JButton btnLimpiar = new JButton("Limpiar");
+		btnLimpiar.setBounds(850, 90, 140, 35);
+		mainPanel.setLayout(null);
+		
+		JButton btnDescription = new JButton("Descripci\u00F3n del m\u00E9todo");
+		btnDescription.setBounds(850, 410, 140, 35);
+		
+		JButton buttonValues = new JButton("Tabla Constantes");
+		buttonValues.setBounds(850, 450, 140, 35);
+		
+		//Add Buttons		
+		mainPanel.add(btnLimpiar);
+		mainPanel.add(btnDibujar);
+		aditionalInfo.add(btnDescription);
+		aditionalInfo.add(buttonValues);
 		
 		JLabel blanco = new JLabel("Ganancia");
 		blanco.setBounds(16, 27, 24, 8);
@@ -135,7 +153,7 @@ public class PanelLALopez extends JPanel {
 		/************** Panel Valores L y T  *********************************/
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(null, "Valores de L y T", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_1.setBounds(645, 124, 173, 70);
+		panel_1.setBounds(645, 124, 200, 70);
 		panel_1.setLayout(new BorderLayout(0, 0));
 		mainPanel.add(panel_1);
 		
@@ -151,7 +169,6 @@ public class PanelLALopez extends JPanel {
 		
 		//Constantes para ecuaciónes del metodo de Lopez
 		final JTable constantTable = getConstantTable();
-		JButton buttonValues = new JButton("Tabla Constantes");
 		
 		buttonValues.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -165,10 +182,6 @@ public class PanelLALopez extends JPanel {
 				
 			}
 		});
-		
-		buttonValues.setBounds(980, 40, 150, 33);
-		mainPanel.add(buttonValues);
-		
 		
 		JLabel lblModeloAsumidoDe = new JLabel("Modelo asumido de la planta:");
 		lblModeloAsumidoDe.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -187,38 +200,42 @@ public class PanelLALopez extends JPanel {
 		lblSoftwareEducativo.setBounds(10, 568, 94, 14);
 		mainPanel.add(lblSoftwareEducativo);
 		
-		final JScrollPane graficos = new JScrollPane();
-		graficos.setBounds(650, 50, 200, 60);
-		mainPanel.add(graficos);
 		
+		//Definición Input Table
 		inputTable = new JTable();
 		inputTable.setModel( getInputTableModel() );
-		
 		inputTable.getColumnModel().getColumn(0).setResizable(false);
-		inputTable.getColumnModel().getColumn(0).setPreferredWidth(58);
 		inputTable.getColumnModel().getColumn(1).setResizable(false);
-		inputTable.getColumnModel().getColumn(1).setPreferredWidth(98);
-		
 		inputTable.setRowSelectionAllowed(false);
 		inputTable.setCellSelectionEnabled(true);
 		
-		graficos.setViewportView(inputTable);
+		JScrollPane spInputTable = new JScrollPane();
+		//spInputTable.setBounds(20, 20, 20, 20);
+		
+		JPanel jpInput = new JPanel();
+		jpInput.setBorder(new TitledBorder(null,"Valores de Entrada", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		jpInput.setBounds(645, 40, 200, 70);
+		jpInput.setLayout(new BorderLayout(0, 0));
+		jpInput.add(spInputTable);
+		
+		//mainPanel.add(spInputTable);
+		mainPanel.add(jpInput, BorderLayout.CENTER);
+		
+		spInputTable.setViewportView(inputTable);
 		
 		JLabel lblMtodoDeLa = new JLabel("M\u00E9todo de la curva de reacci\u00F3n");
 		lblMtodoDeLa.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblMtodoDeLa.setBounds(402, 11, 226, 20);
 		mainPanel.add(lblMtodoDeLa);
 		
-		JButton btnDescripcinDelMtodo = new JButton("Descripci\u00F3n del m\u00E9todo");
-		btnDescripcinDelMtodo.addActionListener(new ActionListener() {
+		
+		btnDescription.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DescripcionMetodo dialog = new DescripcionMetodo(mensaje);
 				dialog.setVisible(true);
 				dialog.setLocationRelativeTo(ventana);
 			}
 		});
-		btnDescripcinDelMtodo.setBounds(844, 518, 143, 33);
-		mainPanel.add(btnDescripcinDelMtodo);
 
 		/**
 		 * Insertar grafica
@@ -234,18 +251,14 @@ public class PanelLALopez extends JPanel {
 				
 				TableModel modelo = inputTable.getModel();
 				
-				System.out.println("Valor 0: " + modelo.getValueAt(0,0));
-				System.out.println("Valor 1: " + modelo.getValueAt(0,1));
-				
-				double k =  Double.parseDouble((String) modelo.getValueAt(0,0));
-				double tau = Double.parseDouble((String) modelo.getValueAt(0,1));
-				
-				if(modelo.getValueAt(0, 1) != null && 
-						modelo.getValueAt(0, 0) != null && 
-						(double) modelo.getValueAt(0, 1) >= 0.0 && 
-						(double) modelo.getValueAt(0, 0) >= 0.0) {
+				if(modelo.getValueAt(0, 1) != null && modelo.getValueAt(0, 0) != null){
 					
-					graficador.insertarCurva(k, tau, 2);
+					double k =  Double.parseDouble((String) modelo.getValueAt(0,0));
+					double taw = Double.parseDouble((String) modelo.getValueAt(0,1));
+				
+					if(k >= 0.0 && taw >= 0.0) {
+					
+					graficador.insertarCurva(k, taw, 2);
 					/**
 					 * DIBUJO EL GRAFICO
 					 */
@@ -271,10 +284,14 @@ public class PanelLALopez extends JPanel {
 					}
 				}
 				else {
-					JOptionPane.showMessageDialog(null, 
-							"Debe ingresar constantes de tiempo y ganancia distintos de cero", 
-							"Error", JOptionPane.ERROR_MESSAGE, null);
+				JOptionPane.showMessageDialog(null, "Las constantes deben ser valores mayores que cero", 
+						"Error", JOptionPane.ERROR_MESSAGE, null);
 				}
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Debe ingresar constantes de tiempo y ganancia", 
+						"Error", JOptionPane.ERROR_MESSAGE, null);
+			}
 			}
 		});
 		
@@ -318,7 +335,7 @@ public class PanelLALopez extends JPanel {
 	private DefaultTableModel getInputTableModel() {
 		return new DefaultTableModel(
 				new Object[][] {{null, null}},
-				new String[] {"Ganancia", "Cte. de tiempo"});
+				new String[] {"Ganancia", "Cte. Tiempo"});
 	}
 	
 	private double redondear(double numero) {
@@ -327,7 +344,9 @@ public class PanelLALopez extends JPanel {
 	
 	private JTable getConstantTable(){
 		JTable constantesMetodo;
-		double [][] constantesM = {{5, 2, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0}};
+		double [][] constantesM = {{1.435,-0.921,0.878,-0.749,0.482,1.137},
+				{1.357,-0.947,0.842,-0.738,0.381,0.995},
+				{1.495,-0.945,1.101,-0.771,0.560,1.006}};
 		constantesMetodo = new JTable();
 		constantesMetodo.setModel(new DefaultTableModel(
 			new Object[][] { 
