@@ -25,7 +25,7 @@ import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.border.EtchedBorder;
 
-public class PanelOscilacionesSostenidas extends JPanel {
+public class PanelOscilaciones extends JPanel {
 
 	/**
 	 * 
@@ -52,7 +52,7 @@ public class PanelOscilacionesSostenidas extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelOscilacionesSostenidas(final Ventana ventana) {
+	public PanelOscilaciones(final Ventana ventana) {
 
 				setBounds(100, 100, 1010, 632);
 				contentPane = new JPanel();
@@ -119,22 +119,7 @@ public class PanelOscilacionesSostenidas extends JPanel {
 					new Object[][] {{"P", "0.5 Kcr", "0", "0"},
 									{"PI", "0.45 Kcr", "(1/1.2) Pcr", "0"},
 									{"PID", "0.6 Kcr", "0.5 Pcr", "0.125 Pcr"} },
-					new String[] {"Tipo de controlador", "Kp", "Ti", "Td"}) {
-
-					private static final long serialVersionUID = 1L;
-					Class[] columnTypes = new Class[] {
-						String.class, String.class, String.class, String.class
-					};
-					public Class getColumnClass(int columnIndex) {
-						return columnTypes[columnIndex];
-					}
-					boolean[] columnEditables = new boolean[] {
-						false, false, false, false
-					};
-					public boolean isCellEditable(int row, int column) {
-						return columnEditables[column];
-					}
-				});
+					new String[] {"Tipo de controlador", "Kp", "Ti", "Td"}));
 				valoresZieglerNichols.getColumnModel().getColumn(0).setPreferredWidth(106);
 				
 				TablaRender miRender = new TablaRender();
@@ -150,22 +135,7 @@ public class PanelOscilacionesSostenidas extends JPanel {
 				valoresKP = new JTable();
 				valoresKP.setModel(new DefaultTableModel(
 					new Object[][] {null, null},
-					new String[] {"K cr\u00EDtica", "P cr\u00EDtico"}) {
-
-					private static final long serialVersionUID = 1L;
-					Class[] columnTypes = new Class[] {
-						Double.class, Double.class
-					};
-					public Class getColumnClass(int columnIndex) {
-						return columnTypes[columnIndex];
-					}
-					boolean[] columnEditables = new boolean[] {
-						false, false
-					};
-					public boolean isCellEditable(int row, int column) {
-						return columnEditables[column];
-					}
-				});
+					new String[] {"K cr\u00EDtica", "P cr\u00EDtico"}));
 				valoresKP.getColumnModel().getColumn(0).setPreferredWidth(51);
 				valoresKP.getColumnModel().getColumn(1).setPreferredWidth(51);
 				
@@ -205,7 +175,7 @@ public class PanelOscilacionesSostenidas extends JPanel {
 				JButton btnDescripcinDelMtodo = new JButton("Descripci\u00F3n del m\u00E9todo");
 				btnDescripcinDelMtodo.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						DescripcionMetodo dialog = new DescripcionMetodo(mensaje);
+						ModalMethodDescription dialog = new ModalMethodDescription(ventana, mensaje);
 						dialog.setVisible(true);
 						dialog.setLocationRelativeTo(ventana);
 					}
@@ -225,41 +195,11 @@ public class PanelOscilacionesSostenidas extends JPanel {
 									new Object[][] {{"P", "0.5 Kcr", "0", "0"},
 											{"PI", "0.45 Kcr", "(1/1.2) Pcr", "0"},
 											{"PID", "0.6 Kcr", "0.5 Pcr", "0.125 Pcr"}},
-									new String[] {"Tipo de controlador", "Kp", "Ti", "Td"}) {
-
-									private static final long serialVersionUID = 1L;
-									Class[] columnTypes = new Class[] {
-										String.class, String.class, String.class, String.class
-									};
-									public Class getColumnClass(int columnIndex) {
-										return columnTypes[columnIndex];
-									}
-									boolean[] columnEditables = new boolean[] {
-										false, false, false, false
-									};
-									public boolean isCellEditable(int row, int column) {
-										return columnEditables[column];
-									}
-								});
+									new String[] {"Tipo de controlador", "Kp", "Ti", "Td"}));
 								valoresZieglerNichols.getColumnModel().getColumn(0).setPreferredWidth(106);
 								valoresKP.setModel(new DefaultTableModel(
 										new Object[][] {null, null},
-										new String[] {"K cr\u00EDtica", "P cr\u00EDtico"}) {
-
-										private static final long serialVersionUID = 1L;
-										Class[] columnTypes = new Class[] {
-											Double.class, Double.class
-										};
-										public Class getColumnClass(int columnIndex) {
-											return columnTypes[columnIndex];
-										}
-										boolean[] columnEditables = new boolean[] {
-											false, false
-										};
-										public boolean isCellEditable(int row, int column) {
-											return columnEditables[column];
-										}
-									});
+										new String[] {"K cr\u00EDtica", "P cr\u00EDtico"}));
 									valoresKP.getColumnModel().getColumn(0).setPreferredWidth(51);
 									valoresKP.getColumnModel().getColumn(1).setPreferredWidth(51);
 								break;
@@ -280,42 +220,11 @@ public class PanelOscilacionesSostenidas extends JPanel {
 									new Object[][] {{null, null, "0", "0"},
 											{null, null, null, "0"},
 											{null, null, null, null}},
-									new String[] {"Tipo de controlador", "Kp", "Ti", "Td"}) {
-									/**
-									 * 
-									 */
-									private static final long serialVersionUID = 1L;
-									Class[] columnTypes = new Class[] {
-										String.class, String.class, String.class, String.class
-									};
-									public Class getColumnClass(int columnIndex) {
-										return columnTypes[columnIndex];
-									}
-									boolean[] columnEditables = new boolean[] {
-										false, false, false, false
-									};
-									public boolean isCellEditable(int row, int column) {
-										return columnEditables[column];
-									}
-								});
+									new String[] {"Tipo de controlador", "Kp", "Ti", "Td"}));
 								valoresZieglerNichols.getColumnModel().getColumn(0).setPreferredWidth(106);
 								valoresKP.setModel(new DefaultTableModel(
 										new Object[][] {{null, null}},
-										new String[] {"K cr\u00EDtica", "P cr\u00EDtico"}) {
-										private static final long serialVersionUID = 1L;
-										Class[] columnTypes = new Class[] {
-											Double.class, Double.class
-										};
-										public Class getColumnClass(int columnIndex) {
-											return columnTypes[columnIndex];
-										}
-										boolean[] columnEditables = new boolean[] {
-											false, false
-										};
-										public boolean isCellEditable(int row, int column) {
-											return columnEditables[column];
-										}
-									});
+										new String[] {"K cr\u00EDtica", "P cr\u00EDtico"}));
 									valoresKP.getColumnModel().getColumn(0).setPreferredWidth(51);
 									valoresKP.getColumnModel().getColumn(1).setPreferredWidth(51);
 							btnDibujar.setEnabled(false);

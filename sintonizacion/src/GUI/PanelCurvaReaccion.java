@@ -251,7 +251,7 @@ public class PanelCurvaReaccion extends JPanel {
 		JButton btnDescripcinDelMtodo = new JButton("Descripci\u00F3n del m\u00E9todo");
 		btnDescripcinDelMtodo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DescripcionMetodo dialog = new DescripcionMetodo(mensaje);
+				ModalMethodDescription dialog = new ModalMethodDescription(ventana, mensaje);
 				dialog.setVisible(true);
 				dialog.setLocationRelativeTo(ventana);
 			}

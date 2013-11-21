@@ -1,6 +1,7 @@
 package GUI;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -16,15 +17,15 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 import java.awt.Color;
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class Ventana extends JFrame {
+	
+	private double minW = 1000;
+	private double minH = 700;
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
@@ -50,6 +51,11 @@ public class Ventana extends JFrame {
 	 * Create the frame.
 	 */
 	public Ventana() {
+		
+		Dimension d = new Dimension();
+		d.setSize(minW, minH);
+		this.setMinimumSize(d);
+		
 		
 		try
 		{
@@ -127,9 +133,9 @@ public class Ventana extends JFrame {
 		mnSalir.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				int decision = JOptionPane.showConfirmDialog(frame, "�Seguro que desea salir?", "Aviso", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null);
+				int decision = JOptionPane.showConfirmDialog(frame, "¿Seguro que desea salir?", "Aviso", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null);
 				if(decision == 0)
-					dispose();
+					System.exit(0);
 			}
 		});
 		
@@ -156,7 +162,7 @@ public class Ventana extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				contentPane.removeAll();
-				PanelOscilacionesSostenidas panel = new PanelOscilacionesSostenidas(frame);
+				PanelOscilaciones panel = new PanelOscilaciones(frame);
 				contentPane.add(panel.getContentPane(), BorderLayout.CENTER);
 				contentPane.updateUI();
 				setLocationRelativeTo(null);
@@ -169,18 +175,12 @@ public class Ventana extends JFrame {
 		/* Agrego opciones del según orden */
 		
 		menuBar.add(menuPrincipal);
-		
 		//Lazo abierto
 		menuBar.add(curvaR);		//Ziegler y Nichols
-		
 		menuBar.add(cohenCoon);		//Cohen y Coon
-		
 		menuBar.add(lopez);
-		
 		//Lazo cerrado
 		menuBar.add(oscilaciones);	//Ziegler y Nichols
-		
-		
 
 		menuBar.add(mnSalir);
 	}

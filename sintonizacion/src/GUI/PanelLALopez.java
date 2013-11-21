@@ -27,51 +27,124 @@ public class PanelLALopez extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel mainPanel; //Panel principal
-	private Graficador graficador;
+	private Graficador graficador; 
 	private JTable inputTable;
 	private JTable vTableControllers;
 	private JTable tableTL;
 	
 	
 	/**
-	 * Create the panel.
+	 * Create the panel constructor.
 	 */
 	
 	public PanelLALopez(final Ventana ventana) {
 		
-		JPanel vControllerPanel;
-
-		setBounds(100, 100, 1005, 637);
-		mainPanel = new JPanel();
-		mainPanel.setBorder(new EmptyBorder(0, 0, 0, 0));
+		int marginTop = 30;
+		int marginRight = 5;
+		int marginRight2 = 645;
+		
 		
 		graficador = new Graficador();
 		
+/**********************  Define Panels  ***************************************/
+		
+		mainPanel = new JPanel();
+		mainPanel.setBorder(new EmptyBorder(0, 0, 0, 0));
+		
+		//Define 
 		final JPanel graphicPanel = new JPanel();
-		graphicPanel.setBounds(10, 41, 625, 510);
+		graphicPanel.setBounds(marginRight, marginTop, 625, 510);
 		graphicPanel.setLayout(new BorderLayout(0, 0));
 		graphicPanel.add(graficador.getDiagrama(),BorderLayout.CENTER);
 		
-		mainPanel.add(graphicPanel);		
+		mainPanel.add(graphicPanel);
+		
+		//Define panel of controller's value
+		JPanel vControllerPanel;
+		//setBounds(100, 100, 1005, 637);
 		
 		//Panel de datos de referencia
 		JPanel referencePanel = new JPanel();
 		referencePanel.setBorder(new TitledBorder(null, "Referencias", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		referencePanel.setBounds(645, 320, 342, 86);
+		referencePanel.setBounds(marginRight2, 320, 342, 86);
+		
 		mainPanel.add(referencePanel);
 		
 		//Panel de Información adicional
 		JPanel aditionalInfo = new JPanel();
 		aditionalInfo.setBorder(new TitledBorder(null, "Información Adicional", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		aditionalInfo.setBounds(645, 410, 342, 86);
+		aditionalInfo.setBounds(marginRight2, 410, 342, 86);
 		mainPanel.add(aditionalInfo);
 		
+		//Panel Valores L y T  *********************************/
+		JPanel panelLT = new JPanel();
+		panelLT.setBorder(new TitledBorder(null, "Valores de L y T", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelLT.setBounds(marginRight2, 124, 200, 70);
+		panelLT.setLayout(new BorderLayout(0, 0));
+		//Define scrollpane
+		JScrollPane paneltableTL = new JScrollPane();
+		panelLT.add(paneltableTL, BorderLayout.CENTER);
+		mainPanel.add(panelLT);
+		
+		//Panel de valores de sintonización *****************/
+		vControllerPanel = new JPanel();
+		vControllerPanel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Valores Sintonización", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		vControllerPanel.setBounds(marginRight2, 207, 349, 110);
+		vControllerPanel.setLayout(new BorderLayout(0, 0));
+		//Define ScrollPane
+		JScrollPane scrollPane = new JScrollPane();
+		vControllerPanel.add(scrollPane, BorderLayout.CENTER);
+		mainPanel.add(vControllerPanel);
+		
+		//Create input value panel
+		JPanel jpInput = new JPanel();
+		jpInput.setBorder(new TitledBorder(null,"Valores de Entrada", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		jpInput.setBounds(marginRight2, marginTop, 200, 70);
+		jpInput.setLayout(new BorderLayout(0, 0));
+		//mainPanel.add(spInputTable);
+		mainPanel.add(jpInput, BorderLayout.CENTER);
+		JScrollPane spInputTable = new JScrollPane();
+		jpInput.add(spInputTable);
+		
+/*********************  Create Tables  ******************************/
+		//Create a table of controller's value
+		vTableControllers = new JTable() ;
+		vTableControllers.setModel( getModelValuesControllers() );
+		vTableControllers.getColumnModel().getColumn(0).setPreferredWidth(106);
+		//TablaRender miRender = new TablaRender();
+		//vTableControllers.setDefaultRenderer(String.class, miRender);
+		scrollPane.setViewportView(vTableControllers);
+		
+		// L y T table values
+		tableTL = new JTable();
+		tableTL.setModel( getTableLT() );
+		tableTL.setRowSelectionAllowed(false);
+		tableTL.setCellSelectionEnabled(true);
+		paneltableTL.setViewportView(tableTL);
+		
+		//Definición Input Table
+		inputTable = new JTable();
+		inputTable.setModel( getInputTableModel() );
+		//inputTable.getColumnModel().getColumn(0).setResizable(false);
+		//inputTable.getColumnModel().getColumn(1).setResizable(false);
+		inputTable.setRowSelectionAllowed(false);
+		inputTable.setCellSelectionEnabled(true);
+		//spInputTable.setBounds(20, 20, 20, 20);
+		spInputTable.setViewportView(inputTable);
+		
+		JLabel lblMtodoDeLa = new JLabel("M\u00E9todo de la curva de reacci\u00F3n");
+		lblMtodoDeLa.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblMtodoDeLa.setBounds(marginRight, 5, 400, 20);
+		mainPanel.add(lblMtodoDeLa);
+		
+		
+/**********************  Define Buttons  ******************************/
 		//Define Buttons
 		JButton btnDibujar = new JButton("Dibujar");
-		btnDibujar.setBounds(850, 50, 140, 35);
+		btnDibujar.setBounds(850, marginTop, 140, 35);
 		
 		JButton btnLimpiar = new JButton("Limpiar");
-		btnLimpiar.setBounds(850, 90, 140, 35);
+		btnLimpiar.setBounds(850, marginTop+50, 140, 35);
 		mainPanel.setLayout(null);
 		
 		JButton btnDescription = new JButton("Descripci\u00F3n del m\u00E9todo");
@@ -80,100 +153,105 @@ public class PanelLALopez extends JPanel {
 		JButton buttonValues = new JButton("Tabla Constantes");
 		buttonValues.setBounds(850, 450, 140, 35);
 		
-		//Add Buttons		
+		JButton btnEquations = new JButton("Ecuaciones");
+		btnEquations.setBounds(870, 450, 140, 35);
+		
+		//Add Buttons to panels		
 		mainPanel.add(btnLimpiar);
 		mainPanel.add(btnDibujar);
 		aditionalInfo.add(btnDescription);
 		aditionalInfo.add(buttonValues);
+		aditionalInfo.add(btnEquations);
 		
-		JLabel blanco = new JLabel("Ganancia");
-		blanco.setBounds(16, 27, 24, 8);
-		blanco.setIcon(new ImageIcon(Ventana.class.getResource("/iconos/blanco.png")));
 		
-		JLabel rojo = new JLabel("New label");
-		rojo.setBounds(16, 46, 24, 8);
-		rojo.setIcon(new ImageIcon(Ventana.class.getResource("/iconos/rojo.png")));
-		
-		JLabel azul = new JLabel("New label");
-		azul.setBounds(16, 65, 24, 8);
-		azul.setIcon(new ImageIcon(Ventana.class.getResource("/iconos/azul.png")));
-		
+/***********************  Define Labels  ********************************/
+		//Create leabels
 		JLabel lblGanancia = new JLabel("Ganancia");
-		lblGanancia.setBounds(50, 24, 44, 14);
-		
 		JLabel lblRespuesta = new JLabel("Respuesta");
-		lblRespuesta.setBounds(50, 39, 51, 23);
-		
 		JLabel lblRectaTangenteAl = new JLabel("Recta tangente al punto de inflexi\u00F3n");
-		lblRectaTangenteAl.setBounds(50, 62, 175, 14);
+		JLabel lblRetardol = new JLabel("Retardo (L)");
+		JLabel lblCteDeTiempo = new JLabel("Cte. de tiempo (T)");
+
+		
+		//Create label color
+		JLabel blanco = new JLabel("Ganancia");
+		blanco.setIcon(new ImageIcon(Ventana.class.getResource("/iconos/blanco.png")));
+		JLabel rojo = new JLabel("Red");
+		rojo.setIcon(new ImageIcon(Ventana.class.getResource("/iconos/rojo.png")));
+		JLabel azul = new JLabel("Blue");
+		azul.setIcon(new ImageIcon(Ventana.class.getResource("/iconos/azul.png")));
+		JLabel amarillo = new JLabel("Yelow");
+		amarillo.setIcon(new ImageIcon(Ventana.class.getResource("/iconos/amarillo.png")));
+		JLabel green = new JLabel("Green");
+		green.setIcon(new ImageIcon(Ventana.class.getResource("/iconos/verde.png")));
+	
+		int widthColor = 15;
+		int heightColor = 10;
+		int positionColor = 20;
+		int colorC1 = 15;
+		int colorC2 = 191;
+		//Set colors dimensions
+		blanco.setBounds(colorC1, positionColor, widthColor, heightColor);
+		rojo.setBounds(colorC1, positionColor*2, widthColor, heightColor);
+		azul.setBounds(colorC1, positionColor*3, widthColor, heightColor);
+		amarillo.setBounds(colorC2, positionColor, widthColor, heightColor);
+		green.setBounds(colorC2, positionColor+25, widthColor, heightColor);
+		
+		
+		colorC1 += 20;
+		colorC2 += 20;
+		//Set Label dimensions
+		lblGanancia.setBounds(colorC1, positionColor, 100, 14);
+		lblRespuesta.setBounds(colorC1, positionColor*2, 100, 16);
+		lblRectaTangenteAl.setBounds(colorC1, positionColor*3, 300, 16);
+		lblRetardol.setBounds(colorC2, positionColor, 100, 14);
+		lblCteDeTiempo.setBounds(colorC2, positionColor+25, 150, 14);
+		
+		//Add colors to panel
 		referencePanel.setLayout(null);
 		referencePanel.add(blanco);
 		referencePanel.add(azul);
 		referencePanel.add(rojo);
+		referencePanel.add(amarillo);
+		referencePanel.add(green);
+		
+		//Add labels to panel
 		referencePanel.add(lblGanancia);
 		referencePanel.add(lblRespuesta);
 		referencePanel.add(lblRectaTangenteAl);
-		
-		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(Ventana.class.getResource("/iconos/amarillo.png")));
-		label.setBounds(191, 27, 24, 8);
-		referencePanel.add(label);
-		
-		JLabel label_1 = new JLabel("");
-		label_1.setIcon(new ImageIcon(Ventana.class.getResource("/iconos/verde.png")));
-		label_1.setBounds(191, 46, 24, 8);
-		referencePanel.add(label_1);
-		
-		JLabel lblRetardol = new JLabel("Retardo (L)");
-		lblRetardol.setBounds(225, 24, 62, 14);
 		referencePanel.add(lblRetardol);
-		
-		JLabel lblCteDeTiempo = new JLabel("Cte. de tiempo (T)");
-		lblCteDeTiempo.setBounds(225, 43, 88, 14);
 		referencePanel.add(lblCteDeTiempo);
 		
-		/*************** Panel de valores de sintonización *****************/
-		vControllerPanel = new JPanel();
-		vControllerPanel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Valores Sintonización", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		vControllerPanel.setBounds(645, 207, 349, 110);
-		vControllerPanel.setLayout(new BorderLayout(0, 0));
-		
-		vTableControllers = new JTable() ;
-		vTableControllers.setModel( getModelValuesControllers() );
-		vTableControllers.getColumnModel().getColumn(0).setPreferredWidth(106);
-		TablaRender miRender = new TablaRender();
-		vTableControllers.setDefaultRenderer(String.class, miRender);
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setViewportView(vTableControllers);
-		
-		vControllerPanel.add(scrollPane, BorderLayout.CENTER);
-		
-		mainPanel.add(vControllerPanel);
-		
-		/************** Panel Valores L y T  *********************************/
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new TitledBorder(null, "Valores de L y T", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_1.setBounds(645, 124, 200, 70);
-		panel_1.setLayout(new BorderLayout(0, 0));
-		mainPanel.add(panel_1);
-		
-		JScrollPane paneltableTL = new JScrollPane();
-		panel_1.add(paneltableTL, BorderLayout.CENTER);
-		// Tabla de valores L y T
-		tableTL = new JTable();
-		tableTL.setModel( getTableLT() );
-		tableTL.setRowSelectionAllowed(false);
-		tableTL.setCellSelectionEnabled(true);
-		paneltableTL.setViewportView(tableTL);
 		
 		
-		//Constantes para ecuaciónes del metodo de Lopez
+/*****************  Create Image Panel  **************************************/
+		
+		JLabel lblModeloAsumidoDe = new JLabel("Modelo asumido de la planta:");
+		lblModeloAsumidoDe.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblModeloAsumidoDe.setBounds(695, 243, 350, 19);
+		mainPanel.add(lblModeloAsumidoDe);
+		
+		//Add assumed model
+		JLabel lblEcuacionImagen = new JLabel("");
+		lblModeloAsumidoDe.setLabelFor(lblEcuacionImagen);
+		ImageIcon img = new ImageIcon(Ventana.class.getResource("/iconos/ecuacion.png"));
+		
+		lblEcuacionImagen.setIcon(img);
+		//lblEcuacionImagen.setBounds(695, 443, 200, 200);
+		
+		
+		//mainPanel.add(lblEcuacionImagen);
+		
+		
+/*****************  Define Listeners  ***************************************/
+		
+		//Constantes para ecuaciónes del metodo de Lopez   **********
 		final JTable constantTable = getConstantTable();
-		
+		//Show constants method
 		buttonValues.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				JDialog dialog =  new JDialog();
+				JDialog dialog =  new JDialog(ventana);
 				dialog.setTitle("Constantes Metodo de Lopez");
 				dialog.setBounds(100, 100, 500, 200);
 			    dialog.add(new JScrollPane(constantTable));
@@ -183,59 +261,26 @@ public class PanelLALopez extends JPanel {
 			}
 		});
 		
-		JLabel lblModeloAsumidoDe = new JLabel("Modelo asumido de la planta:");
-		lblModeloAsumidoDe.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblModeloAsumidoDe.setBounds(695, 243, 190, 19);
-		mainPanel.add(lblModeloAsumidoDe);
+		//Show controller equations ********************************
+		btnEquations.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				ModalEquationView dialog = new ModalEquationView(ventana, "/iconos/EcuacionesCohenCoon.png");
+				dialog.setVisible(true);
+				dialog.setLocationRelativeTo(ventana);
+				
+			}
+		});
 		
-		JLabel lblEcuacionImagen = new JLabel("");
-		lblModeloAsumidoDe.setLabelFor(lblEcuacionImagen);
-		ImageIcon img = new ImageIcon(Ventana.class.getResource("/iconos/ecuacion.png"));
-		
-		lblEcuacionImagen.setIcon(img);
-		lblEcuacionImagen.setBounds(695, 443, 200, 200);
-		mainPanel.add(lblEcuacionImagen);
-		
-		JLabel lblSoftwareEducativo = new JLabel("Software educativo");
-		lblSoftwareEducativo.setBounds(10, 568, 94, 14);
-		mainPanel.add(lblSoftwareEducativo);
-		
-		
-		//Definición Input Table
-		inputTable = new JTable();
-		inputTable.setModel( getInputTableModel() );
-		inputTable.getColumnModel().getColumn(0).setResizable(false);
-		inputTable.getColumnModel().getColumn(1).setResizable(false);
-		inputTable.setRowSelectionAllowed(false);
-		inputTable.setCellSelectionEnabled(true);
-		
-		JScrollPane spInputTable = new JScrollPane();
-		//spInputTable.setBounds(20, 20, 20, 20);
-		
-		JPanel jpInput = new JPanel();
-		jpInput.setBorder(new TitledBorder(null,"Valores de Entrada", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		jpInput.setBounds(645, 40, 200, 70);
-		jpInput.setLayout(new BorderLayout(0, 0));
-		jpInput.add(spInputTable);
-		
-		//mainPanel.add(spInputTable);
-		mainPanel.add(jpInput, BorderLayout.CENTER);
-		
-		spInputTable.setViewportView(inputTable);
-		
-		JLabel lblMtodoDeLa = new JLabel("M\u00E9todo de la curva de reacci\u00F3n");
-		lblMtodoDeLa.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblMtodoDeLa.setBounds(402, 11, 226, 20);
-		mainPanel.add(lblMtodoDeLa);
-		
-		
+		//Show Description
 		btnDescription.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DescripcionMetodo dialog = new DescripcionMetodo(mensaje);
+				ModalMethodDescription dialog = new ModalMethodDescription(ventana, mensaje);
 				dialog.setVisible(true);
 				dialog.setLocationRelativeTo(ventana);
 			}
 		});
+		
 
 		/**
 		 * Insertar grafica
@@ -305,6 +350,8 @@ public class PanelLALopez extends JPanel {
 		});
 	}
 	
+/**********  Application Methods ***************************************************/	
+	
 	private void limpiaGrafica(JPanel panel){
 		inputTable.setModel( getInputTableModel() );
 		graficador.limpiar();
@@ -323,7 +370,6 @@ public class PanelLALopez extends JPanel {
 			
 		tableTL.setModel( getTableLT() );
 	}
-	
 	
 	
 	//Retorno Panel Principal
