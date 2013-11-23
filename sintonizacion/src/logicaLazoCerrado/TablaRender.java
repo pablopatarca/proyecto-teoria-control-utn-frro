@@ -12,7 +12,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import javax.swing.table.TableCellRenderer;
-import GUI.Ventana;
+import GUI.MainView;
 
 public class TablaRender implements TableCellRenderer {
 	
@@ -33,14 +33,14 @@ public class TablaRender implements TableCellRenderer {
 			}
 			else {
 				JLabel etiqueta = new JLabel();
-				etiqueta.setIcon(new ImageIcon(Ventana.class.getResource("/iconos/rojo oscuro.png")));
+				etiqueta.setIcon(new ImageIcon(MainView.class.getResource("/iconos/rojo oscuro.png")));
 				return (Component)etiqueta;
 			}
 		}
 		else if(value instanceof String) {
 			if(value.equals("0")) {
 				JLabel etiqueta = new JLabel();
-				etiqueta.setIcon(new ImageIcon(Ventana.class.getResource("/iconos/rojo oscuro.png")));
+				etiqueta.setIcon(new ImageIcon(MainView.class.getResource("/iconos/rojo oscuro.png")));
 				return (Component)etiqueta;
 			}
 			else {

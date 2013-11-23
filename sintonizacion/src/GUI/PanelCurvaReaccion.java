@@ -49,7 +49,7 @@ public class PanelCurvaReaccion extends JPanel {
 	 * Create the panel.
 	 */
 	
-	public PanelCurvaReaccion(final Ventana ventana) {
+	public PanelCurvaReaccion(final MainView ventana) {
 		
 		setBounds(100, 100, 1005, 637);
 		contentPane = new JPanel();
@@ -79,15 +79,15 @@ public class PanelCurvaReaccion extends JPanel {
 		
 		JLabel blanco = new JLabel("Ganancia");
 		blanco.setBounds(16, 27, 24, 8);
-		blanco.setIcon(new ImageIcon(Ventana.class.getResource("/iconos/blanco.png")));
+		blanco.setIcon(new ImageIcon(MainView.class.getResource("/iconos/blanco.png")));
 		
 		JLabel rojo = new JLabel("New label");
 		rojo.setBounds(16, 46, 24, 8);
-		rojo.setIcon(new ImageIcon(Ventana.class.getResource("/iconos/rojo.png")));
+		rojo.setIcon(new ImageIcon(MainView.class.getResource("/iconos/rojo.png")));
 		
 		JLabel azul = new JLabel("New label");
 		azul.setBounds(16, 65, 24, 8);
-		azul.setIcon(new ImageIcon(Ventana.class.getResource("/iconos/azul.png")));
+		azul.setIcon(new ImageIcon(MainView.class.getResource("/iconos/azul.png")));
 		
 		JLabel lblGanancia = new JLabel("Ganancia");
 		lblGanancia.setBounds(50, 24, 44, 14);
@@ -106,12 +106,12 @@ public class PanelCurvaReaccion extends JPanel {
 		panel.add(lblRectaTangenteAl);
 		
 		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(Ventana.class.getResource("/iconos/amarillo.png")));
+		label.setIcon(new ImageIcon(MainView.class.getResource("/iconos/amarillo.png")));
 		label.setBounds(191, 27, 24, 8);
 		panel.add(label);
 		
 		JLabel label_1 = new JLabel("");
-		label_1.setIcon(new ImageIcon(Ventana.class.getResource("/iconos/verde.png")));
+		label_1.setIcon(new ImageIcon(MainView.class.getResource("/iconos/verde.png")));
 		label_1.setBounds(191, 46, 24, 8);
 		panel.add(label_1);
 		
@@ -205,7 +205,7 @@ public class PanelCurvaReaccion extends JPanel {
 		
 		JLabel lblEcuacionImagen = new JLabel("");
 		lblModeloAsumidoDe.setLabelFor(lblEcuacionImagen);
-		lblEcuacionImagen.setIcon(new ImageIcon(Ventana.class.getResource("/iconos/ecuacion.png")));
+		lblEcuacionImagen.setIcon(new ImageIcon(MainView.class.getResource("/iconos/ecuacion.png")));
 		lblEcuacionImagen.setBounds(894, 443, 58, 51);
 		contentPane.add(lblEcuacionImagen);
 		

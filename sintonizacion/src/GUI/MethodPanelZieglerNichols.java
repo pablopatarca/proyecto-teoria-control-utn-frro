@@ -1,11 +1,5 @@
 package GUI;
 
-import java.awt.BorderLayout;
-import java.awt.Font;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -14,8 +8,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+
+import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -24,8 +23,8 @@ import logicaLazoAbierto.Curva;
 import logicaLazoAbierto.Graficador;
 import logicaLazoAbierto.TablaRender;
 
-public class PanelLALopez extends JPanel {
-
+public class MethodPanelZieglerNichols extends JPanel {
+	
 	private static final long serialVersionUID = 1L;
 	private JPanel mainPanel; //Panel principal
 	private Graficador graficador; 
@@ -37,8 +36,8 @@ public class PanelLALopez extends JPanel {
 	/**
 	 * Create the panel constructor.
 	 */
-	
-	public PanelLALopez(final MainView ventana) {
+
+	public MethodPanelZieglerNichols(final MainView ventana) {
 		
 		int marginTop = 30;
 		int marginRight = 5;
@@ -54,7 +53,7 @@ public class PanelLALopez extends JPanel {
 		
 		//Define 
 		final JPanel graphicPanel = new JPanel();
-		graphicPanel.setBounds(marginRight, marginTop, 625, 510);
+		graphicPanel.setBounds(marginRight, marginTop, 625, 530);
 		graphicPanel.setLayout(new BorderLayout(0, 0));
 		graphicPanel.add(graficador.getDiagrama(),BorderLayout.CENTER);
 		
@@ -73,7 +72,7 @@ public class PanelLALopez extends JPanel {
 		//Aditional information panel
 		JPanel aditionalInfo = new JPanel();
 		aditionalInfo.setBorder(new TitledBorder(null, "Información Adicional", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		aditionalInfo.setBounds(marginRight2, 410, 342, 160);
+		aditionalInfo.setBounds(645, 410, 342, 150);
 		aditionalInfo.setAlignmentX(LEFT_ALIGNMENT);
 		mainPanel.add(aditionalInfo);
 		
@@ -89,7 +88,7 @@ public class PanelLALopez extends JPanel {
 		
 		//Sintonization value panel *****************/
 		vControllerPanel = new JPanel();
-		vControllerPanel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Valores Sintonización", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		vControllerPanel.setBorder(new TitledBorder(null, "Valores Sintonización", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		vControllerPanel.setBounds(marginRight2, 207, 349, 110);
 		vControllerPanel.setLayout(new BorderLayout(0, 0));
 		//Define ScrollPane
@@ -133,8 +132,8 @@ public class PanelLALopez extends JPanel {
 		//spInputTable.setBounds(20, 20, 20, 20);
 		spInputTable.setViewportView(inputTable);
 		
-		JLabel lblMtodoDeLa = new JLabel("M\u00E9todo de la curva de reacci\u00F3n");
-		lblMtodoDeLa.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		JLabel lblMtodoDeLa = new JLabel(headTitle);
+		lblMtodoDeLa.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblMtodoDeLa.setBounds(marginRight, 5, 400, 20);
 		mainPanel.add(lblMtodoDeLa);
 		
@@ -142,30 +141,37 @@ public class PanelLALopez extends JPanel {
 /**********************  Define Buttons  ******************************/
 		//Define Buttons
 		JButton btnDibujar = new JButton("Dibujar");
-		btnDibujar.setBounds(850, marginTop, 140, 35);
+		btnDibujar.setBounds(850, marginTop, 140, 33);
 		
 		JButton btnLimpiar = new JButton("Limpiar");
-		btnLimpiar.setBounds(850, marginTop+50, 140, 35);
+		btnLimpiar.setBounds(850, marginTop+40, 140, 33);
 		mainPanel.setLayout(null);
 		
-		JButton btnDescription = new JButton("Descripci\u00F3n m\u00E9todo");
-		btnDescription.setBounds(5, 5, 20, 20);
-		btnDescription.setSize(140, 35);
-		
-		JButton buttonValues = new JButton("Constantes");
-		buttonValues.setBounds(5, 15, 20, 20);
-		buttonValues.setSize(140, 35);
+		JButton btnAssumedModel = new JButton("Modelo asumido");
+		btnAssumedModel.setBounds(10, 22, 190, 25);
+		btnAssumedModel.setSize(140, 35);
 		
 		JButton btnEquations = new JButton("Ecuaciones");
-		btnEquations.setBounds(5, 25, 20, 20);
+		btnEquations.setBounds(180, 22, 190, 25);
 		btnEquations.setSize(140, 35);
+		
+		JButton buttonValues = new JButton("Constantes");
+		buttonValues.setBounds(10, 69, 190, 25);
+		buttonValues.setSize(140, 35);
+		
+		JButton btnDescription = new JButton("Descripci\u00F3n m\u00E9todo");
+		btnDescription.setBounds(180, 69, 190, 25);
+		btnDescription.setSize(140, 35);
+		
 		
 		//Add Buttons to panels		
 		mainPanel.add(btnLimpiar);
 		mainPanel.add(btnDibujar);
-		aditionalInfo.add(btnDescription);
-		aditionalInfo.add(buttonValues);
+		aditionalInfo.setLayout(null);
+		aditionalInfo.add(btnAssumedModel);
 		aditionalInfo.add(btnEquations);
+		aditionalInfo.add(buttonValues);
+		aditionalInfo.add(btnDescription);
 		
 		
 /***********************  Define Labels  ********************************/
@@ -205,11 +211,11 @@ public class PanelLALopez extends JPanel {
 		colorC1 += 20;
 		colorC2 += 20;
 		//Set Label dimensions
-		lblGanancia.setBounds(colorC1, positionColor, 100, 14);
-		lblRespuesta.setBounds(colorC1, positionColor*2, 100, 16);
-		lblRectaTangenteAl.setBounds(colorC1, positionColor*3, 300, 16);
-		lblRetardol.setBounds(colorC2, positionColor, 100, 14);
-		lblCteDeTiempo.setBounds(colorC2, positionColor+25, 150, 14);
+		lblGanancia.setBounds(220, 18, 100, 14);
+		lblRespuesta.setBounds(220, 37, 100, 16);
+		lblRectaTangenteAl.setBounds(42, 57, 300, 16);
+		lblRetardol.setBounds(42, 18, 100, 14);
+		lblCteDeTiempo.setBounds(42, 38, 150, 14);
 		
 		//Add colors to panel
 		referencePanel.setLayout(null);
@@ -235,16 +241,15 @@ public class PanelLALopez extends JPanel {
 		lblModeloAsumidoDe.setBounds(695, 243, 350, 19);
 		mainPanel.add(lblModeloAsumidoDe);
 		
-		//Add assumed model
+		/*Add assumed model
 		JLabel lblEcuacionImagen = new JLabel("");
 		lblModeloAsumidoDe.setLabelFor(lblEcuacionImagen);
-		ImageIcon img = new ImageIcon(MainView.class.getResource("/iconos/ecuacion.png"));
+		ImageIcon img = new ImageIcon(Ventana.class.getResource("/iconos/ecuacion.png"));
 		
 		lblEcuacionImagen.setIcon(img);
-		//lblEcuacionImagen.setBounds(695, 443, 200, 200);
-		
-		
-		//mainPanel.add(lblEcuacionImagen);
+		lblEcuacionImagen.setBounds(695, 443, 200, 200);
+		mainPanel.add(lblEcuacionImagen);
+		*/
 		
 		
 /*****************  Define Listeners  ***************************************/
@@ -257,11 +262,21 @@ public class PanelLALopez extends JPanel {
 				
 				JDialog dialog =  new JDialog(ventana);
 				dialog.setTitle("Constantes Metodo de Lopez");
-				dialog.setBounds(100, 100, 500, 200);
-			    dialog.add(new JScrollPane(constantTable));
+			    dialog.getContentPane().add(new JScrollPane(constantTable));
 			    dialog.setVisible(true);
 				dialog.setLocationRelativeTo(ventana);
+				dialog.setBounds(100, 100, 500, 200);
 				
+			}
+		});
+		
+		//Show assumed model ******************************************
+		btnAssumedModel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				ModalEquationView dialog = new ModalEquationView(ventana, "/iconos/equationFirstOrder.png");
+				dialog.setVisible(true);
+				dialog.setLocationRelativeTo(ventana);
 			}
 		});
 		
@@ -269,9 +284,10 @@ public class PanelLALopez extends JPanel {
 		btnEquations.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				ModalEquationView dialog = new ModalEquationView(ventana, "/iconos/EcuacionesCohenCoon.png");
+				ModalEquationView dialog = new ModalEquationView(ventana, "/iconos/equationLopez.png");
 				dialog.setVisible(true);
 				dialog.setLocationRelativeTo(ventana);
+				dialog.setBounds(100, 100, 500, 200);
 				
 			}
 		});
@@ -282,6 +298,7 @@ public class PanelLALopez extends JPanel {
 				ModalMethodDescription dialog = new ModalMethodDescription(ventana, mensaje);
 				dialog.setVisible(true);
 				dialog.setLocationRelativeTo(ventana);
+				dialog.setBounds(100, 100, 500, 200);
 			}
 		});
 		
@@ -405,23 +422,7 @@ public class PanelLALopez extends JPanel {
 				{"ITAE", constantesM[1][0], constantesM[1][1], constantesM[1][2], constantesM[1][3], constantesM[1][4], constantesM[1][5]},
 				{"ISE", constantesM[2][0], constantesM[2][1], constantesM[2][2], constantesM[2][3], constantesM[2][4], constantesM[2][5]} },
 				
-				new String[] {"Criterios","a", "b", "c", "d", "e", "f"} ) {
-			
-					private static final long serialVersionUID = 1L;
-				Class[] columnTypes = new Class[] {
-					String.class, String.class, String.class, String.class
-				};
-				public Class getColumnClass(int columnIndex) {
-					return columnTypes[columnIndex];
-				}
-				boolean[] columnEditables = new boolean[] {
-					false, false, false, false
-				};
-				public boolean isCellEditable(int row, int column) {
-					return columnEditables[column];
-				}
-			
-			});
+				new String[] {"Criterios","a", "b", "c", "d", "e", "f"} ));
 		
 		constantesMetodo.setRowSelectionAllowed(false);
 		constantesMetodo.setCellSelectionEnabled(true);
@@ -462,7 +463,7 @@ public class PanelLALopez extends JPanel {
 						{"P", "0", "0", "0"},
 						{"PI", "0", "0", "0"},
 						{"PID", "0", "0", "0"},},
-				new String[] {"Tipo de controlador", "Kp", "Ti", "Td"}){
+				new String[] {"Tipo controlador", "Kp", "Ti", "Td"}){
 	
 				private static final long serialVersionUID = 1L;
 				
@@ -490,7 +491,7 @@ public class PanelLALopez extends JPanel {
 				{"P", redondear((vT/vL) * (1 + (vL/(3*vT)))), 0.0, 0.0},
 				{"PI", redondear((vT/vL) * (0.9 + (vL/(12*vT)))), redondear((vL*(30*vT + 3*vL))/(9*vT + 20*vL)), 0.0},
 				{"PID", redondear((vT/vL) * (4/3 + (vL/(4*vT)))), redondear((vL*(32*vT + 6*vL))/(13*vT + 8*vL)), redondear((4*vL*vT)/(11*vT+2*vL))}},
-		new String[] {"Tipo de controlador", "Kp", "Ti", "Td"}) {
+		new String[] {"Tipo controlador", "Kp", "Ti", "Td"}) {
 			
 			private static final long serialVersionUID = 1L;
 			
@@ -510,6 +511,7 @@ public class PanelLALopez extends JPanel {
 		
 	}
 	
+	private String headTitle = "Método de Ziengler y Nichols - Sistema de lazo abierto";
 	
 	private String mensaje = "El Método consiste en obtener la respuesta de la señal medida "
 			+ "a una entrada escalón en un sistema de lazo abierto. Si la planta no "

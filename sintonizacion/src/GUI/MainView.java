@@ -20,10 +20,10 @@ import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class Ventana extends JFrame {
+public class MainView extends JFrame {
 	
 	private double minW = 1000;
-	private double minH = 700;
+	private double minH = 630;
 
 
 	private static final long serialVersionUID = 1L;
@@ -36,7 +36,7 @@ public class Ventana extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Ventana frame = new Ventana();
+					MainView frame = new MainView();
 					frame.setVisible(true);
 					//frame.setLocationRelativeTo(null);
 					frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -50,7 +50,7 @@ public class Ventana extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Ventana() {
+	public MainView() {
 		
 		Dimension d = new Dimension();
 		d.setSize(minW, minH);
@@ -68,11 +68,11 @@ public class Ventana extends JFrame {
 		    e.printStackTrace();
 		}
 
-		final Ventana frame = this;
+		final MainView frame = this;
 		//this.setResizable(false);
 		
 		setTitle("Sintonizaci\u00F3n de controladores");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Ventana.class.getResource("/iconos/imagen de respuessta transitoria.jpg")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MainView.class.getResource("/iconos/imagen de respuessta transitoria.jpg")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//setBounds(100, 100, 1010, 637);//M\u00E9todos de Ziegler y Nichols
 		
@@ -88,7 +88,7 @@ public class Ventana extends JFrame {
 		
 		/* Menú Principal */
 		
-		JMenu menuPrincipal = new JMenu("Men\u00FA");
+		JMenu menuPrincipal = new JMenu("Inicio");
 		menuPrincipal.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -105,8 +105,8 @@ public class Ventana extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				contentPane.removeAll();
-				PanelLACC panel = new PanelLACC(frame);
-				contentPane.add(panel.getContentPane(), BorderLayout.CENTER);
+				MethodPanelCohenCoon panel = new MethodPanelCohenCoon(frame);
+				contentPane.add(panel.getMainPanel(), BorderLayout.CENTER);
 				contentPane.updateUI();
 				setLocationRelativeTo(null);
 			}
@@ -119,7 +119,7 @@ public class Ventana extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				contentPane.removeAll();
-				PanelLALopez panel = new PanelLALopez(frame);
+				MethodPanelLopez panel = new MethodPanelLopez(frame);
 				contentPane.add(panel.getMainPanel(), BorderLayout.CENTER);
 				contentPane.updateUI();
 				setLocationRelativeTo(null);
@@ -127,28 +127,15 @@ public class Ventana extends JFrame {
 		});
 		
 		
-		/* Salir */
-		
-		JMenu mnSalir = new JMenu("Salir");
-		mnSalir.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				int decision = JOptionPane.showConfirmDialog(frame, "¿Seguro que desea salir?", "Aviso", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null);
-				if(decision == 0)
-					System.exit(0);
-			}
-		});
-		
-		
-		/* Curva de Reacción */
+		/*  ZieglerNichols  */
 		
 		JMenu curvaR = new JMenu("Curva de reacci\u00F3n");
 		curvaR.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				contentPane.removeAll();
-				PanelCurvaReaccion panel = new PanelCurvaReaccion(frame);
-				contentPane.add(panel.getContentPane(), BorderLayout.CENTER);
+				MethodPanelZieglerNichols panel = new MethodPanelZieglerNichols(frame);
+				contentPane.add(panel.getMainPanel(), BorderLayout.CENTER);
 				contentPane.updateUI();
 				setLocationRelativeTo(null);
 			}
@@ -166,6 +153,19 @@ public class Ventana extends JFrame {
 				contentPane.add(panel.getContentPane(), BorderLayout.CENTER);
 				contentPane.updateUI();
 				setLocationRelativeTo(null);
+			}
+		});
+		
+		
+		/* Salir */
+		
+		JMenu mnSalir = new JMenu("Salir");
+		mnSalir.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				int decision = JOptionPane.showConfirmDialog(frame, "¿Seguro que desea salir?", "Aviso", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null);
+				if(decision == 0)
+					System.exit(0);
 			}
 		});
 		

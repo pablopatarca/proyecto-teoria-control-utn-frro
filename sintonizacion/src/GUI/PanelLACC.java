@@ -50,7 +50,7 @@ public class PanelLACC extends JPanel {
 	 * Create the panel.
 	 */
 	
-	public PanelLACC(final Ventana ventana) {
+	public PanelLACC(final MainView ventana) {
 		
 				setBounds(100, 100, 1005, 637);
 				contentPane = new JPanel();
@@ -80,15 +80,15 @@ public class PanelLACC extends JPanel {
 				
 				JLabel blanco = new JLabel("Ganancia");
 				blanco.setBounds(16, 27, 24, 8);
-				blanco.setIcon(new ImageIcon(Ventana.class.getResource("/iconos/blanco.png")));
+				blanco.setIcon(new ImageIcon(MainView.class.getResource("/iconos/blanco.png")));
 				
 				JLabel rojo = new JLabel("New label");
 				rojo.setBounds(16, 46, 24, 8);
-				rojo.setIcon(new ImageIcon(Ventana.class.getResource("/iconos/rojo.png")));
+				rojo.setIcon(new ImageIcon(MainView.class.getResource("/iconos/rojo.png")));
 				
 				JLabel azul = new JLabel("New label");
 				azul.setBounds(16, 65, 24, 8);
-				azul.setIcon(new ImageIcon(Ventana.class.getResource("/iconos/azul.png")));
+				azul.setIcon(new ImageIcon(MainView.class.getResource("/iconos/azul.png")));
 				
 				JLabel lblGanancia = new JLabel("Ganancia");
 				lblGanancia.setBounds(50, 24, 44, 14);
@@ -107,12 +107,12 @@ public class PanelLACC extends JPanel {
 				panel.add(lblRectaTangenteAl);
 				
 				JLabel label = new JLabel("");
-				label.setIcon(new ImageIcon(Ventana.class.getResource("/iconos/amarillo.png")));
+				label.setIcon(new ImageIcon(MainView.class.getResource("/iconos/amarillo.png")));
 				label.setBounds(191, 27, 24, 8);
 				panel.add(label);
 				
 				JLabel label_1 = new JLabel("");
-				label_1.setIcon(new ImageIcon(Ventana.class.getResource("/iconos/verde.png")));
+				label_1.setIcon(new ImageIcon(MainView.class.getResource("/iconos/verde.png")));
 				label_1.setBounds(191, 46, 24, 8);
 				panel.add(label_1);
 				
@@ -140,25 +140,7 @@ public class PanelLACC extends JPanel {
 							{"PI", "0", "0", "0"},
 							{"PID", "0", "0", "0"},
 					},
-					new String[] {"Tipo de controlador", "Kp", "Ti", "Td"}) {
-					
-					/**
-					 * 
-					 */
-					private static final long serialVersionUID = 1L;
-					Class[] columnTypes = new Class[] {
-						String.class, String.class, String.class, String.class
-					};
-					public Class getColumnClass(int columnIndex) {
-						return columnTypes[columnIndex];
-					}
-					boolean[] columnEditables = new boolean[] {
-						false, false, false, false
-					};
-					public boolean isCellEditable(int row, int column) {
-						return columnEditables[column];
-					}
-				});
+					new String[] {"Tipo de controlador", "Kp", "Ti", "Td"}));
 				vTableValues.getColumnModel().getColumn(0).setPreferredWidth(106);
 				TablaRender miRender = new TablaRender();
 				vTableValues.setDefaultRenderer(String.class, miRender);
@@ -178,22 +160,7 @@ public class PanelLACC extends JPanel {
 				
 				valoresTL = new JTable();
 				valoresTL.setModel(new DefaultTableModel(
-					new Object[][] {null, null},new String[] {"L", "T"} ) {
-					
-					private static final long serialVersionUID = 1L;
-					Class[] columnTypes = new Class[] {
-						Double.class, Double.class
-					};
-					public Class getColumnClass(int columnIndex) {
-						return columnTypes[columnIndex];
-					}
-					boolean[] columnEditables = new boolean[] {
-						false, false
-					};
-					public boolean isCellEditable(int row, int column) {
-						return columnEditables[column];
-					}
-				});
+					new Object[][] {null, null},new String[] {"L", "T"} ));
 				panelValoresTL.setViewportView(valoresTL);
 				valoresTL.setRowSelectionAllowed(false);
 				valoresTL.setCellSelectionEnabled(true);
@@ -205,7 +172,7 @@ public class PanelLACC extends JPanel {
 				
 				JLabel lblEcuacionImagen = new JLabel("");
 				lblModeloAsumidoDe.setLabelFor(lblEcuacionImagen);
-				ImageIcon img = new ImageIcon(Ventana.class.getResource("/iconos/ecuacion.png"));
+				ImageIcon img = new ImageIcon(MainView.class.getResource("/iconos/ecuacion.png"));
 				
 				lblEcuacionImagen.setIcon(img);
 				lblEcuacionImagen.setBounds(695, 443, 200, 200);
@@ -221,16 +188,7 @@ public class PanelLACC extends JPanel {
 				
 				tablaGraficos = new JTable();
 				tablaGraficos.setModel(new DefaultTableModel(
-					new Object[][] {null, null},new String[] {"Ganancia", "Cte. de tiempo"}) {
-					
-					private static final long serialVersionUID = 1L;
-					Class[] columnTypes = new Class[] {
-						Double.class, Double.class
-					};
-					public Class getColumnClass(int columnIndex) {
-						return columnTypes[columnIndex];
-					}
-				});
+					new Object[][] {null, null},new String[] {"Ganancia", "Cte. de tiempo"}));
 				
 				tablaGraficos.getColumnModel().getColumn(0).setResizable(false);
 				tablaGraficos.getColumnModel().getColumn(0).setPreferredWidth(58);
@@ -297,24 +255,7 @@ public class PanelLACC extends JPanel {
 											{"P", redondear((vT/vL) * (1 + (vL/(3*vT)))), 0.0, 0.0},
 											{"PI", redondear((vT/vL) * (0.9 + (vL/(12*vT)))), redondear((vL*(30*vT + 3*vL))/(9*vT + 20*vL)), 0.0},
 											{"PID", redondear((vT/vL) * (4/3 + (vL/(4*vT)))), redondear((vL*(32*vT + 6*vL))/(13*vT + 8*vL)), redondear((4*vL*vT)/(11*vT+2*vL))}},
-									new String[] {"Tipo de controlador", "Kp", "Ti", "Td"} ) {
-									/**
-									 * 
-									 */
-									private static final long serialVersionUID = 1L;
-									Class[] columnTypes = new Class[] {
-										String.class, Double.class, Double.class, Double.class
-									};
-									public Class getColumnClass(int columnIndex) {
-										return columnTypes[columnIndex];
-									}
-									boolean[] columnEditables = new boolean[] {
-										false, false, false, false
-									};
-									public boolean isCellEditable(int row, int column) {
-										return columnEditables[column];
-									}
-								});
+									new String[] {"Tipo de controlador", "Kp", "Ti", "Td"} ));
 								vCohenCoon.getColumnModel().getColumn(0).setPreferredWidth(106);
 								TablaRender miRender = new TablaRender();
 								vCohenCoon.setDefaultRenderer(String.class, miRender);
@@ -322,22 +263,7 @@ public class PanelLACC extends JPanel {
 								
 								valoresTL.setModel(new DefaultTableModel(
 									new Object[][] {{redondear(curvaActual.getL()), redondear(curvaActual.getT())}},
-									new String[] {"L", "T"}) {
-
-									private static final long serialVersionUID = 1L;
-									Class[] columnTypes = new Class[] {
-										Double.class, Double.class
-									};
-									public Class getColumnClass(int columnIndex) {
-										return columnTypes[columnIndex];
-									}
-									boolean[] columnEditables = new boolean[] {
-										false, false
-									};
-									public boolean isCellEditable(int row, int column) {
-										return columnEditables[column];
-									}
-								});
+									new String[] {"L", "T"}));
 							}
 						}
 						else {
@@ -366,46 +292,14 @@ public class PanelLACC extends JPanel {
 							new Object[][] {{"P", "0", "0", "0"},
 									{"PI", "0", "0", "0"},
 									{"PID", "0", "0", "0"},},
-							new String[] {"Tipo de controlador", "Kp", "Ti", "Td"}) {
-							
-							private static final long serialVersionUID = 1L;
-							Class[] columnTypes = new Class[] {
-								String.class, String.class, String.class, String.class
-							};
-							public Class getColumnClass(int columnIndex) {
-								return columnTypes[columnIndex];
-							}
-							boolean[] columnEditables = new boolean[] {
-								false, false, false, false
-							};
-							public boolean isCellEditable(int row, int column) {
-								return columnEditables[column];
-							}
-						});
+							new String[] {"Tipo de controlador", "Kp", "Ti", "Td"}));
 						vTableValues.getColumnModel().getColumn(0).setPreferredWidth(106);	
 						TablaRender miRender = new TablaRender();
 						vTableValues.setDefaultRenderer(String.class, miRender);
 							
 						valoresTL.setModel(new DefaultTableModel(
 							new Object[][] {{null, null}},
-							new String[] {"L", "T"}) {
-							/**
-							 * 
-							 */
-							private static final long serialVersionUID = 1L;
-							Class[] columnTypes = new Class[] {
-								Double.class, Double.class
-							};
-							public Class getColumnClass(int columnIndex) {
-								return columnTypes[columnIndex];
-							}
-							boolean[] columnEditables = new boolean[] {
-								false, false
-							};
-							public boolean isCellEditable(int row, int column) {
-								return columnEditables[column];
-							}
-						});
+							new String[] {"L", "T"}));
 					}
 				});
 			}
