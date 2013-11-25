@@ -21,7 +21,6 @@ import javax.swing.table.TableModel;
 
 import logicaLazoAbierto.Curva;
 import logicaLazoAbierto.Graficador;
-import logicaLazoAbierto.TablaRender;
 
 public class MethodPanelZieglerNichols extends JPanel {
 	
@@ -342,10 +341,6 @@ public class MethodPanelZieglerNichols extends JPanel {
 						//vTableControllers.getModel().getColumnClass(0).getModifiers()
 						
 						vTableControllers.getColumnModel().getColumn(0).setPreferredWidth(106);
-						TablaRender miRender = new TablaRender();
-						vTableControllers.setDefaultRenderer(String.class, miRender);
-						vTableControllers.setDefaultRenderer(Double.class, miRender);
-						
 						tableTL.setModel(setTableLT(curvaActual.getL(), curvaActual.getT()));
 						
 					}
@@ -385,10 +380,7 @@ public class MethodPanelZieglerNichols extends JPanel {
 		panel.validate();
 		
 		vTableControllers.setModel( getModelValuesControllers() );
-		
-		vTableControllers.getColumnModel().getColumn(0).setPreferredWidth(106);	
-		TablaRender miRender = new TablaRender();
-		vTableControllers.setDefaultRenderer(String.class, miRender);
+		vTableControllers.getColumnModel().getColumn(0).setPreferredWidth(106);
 			
 		tableTL.setModel( getTableLT() );
 	}
@@ -460,10 +452,10 @@ public class MethodPanelZieglerNichols extends JPanel {
 	private DefaultTableModel getModelValuesControllers(){
 
 		return new DefaultTableModel( new Object[][] {
-						{"P", "0", "0", "0"},
-						{"PI", "0", "0", "0"},
-						{"PID", "0", "0", "0"},},
-				new String[] {"Tipo controlador", "Kp", "Ti", "Td"}){
+						{"P", null, null, null},
+						{"PI", null, null, null},
+						{"PID", null, null, null},},
+				new String[] {"Tipo controlador", "Kc", "Ti", "Td"}){
 	
 				private static final long serialVersionUID = 1L;
 				
@@ -487,11 +479,19 @@ public class MethodPanelZieglerNichols extends JPanel {
 	//Devuelvo valores calculados
 	private DefaultTableModel setModelValuesControllers( double vL, double vT){
 		
+		double[][] result = new double[3][3];
+		result[0][0] = redondear(vT/vL);
+		result[1][0] = redondear(0.9*(vT/vL));
+		result[1][1] = redondear(vL/0.03);
+		result[2][0] = redondear(1.2*(vT/vL));
+		result[2][1] = redondear(2*vL);
+		result[2][2] = redondear(0.5*vL);
+				
 		return new DefaultTableModel( new Object[][] {
-				{"P", redondear((vT/vL) * (1 + (vL/(3*vT)))), 0.0, 0.0},
-				{"PI", redondear((vT/vL) * (0.9 + (vL/(12*vT)))), redondear((vL*(30*vT + 3*vL))/(9*vT + 20*vL)), 0.0},
-				{"PID", redondear((vT/vL) * (4/3 + (vL/(4*vT)))), redondear((vL*(32*vT + 6*vL))/(13*vT + 8*vL)), redondear((4*vL*vT)/(11*vT+2*vL))}},
-		new String[] {"Tipo controlador", "Kp", "Ti", "Td"}) {
+				{"P", result[0][0], null, null},
+				{"PI", result[1][0], result[1][1], null},
+				{"PID", result[2][0], result[2][1], result[2][2]}},
+		new String[] {"Tipo controlador", "Kc", "Ti", "Td"}) {
 			
 			private static final long serialVersionUID = 1L;
 			

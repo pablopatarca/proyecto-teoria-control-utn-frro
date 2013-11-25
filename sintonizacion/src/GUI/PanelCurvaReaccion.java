@@ -20,7 +20,6 @@ import javax.swing.table.TableModel;
 
 import logicaLazoAbierto.Curva;
 import logicaLazoAbierto.Graficador;
-import logicaLazoAbierto.TablaRender;
 
 public class PanelCurvaReaccion extends JPanel {
 	
@@ -161,9 +160,6 @@ public class PanelCurvaReaccion extends JPanel {
 			}
 		});
 		valoresZieglerNichols.getColumnModel().getColumn(0).setPreferredWidth(106);
-		
-		TablaRender miRender = new TablaRender();
-		valoresZieglerNichols.setDefaultRenderer(String.class, miRender);
 		
 		scrollPane.setViewportView(valoresZieglerNichols);
 		
@@ -312,9 +308,6 @@ public class PanelCurvaReaccion extends JPanel {
 									}
 								});
 								valoresZieglerNichols.getColumnModel().getColumn(0).setPreferredWidth(106);
-								TablaRender miRender = new TablaRender();
-								valoresZieglerNichols.setDefaultRenderer(String.class, miRender);
-								valoresZieglerNichols.setDefaultRenderer(Double.class, miRender);
 								
 								valoresTL.setModel(new DefaultTableModel(
 										new Object[][] {{redondear(curvaActual.getL()), redondear(curvaActual.getT())}},
@@ -376,9 +369,6 @@ public class PanelCurvaReaccion extends JPanel {
 						}
 					});
 					valoresZieglerNichols.getColumnModel().getColumn(0).setPreferredWidth(106);
-					
-					TablaRender miRender = new TablaRender();
-					valoresZieglerNichols.setDefaultRenderer(String.class, miRender);
 					
 					valoresTL.setModel(new DefaultTableModel(
 							new Object[][] {{null, null}},

@@ -21,7 +21,6 @@ import javax.swing.table.TableModel;
 
 import logicaLazoAbierto.Curva;
 import logicaLazoAbierto.Graficador;
-import logicaLazoAbierto.TablaRender;
 
 public class MethodPanelCohenCoon extends JPanel {
 	
@@ -42,7 +41,6 @@ public class MethodPanelCohenCoon extends JPanel {
 		int marginTop = 30;
 		int marginRight = 5;
 		int marginRight2 = 645;
-		
 		
 		graficador = new Graficador();
 		
@@ -108,11 +106,9 @@ public class MethodPanelCohenCoon extends JPanel {
 		
 /*********************  Create Tables  ******************************/
 		//Create a table of controller's value
-		vTableControllers = new JTable() ;
+		vTableControllers = new JTable();
 		vTableControllers.setModel( getModelValuesControllers() );
 		vTableControllers.getColumnModel().getColumn(0).setPreferredWidth(106);
-		//TablaRender miRender = new TablaRender();
-		//vTableControllers.setDefaultRenderer(String.class, miRender);
 		scrollPane.setViewportView(vTableControllers);
 		
 		// L y T table values
@@ -132,10 +128,6 @@ public class MethodPanelCohenCoon extends JPanel {
 		//spInputTable.setBounds(20, 20, 20, 20);
 		spInputTable.setViewportView(inputTable);
 		
-		JLabel lblMtodoDeLa = new JLabel(headTitle);
-		lblMtodoDeLa.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblMtodoDeLa.setBounds(marginRight, 5, 400, 20);
-		mainPanel.add(lblMtodoDeLa);
 		
 		
 /**********************  Define Buttons  ******************************/
@@ -176,6 +168,13 @@ public class MethodPanelCohenCoon extends JPanel {
 		
 /***********************  Define Labels  ********************************/
 		//Create leabels
+		//Title
+		JLabel lblMtodoDeLa = new JLabel(headTitle);
+		lblMtodoDeLa.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblMtodoDeLa.setBounds(marginRight, 5, 500, 20);
+		mainPanel.add(lblMtodoDeLa);
+		
+		
 		JLabel lblGanancia = new JLabel("Ganancia");
 		JLabel lblRespuesta = new JLabel("Respuesta");
 		JLabel lblRectaTangenteAl = new JLabel("Recta tangente al punto de inflexi\u00F3n");
@@ -261,7 +260,7 @@ public class MethodPanelCohenCoon extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				
 				JDialog dialog =  new JDialog(ventana);
-				dialog.setTitle("Constantes Metodo de Lopez");
+				dialog.setTitle("Constantes Metodo de Cohen y Coon");
 			    dialog.getContentPane().add(new JScrollPane(constantTable));
 			    dialog.setVisible(true);
 				dialog.setLocationRelativeTo(ventana);
@@ -284,7 +283,7 @@ public class MethodPanelCohenCoon extends JPanel {
 		btnEquations.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				ModalEquationView dialog = new ModalEquationView(ventana, "/iconos/equationLopez.png");
+				ModalEquationView dialog = new ModalEquationView(ventana, "/iconos/equationCohenCoon.png");
 				dialog.setVisible(true);
 				dialog.setLocationRelativeTo(ventana);
 				dialog.setBounds(100, 100, 500, 200);
@@ -320,11 +319,11 @@ public class MethodPanelCohenCoon extends JPanel {
 				if(modelo.getValueAt(0, 1) != null && modelo.getValueAt(0, 0) != null){
 					
 					double k =  Double.parseDouble((String) modelo.getValueAt(0,0));
-					double taw = Double.parseDouble((String) modelo.getValueAt(0,1));
+					double tau = Double.parseDouble((String) modelo.getValueAt(0,1));
 				
-					if(k >= 0.0 && taw >= 0.0) {
+					if(k >= 0.0 && tau >= 0.0) {
 					
-					graficador.insertarCurva(k, taw, 2);
+					graficador.insertarCurva(k, tau, 2);
 					/**
 					 * DIBUJO EL GRAFICO
 					 */
@@ -338,13 +337,8 @@ public class MethodPanelCohenCoon extends JPanel {
 						double vT = curvaActual.getT();
 						double vL = curvaActual.getL();
 						
-						vTableControllers.setModel(setModelValuesControllers(vL, vT));
-						//vTableControllers.getModel().getColumnClass(0).getModifiers()
-						
+						vTableControllers.setModel(setModelValuesControllers(tau ,vL, vT));
 						vTableControllers.getColumnModel().getColumn(0).setPreferredWidth(106);
-						TablaRender miRender = new TablaRender();
-						vTableControllers.setDefaultRenderer(String.class, miRender);
-						vTableControllers.setDefaultRenderer(Double.class, miRender);
 						
 						tableTL.setModel(setTableLT(curvaActual.getL(), curvaActual.getT()));
 						
@@ -385,12 +379,10 @@ public class MethodPanelCohenCoon extends JPanel {
 		panel.validate();
 		
 		vTableControllers.setModel( getModelValuesControllers() );
-		
-		vTableControllers.getColumnModel().getColumn(0).setPreferredWidth(106);	
-		TablaRender miRender = new TablaRender();
-		vTableControllers.setDefaultRenderer(String.class, miRender);
+		vTableControllers.getColumnModel().getColumn(0).setPreferredWidth(106);
 			
 		tableTL.setModel( getTableLT() );
+
 	}
 	
 	
@@ -460,9 +452,9 @@ public class MethodPanelCohenCoon extends JPanel {
 	private DefaultTableModel getModelValuesControllers(){
 
 		return new DefaultTableModel( new Object[][] {
-						{"P", "0", "0", "0"},
-						{"PI", "0", "0", "0"},
-						{"PID", "0", "0", "0"},},
+						{"P", null, null, null},
+						{"PI", null, null, null},
+						{"PID", null, null, null}},
 				new String[] {"Tipo controlador", "Kp", "Ti", "Td"}){
 	
 				private static final long serialVersionUID = 1L;
@@ -485,12 +477,20 @@ public class MethodPanelCohenCoon extends JPanel {
 	}
 	
 	//Devuelvo valores calculados
-	private DefaultTableModel setModelValuesControllers( double vL, double vT){
+	private DefaultTableModel setModelValuesControllers(double tau , double vL, double vT){
 		
+		double[][] result = new double[3][3];
+		result[0][0] = redondear((vT/vL) * (1 + (vL/(3*vT))));
+		result[1][0] = redondear((vT/vL) * (0.9 + (vL/(12*vT))));
+		result[1][1] = redondear((vL*(30*vT + 3*vL))/(9*vT + 20*vL));
+		result[2][0] = redondear((vT/vL) * (4/3 + (vL/(4*tau))));
+		result[2][1] = redondear(( vL*(32 + 6*vL/tau))/(13 + 8*vL/tau));
+		result[2][2] = redondear(( vL*( 4/ (11 + 2*vL/tau))));
+				
 		return new DefaultTableModel( new Object[][] {
-				{"P", redondear((vT/vL) * (1 + (vL/(3*vT)))), 0.0, 0.0},
-				{"PI", redondear((vT/vL) * (0.9 + (vL/(12*vT)))), redondear((vL*(30*vT + 3*vL))/(9*vT + 20*vL)), 0.0},
-				{"PID", redondear((vT/vL) * (4/3 + (vL/(4*vT)))), redondear((vL*(32*vT + 6*vL))/(13*vT + 8*vL)), redondear((4*vL*vT)/(11*vT+2*vL))}},
+				{"P", result[0][0], null, null},
+				{"PI", result[1][0], result[1][1], null},
+				{"PID", result[2][0], result[2][1], result[2][2]}},
 		new String[] {"Tipo controlador", "Kp", "Ti", "Td"}) {
 			
 			private static final long serialVersionUID = 1L;

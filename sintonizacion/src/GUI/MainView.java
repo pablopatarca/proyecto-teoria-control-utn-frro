@@ -127,9 +127,9 @@ public class MainView extends JFrame {
 		});
 		
 		
-		/*  ZieglerNichols  */
+		/*  Ziegler and Nichols Method */
 		
-		JMenu curvaR = new JMenu("Curva de reacci\u00F3n");
+		JMenu curvaR = new JMenu("Ziengler-Nichols");
 		curvaR.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -141,15 +141,30 @@ public class MainView extends JFrame {
 			}
 		});
 		
+		/* Kaya and Sheib Method */
+		
+		JMenu kayaSheib = new JMenu("Kasha-Sheib");
+		kayaSheib.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e){
+				contentPane.removeAll();
+				MethodPanelKayaSheib panel = new MethodPanelKayaSheib(frame);
+				contentPane.add(panel.getMainPanel(), BorderLayout.CENTER);
+				contentPane.updateUI();
+				setLocationRelativeTo(null);
+			}
+		}
+				);
+		
 		
 		/* Oscilaciones Sostenidas */
 		
-		JMenu oscilaciones = new JMenu("Oscilaciones sostenidas");
+		JMenu oscilaciones = new JMenu("Ziegler-Nichols");
 		oscilaciones.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				contentPane.removeAll();
-				PanelOscilaciones panel = new PanelOscilaciones(frame);
+				PanelClosedZieglerNichols panel = new PanelClosedZieglerNichols(frame);
 				contentPane.add(panel.getContentPane(), BorderLayout.CENTER);
 				contentPane.updateUI();
 				setLocationRelativeTo(null);
@@ -176,11 +191,12 @@ public class MainView extends JFrame {
 		
 		menuBar.add(menuPrincipal);
 		//Lazo abierto
-		menuBar.add(curvaR);		//Ziegler y Nichols
-		menuBar.add(cohenCoon);		//Cohen y Coon
-		menuBar.add(lopez);
+		menuBar.add(curvaR);		//Ziegler-Nichols
+		menuBar.add(cohenCoon);		//Cohen-Coon
+		menuBar.add(lopez);			//Lopez
+		menuBar.add(kayaSheib);		//Kaya-Sheib
 		//Lazo cerrado
-		menuBar.add(oscilaciones);	//Ziegler y Nichols
+		menuBar.add(oscilaciones);	//Ziegler-Nichols
 
 		menuBar.add(mnSalir);
 	}
