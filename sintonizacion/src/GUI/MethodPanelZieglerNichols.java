@@ -133,7 +133,7 @@ public class MethodPanelZieglerNichols extends JPanel {
 		
 		JLabel lblMtodoDeLa = new JLabel(headTitle);
 		lblMtodoDeLa.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblMtodoDeLa.setBounds(marginRight, 5, 400, 20);
+		lblMtodoDeLa.setBounds(marginRight, 5, 500, 20);
 		mainPanel.add(lblMtodoDeLa);
 		
 		
@@ -169,7 +169,7 @@ public class MethodPanelZieglerNichols extends JPanel {
 		aditionalInfo.setLayout(null);
 		aditionalInfo.add(btnAssumedModel);
 		aditionalInfo.add(btnEquations);
-		aditionalInfo.add(buttonValues);
+		//aditionalInfo.add(buttonValues);
 		aditionalInfo.add(btnDescription);
 		
 		
@@ -283,7 +283,7 @@ public class MethodPanelZieglerNichols extends JPanel {
 		btnEquations.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				ModalEquationView dialog = new ModalEquationView(ventana, "/iconos/equationLopez.png");
+				ModalEquationView dialog = new ModalEquationView(ventana, "/iconos/equationZieglerNichols.png");
 				dialog.setVisible(true);
 				dialog.setLocationRelativeTo(ventana);
 				dialog.setBounds(100, 100, 500, 200);
@@ -455,7 +455,7 @@ public class MethodPanelZieglerNichols extends JPanel {
 						{"P", null, null, null},
 						{"PI", null, null, null},
 						{"PID", null, null, null},},
-				new String[] {"Tipo controlador", "Kc", "Ti", "Td"}){
+				new String[] {"Tipo controlador", "Kp", "Ti", "Td"}){
 	
 				private static final long serialVersionUID = 1L;
 				

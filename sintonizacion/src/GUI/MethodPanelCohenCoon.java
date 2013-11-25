@@ -162,7 +162,7 @@ public class MethodPanelCohenCoon extends JPanel {
 		aditionalInfo.setLayout(null);
 		aditionalInfo.add(btnAssumedModel);
 		aditionalInfo.add(btnEquations);
-		aditionalInfo.add(buttonValues);
+		//aditionalInfo.add(buttonValues);
 		aditionalInfo.add(btnDescription);
 		
 		
@@ -513,17 +513,10 @@ public class MethodPanelCohenCoon extends JPanel {
 	
 	private String headTitle = "Método de Cohen y Coon - Sistema de lazo abierto";
 	
-	private String mensaje = "El Método consiste en obtener la respuesta de la señal medida "
-			+ "a una entrada escalón en un sistema de lazo abierto. Si la planta no "
-			+ "contiene integradores ni polos dominantes complejos conjugados, la curva "
-			+ "puede tener la forma de una S (si la respuesta no exhibe esta forma de S, "
-			+ "este método no es pertinente)."
-			+ "\n\n"
-			+ "Tales curvas de respuesta se generan experimentalmente o a partir de una "
-			+ "simulación dinámina de la planta y están caracterizadas por dos parámetros: "
-			+ "el tiempo de retardo L y la constante de tiempo T. Estos parámetros se "
-			+ "determinan dibujando una recta tangente en el punto de inflexión de la curva "
-			+ "y determinando las intersecciones de esta tangente con el eje del tiempo "
-			+ "y la línea Y(t) = K, es decir, la ganancia aplicada.";
+	private String mensaje = "Cohen y Coon introdujeron un índice de auto regulación definido como μ = tm/τ"
+			+ " y plantearon nuevas ecuaciones de sintonización. Estas se basan en el mejor modelo de primer "
+			+ "orden más tiempo muerto que se pueda obtener para lazos de control que funcionan como regulador,"
+			+ "con el criterio de desempeño de decaimiento de ¼ con sobrepaso mínimo, y con mínima área bajo la "
+			+ "curva de respuesta, y un controlador PID-Ideal.";
 	
 }

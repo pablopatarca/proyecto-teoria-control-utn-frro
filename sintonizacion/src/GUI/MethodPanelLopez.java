@@ -30,6 +30,8 @@ public class MethodPanelLopez extends JPanel {
 	private JTable inputTable;
 	private JTable vTableControllers;
 	private JTable tableTL;
+	private double Kc;
+	private double tau;
 	
 	
 	/**
@@ -320,12 +322,12 @@ public class MethodPanelLopez extends JPanel {
 				
 				if(modelo.getValueAt(0, 1) != null && modelo.getValueAt(0, 0) != null){
 					
-					double k =  Double.parseDouble((String) modelo.getValueAt(0,0));
-					double taw = Double.parseDouble((String) modelo.getValueAt(0,1));
+					Kc =  Double.parseDouble((String) modelo.getValueAt(0,0));
+					tau = Double.parseDouble((String) modelo.getValueAt(0,1));
 				
-					if(k >= 0.0 && taw >= 0.0) {
+					if(Kc >= 0.0 && tau >= 0.0) {
 					
-					graficador.insertarCurva(k, taw, 2);
+					graficador.insertarCurva(Kc, tau, 2);
 					/**
 					 * DIBUJO EL GRAFICO
 					 */
@@ -453,10 +455,10 @@ public class MethodPanelLopez extends JPanel {
 	private DefaultTableModel getModelValuesControllers(){
 
 		return new DefaultTableModel( new Object[][] {
-				{"P", null, null, null},
-				{"PI", null, null, null},
-				{"PID", null, null, null}},
-			new String[] {"Tipo controlador", "Kc", "Ti", "Td"}){
+				{"PID-IAE", null, null, null},
+				{"PID-ITAE", null, null, null},
+				{"PID-ISE", null, null, null}},
+			new String[] {"Tipo controlador", "Kp", "Ti", "Td"}){
 
 			private static final long serialVersionUID = 1L;
 			
@@ -480,18 +482,22 @@ public class MethodPanelLopez extends JPanel {
 	//Devuelvo valores calculados
 	private DefaultTableModel setModelValuesControllers( double vL, double vT){
 		
-		double[][] result = new double[3][3];
-		/*result[0][0] = redondear(constantesM[0][0]);
-		result[1][0] = redondear();
-		result[1][1] = redondear();
-		result[2][0] = redondear();
-		result[2][1] = redondear();
-		result[2][2] = redondear();*/
+		double[][] result = new double[3][6];
+		result[0][0] = redondear( (constantesM[0][0]/Kc)*(Math.pow((vL/tau),constantesM[0][1])) );
+		result[0][1] = redondear( (tau/constantesM[0][2])*(Math.pow((vL/tau),-constantesM[0][3])) );
+		result[0][2] = redondear( (tau*constantesM[0][4])*(Math.pow((vL/tau),constantesM[0][5])) );
+		result[1][0] = redondear( (constantesM[1][0]/Kc)*(Math.pow((vL/tau),constantesM[1][1])) );
+		result[1][1] = redondear( (tau/constantesM[1][2])*(Math.pow((vL/tau),-constantesM[1][3])) );
+		result[1][2] = redondear( (tau*constantesM[1][4])*(Math.pow((vL/tau),constantesM[1][5])) );
+		result[2][0] = redondear( (constantesM[2][0]/Kc)*(Math.pow((vL/tau),constantesM[2][1])) );
+		result[2][1] = redondear( (tau/constantesM[2][2])*(Math.pow((vL/tau),-constantesM[2][3])) );
+		result[2][2] = redondear( (tau*constantesM[2][4])*(Math.pow((vL/tau),constantesM[2][5])) );
+		
 				
 		return new DefaultTableModel( new Object[][] {
-				{"P", result[0][0], null, null},
-				{"PI", result[1][0], result[1][1], null},
-				{"PID", result[2][0], result[2][1], result[2][2]}},
+				{"PID-IAE", result[0][0],result[0][1], result[0][2]},
+				{"PID-ITAE", result[1][0], result[1][1], result[1][2]},
+				{"PID-ISE", result[2][0], result[2][1], result[2][2]}},
 		new String[] {"Tipo controlador", "Kp", "Ti", "Td"}) {
 			
 			private static final long serialVersionUID = 1L;
@@ -518,17 +524,15 @@ public class MethodPanelLopez extends JPanel {
 			{1.357,-0.947,0.842,-0.738,0.381,0.995},
 			{1.495,-0.945,1.101,-0.771,0.560,1.006}};
 	
-	private String mensaje = "El Método consiste en obtener la respuesta de la señal medida "
-			+ "a una entrada escalón en un sistema de lazo abierto. Si la planta no "
-			+ "contiene integradores ni polos dominantes complejos conjugados, la curva "
-			+ "puede tener la forma de una S (si la respuesta no exhibe esta forma de S, "
-			+ "este método no es pertinente)."
-			+ "\n\n"
-			+ "Tales curvas de respuesta se generan experimentalmente o a partir de una "
-			+ "simulación dinámina de la planta y están caracterizadas por dos parámetros: "
-			+ "el tiempo de retardo L y la constante de tiempo T. Estos parámetros se "
-			+ "determinan dibujando una recta tangente en el punto de inflexión de la curva "
-			+ "y determinando las intersecciones de esta tangente con el eje del tiempo "
-			+ "y la línea Y(t) = K, es decir, la ganancia aplicada.";
+	private String mensaje = "El primer método basado en criterios integrales que presentó ecuaciones para el cálculo de los parámetros del controlador fue desarrollado por López y es conocido como el método de López. Definiendo una función de costo de la forma: Φ=F[ e(t),t] dt "
+			+ "Donde F es una función del error y del tiempo, se obtiene un valor que caracteriza la respuesta del sistema. Entre menor sea el valor de Φ, mejor será el desempeño del sistema de control, por ello, un desempeño óptimo se obtiene cuando Φ es mínimo."
+			+ "Como Φ es una función de los parámetros del controlador ( Kc, Ti, Td ), el valor mínimo de" 
+			+ "Φ se obtiene resolviendo las siguientes ecuaciones:"
+			+ "Los criterios de desempeño utilizados por López fueron:" 
+			+ "Integral del error absoluto (IAE),  Integral del error absoluto por el tiempo (ITAE) y"
+			+ "Integral del error cuadrático (ISE)."
+			+ "La optimización de los criterios de desempeño integrales de López está basada en el mejor modelo de primer orden más tiempo muerto que se pueda obtener, para lazos de control que funcionan como reguladores con un controlador PID-Ideal."
+			+ "Según el criterio de López los parámetros del PID se encuentran en base a la minimización de los índices de funcionamiento."
+			+ "Para esto se asume que la respuesta se aproxima por una función de transferencia de primer orden con retardo.";
 	
 }

@@ -36,7 +36,7 @@ public class ModalEquationView extends JDialog {
 		setTitle("Ecuaciones utilizadas");
 		
 		Dimension d = new Dimension();
-		d.setSize(minW+20, minH+20);
+		d.setSize(minW+20, minH+40);
 		this.setMinimumSize(d);
 		setResizable(false);
 		

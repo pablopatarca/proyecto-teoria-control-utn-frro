@@ -30,6 +30,8 @@ public class MethodPanelKayaSheib extends JPanel {
 	private JTable inputTable;
 	private JTable vTableControllers;
 	private JTable tableTL;
+	private double kc;
+	private double tau;
 	
 	
 	/**
@@ -320,12 +322,12 @@ public class MethodPanelKayaSheib extends JPanel {
 				
 				if(modelo.getValueAt(0, 1) != null && modelo.getValueAt(0, 0) != null){
 					
-					double k =  Double.parseDouble((String) modelo.getValueAt(0,0));
-					double taw = Double.parseDouble((String) modelo.getValueAt(0,1));
+					kc =  Double.parseDouble((String) modelo.getValueAt(0,0));
+					tau = Double.parseDouble((String) modelo.getValueAt(0,1));
 				
-					if(k >= 0.0 && taw >= 0.0) {
+					if(kc >= 0.0 && tau >= 0.0) {
 					
-					graficador.insertarCurva(k, taw, 2);
+					graficador.insertarCurva(kc, tau, 2);
 					/**
 					 * DIBUJO EL GRAFICO
 					 */
@@ -456,9 +458,9 @@ public class MethodPanelKayaSheib extends JPanel {
 	private DefaultTableModel getModelValuesControllers(){
 
 		return new DefaultTableModel( new Object[][] {
-						{"P", "0", "0", "0"},
-						{"PI", "0", "0", "0"},
-						{"PID", "0", "0", "0"},},
+					{"PID-IAE", null, null, null},
+					{"PID-ITAE", null, null, null},
+					{"PID-ISE", null, null, null}},
 				new String[] {"Tipo controlador", "Kp", "Ti", "Td"}){
 	
 				private static final long serialVersionUID = 1L;
@@ -483,19 +485,23 @@ public class MethodPanelKayaSheib extends JPanel {
 	//Devuelvo valores calculados
 	private DefaultTableModel setModelValuesControllers( double vL, double vT){
 		
-		double[][] result = new double[3][3];
-		result[0][0] = redondear((vT/vL) * (1 + (vL/(3*vT))));
-		result[1][0] = redondear((vT/vL) * (0.9 + (vL/(12*vT))));
-		result[1][1] = redondear((vL*(30*vT + 3*vL))/(9*vT + 20*vL));
-		result[2][0] = redondear((vT/vL) * (4/3 + (vL/(4*vT))));
-		result[2][1] = redondear((vL*(32*vT + 6*vL))/(13*vT + 8*vL));
-		result[2][2] = redondear((4*vL*vT)/(11*vT+2*vL));
+		double[][] result = new double[3][6];
+		result[0][0] = redondear( (constantesM[0][0]/kc)*(Math.pow((vL/tau),constantesM[0][1])) );
+		result[0][1] = redondear( (tau/constantesM[0][2])*(Math.pow((vL/tau),-constantesM[0][3])) );
+		result[0][2] = redondear( (tau*constantesM[0][4])*(Math.pow((vL/tau),constantesM[0][5])) );
+		result[1][0] = redondear( (constantesM[1][0]/kc)*(Math.pow((vL/tau),constantesM[1][1])) );
+		result[1][1] = redondear( (tau/constantesM[1][2])*(Math.pow((vL/tau),-constantesM[1][3])) );
+		result[1][2] = redondear( (tau*constantesM[1][4])*(Math.pow((vL/tau),constantesM[1][5])) );
+		result[2][0] = redondear( (constantesM[2][0]/kc)*(Math.pow((vL/tau),constantesM[2][1])) );
+		result[2][1] = redondear( (tau/constantesM[2][2])*(Math.pow((vL/tau),-constantesM[2][3])) );
+		result[2][2] = redondear( (tau*constantesM[2][4])*(Math.pow((vL/tau),constantesM[2][5])) );
+		
 				
 		return new DefaultTableModel( new Object[][] {
-				{"P", result[0][0], 0.0, 0.0},
-				{"PI", result[1][0], result[1][1], 0.0},
-				{"PID", result[2][0], result[2][1], result[2][2]}},
-		new String[] {"Tipo controlador", "Kc", "Ti", "Td"}) {
+				{"PID-IAE", result[0][0],result[0][1], result[0][2]},
+				{"PID-ITAE", result[1][0], result[1][1], result[1][2]},
+				{"PID-ISE", result[2][0], result[2][1], result[2][2]}},
+		new String[] {"Tipo controlador", "Kp", "Ti", "Td"}) {
 			
 			private static final long serialVersionUID = 1L;
 			
@@ -517,17 +523,16 @@ public class MethodPanelKayaSheib extends JPanel {
 	
 	private String headTitle = "Método de Kaya y Sheib - Sistema de lazo abierto";
 	
-	private String mensaje = "El Método consiste en obtener la respuesta de la señal medida "
-			+ "a una entrada escalón en un sistema de lazo abierto. Si la planta no "
-			+ "contiene integradores ni polos dominantes complejos conjugados, la curva "
-			+ "puede tener la forma de una S (si la respuesta no exhibe esta forma de S, "
-			+ "este método no es pertinente)."
-			+ "\n\n"
-			+ "Tales curvas de respuesta se generan experimentalmente o a partir de una "
-			+ "simulación dinámina de la planta y están caracterizadas por dos parámetros: "
-			+ "el tiempo de retardo L y la constante de tiempo T. Estos parámetros se "
-			+ "determinan dibujando una recta tangente en el punto de inflexión de la curva "
-			+ "y determinando las intersecciones de esta tangente con el eje del tiempo "
-			+ "y la línea Y(t) = K, es decir, la ganancia aplicada.";
+	double [][] constantesM = {{0.98089,-0.76167,0.91032,-1.05211,0.59974,0.89819},
+			{0.77902,-1.06401,1.14311,-0.70949,0.57137,1.03826},
+			{1.11907,-0.89711,0.79870,-0.95480,0.54766,0.87798}};
+	
+	private String mensaje = "Mientras López desarrolló el método de sintonización para un controlador" 
+			+ "PID-Ideal, Kaya y Sheib realizaron lo mismo para controladores que denominaron "
+			+ "PID-Clásico (PID-Serie), PID- No Interactuante (una variación del PID-Paralelo) y "
+			+ "PID-Industrial."
+			+ "El procedimiento de sintonización está basado en el mejor modelo de primer orden más tiempo muerto "
+			+ "que se pueda obtener para lazos de control que funcionan como reguladores. El criterio de desempeño "
+			+ "corresponde a la minimización de alguno de los criterios integrales y el controlador a uno de los indicados anteriormente. ";
 	
 }
