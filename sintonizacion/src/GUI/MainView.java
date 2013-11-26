@@ -98,9 +98,23 @@ public class MainView extends JFrame {
 			}
 		});
 		
+		/*  Ziegler and Nichols Method */
+		
+		JMenu curvaR = new JMenu("Ziengler-Nichols");
+		curvaR.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				contentPane.removeAll();
+				MethodPanelZieglerNichols panel = new MethodPanelZieglerNichols(frame);
+				contentPane.add(panel.getMainPanel(), BorderLayout.CENTER);
+				contentPane.updateUI();
+				setLocationRelativeTo(null);
+			}
+		});
+		
 		/* Cohen y Coon - Lazo abierto */
 		
-		JMenu cohenCoon = new JMenu("Cohen y Coon");
+		JMenu cohenCoon = new JMenu("Cohen - Coon");
 		cohenCoon.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -120,21 +134,6 @@ public class MainView extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				contentPane.removeAll();
 				MethodPanelLopez panel = new MethodPanelLopez(frame);
-				contentPane.add(panel.getMainPanel(), BorderLayout.CENTER);
-				contentPane.updateUI();
-				setLocationRelativeTo(null);
-			}
-		});
-		
-		
-		/*  Ziegler and Nichols Method */
-		
-		JMenu curvaR = new JMenu("Ziengler-Nichols");
-		curvaR.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				contentPane.removeAll();
-				MethodPanelZieglerNichols panel = new MethodPanelZieglerNichols(frame);
 				contentPane.add(panel.getMainPanel(), BorderLayout.CENTER);
 				contentPane.updateUI();
 				setLocationRelativeTo(null);
@@ -171,6 +170,17 @@ public class MainView extends JFrame {
 			}
 		});
 		
+		JMenu compare = new JMenu("Comparación");
+		compare.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent e){
+				contentPane.removeAll();
+				PanelCompare panel = new PanelCompare(frame);
+				contentPane.add(panel.getMainPane(), BorderLayout.CENTER);
+				contentPane.updateUI();
+			}
+		});
+		
 		
 		/* Salir */
 		
@@ -197,6 +207,7 @@ public class MainView extends JFrame {
 		menuBar.add(kayaSheib);		//Kaya-Sheib
 		//Lazo cerrado
 		menuBar.add(oscilaciones);	//Ziegler-Nichols
+		menuBar.add(compare);
 
 		menuBar.add(mnSalir);
 	}
