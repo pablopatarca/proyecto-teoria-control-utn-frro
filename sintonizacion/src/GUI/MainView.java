@@ -177,8 +177,10 @@ public class MainView extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e){
 				contentPane.removeAll();
-				PanelCompare panel = new PanelCompare(frame);
-				contentPane.add(panel.getMainPane(), BorderLayout.CENTER);
+				MethodPanelPrueba panel = new MethodPanelPrueba(frame);
+				contentPane.add(panel.getMainPanel(), BorderLayout.CENTER);
+				//PanelCompare panel = new PanelCompare(frame);
+				//contentPane.add(panel.getMainPane(), BorderLayout.CENTER);
 				contentPane.updateUI();
 			}
 		});
