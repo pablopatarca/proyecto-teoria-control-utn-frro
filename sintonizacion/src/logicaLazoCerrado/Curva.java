@@ -40,8 +40,8 @@ public abstract class Curva {
 	private static XYSeries entrada;
 	
 	public Curva() {
-		dibujoCurva = new XYSeries(Math.random());
-		dibujoPeriodo = new XYSeries(Math.random());
+		dibujoCurva = new XYSeries(0);
+		dibujoPeriodo = new XYSeries(1);
 		comentario = new TextTitle();
 	}
 	

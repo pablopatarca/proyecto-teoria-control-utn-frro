@@ -13,6 +13,7 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
@@ -148,6 +149,10 @@ public class MethodPanelKayaSheib extends JPanel {
 		btnLimpiar.setBounds(850, marginTop+40, 140, 33);
 		mainPanel.setLayout(null);
 		
+		JButton btnSave = new JButton("Guardar");
+		btnSave.setBounds(850, 112, 140, 33);
+		mainPanel.add(btnSave);
+		
 		JButton btnAssumedModel = new JButton("Modelo asumido");
 		btnAssumedModel.setBounds(10, 22, 190, 25);
 		btnAssumedModel.setSize(140, 35);
@@ -212,11 +217,11 @@ public class MethodPanelKayaSheib extends JPanel {
 		colorC1 += 20;
 		colorC2 += 20;
 		//Set Label dimensions
-		lblGanancia.setBounds(220, 18, 100, 14);
-		lblRespuesta.setBounds(220, 37, 100, 16);
+		lblGanancia.setBounds(42, 18, 100, 14);
+		lblRespuesta.setBounds(42, 38, 150, 14);
+		lblCteDeTiempo.setBounds(220, 37, 100, 16);
+		lblRetardol.setBounds(220, 18, 100, 14);
 		lblRectaTangenteAl.setBounds(42, 57, 300, 16);
-		lblRetardol.setBounds(42, 18, 100, 14);
-		lblCteDeTiempo.setBounds(42, 38, 150, 14);
 		
 		//Add colors to panel
 		referencePanel.setLayout(null);
@@ -368,6 +373,18 @@ public class MethodPanelKayaSheib extends JPanel {
 		btnLimpiar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				limpiaGrafica(graphicPanel);
+			}
+		});
+		
+		//Save Graphics
+		btnSave.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					graficador.getImage();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 	}

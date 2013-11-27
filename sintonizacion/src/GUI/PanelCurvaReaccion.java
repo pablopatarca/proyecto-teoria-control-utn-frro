@@ -201,7 +201,7 @@ public class PanelCurvaReaccion extends JPanel {
 		
 		JLabel lblEcuacionImagen = new JLabel("");
 		lblModeloAsumidoDe.setLabelFor(lblEcuacionImagen);
-		lblEcuacionImagen.setIcon(new ImageIcon(MainView.class.getResource("/iconos/ecuacion.png")));
+		//lblEcuacionImagen.setIcon(new ImageIcon(MainView.class.getResource("/iconos/ecuacion.png")));
 		lblEcuacionImagen.setBounds(894, 443, 58, 51);
 		contentPane.add(lblEcuacionImagen);
 		

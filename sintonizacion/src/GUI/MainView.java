@@ -106,6 +106,8 @@ public class MainView extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				contentPane.removeAll();
 				MethodPanelZieglerNichols panel = new MethodPanelZieglerNichols(frame);
+				//PanelCurvaReaccion panel = new PanelCurvaReaccion(frame);
+				//contentPane.add(panel.getContentPane(), BorderLayout.CENTER);
 				contentPane.add(panel.getMainPanel(), BorderLayout.CENTER);
 				contentPane.updateUI();
 				setLocationRelativeTo(null);

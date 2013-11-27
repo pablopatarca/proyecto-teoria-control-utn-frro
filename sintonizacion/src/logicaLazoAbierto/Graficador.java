@@ -1,7 +1,11 @@
 package logicaLazoAbierto;
 
 import java.awt.Color;
-
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 
 import org.jfree.chart.ChartFactory;
@@ -11,11 +15,13 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.chart.ChartUtilities;
 
 public class Graficador {
 	
 	private XYSeriesCollection conjuntoDatos;
 	private Curva curvaActual;
+	private JFreeChart diagrama;
 	
 	public Graficador() {
 		conjuntoDatos = new XYSeriesCollection();
@@ -23,7 +29,7 @@ public class Graficador {
 	}
 	
 	public JPanel getDiagrama() {
-		JFreeChart diagrama = null;
+		diagrama = null;
 		diagrama = ChartFactory.createXYLineChart(
                 "", //Titulo Grafica
                 "t", // Leyenda eje X
@@ -70,4 +76,23 @@ public class Graficador {
 		curvaActual = null;
 		conjuntoDatos.removeAllSeries();
 	}
+	
+	public void getImage() throws IOException{
+		
+		JFileChooser fc = new JFileChooser();
+		
+		int returnVal = fc.showSaveDialog(fc);
+		
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            //This is where a real application would save the file.
+            
+            OutputStream in= new FileOutputStream(file.getPath()+".png");
+            ChartUtilities.writeChartAsPNG(in,diagrama, 800,600);
+            
+            
+        }
+		
+	}
+	
 }

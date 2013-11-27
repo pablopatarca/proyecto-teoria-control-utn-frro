@@ -14,8 +14,6 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
@@ -25,7 +23,7 @@ import javax.swing.table.TableModel;
 import logicaLazoAbierto.Curva;
 import logicaLazoAbierto.Graficador;
 
-public class MethodPanelCohenCoon extends JPanel {
+public class MethodPanelPrueba extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel mainPanel; //Panel principal
@@ -33,17 +31,20 @@ public class MethodPanelCohenCoon extends JPanel {
 	private JTable inputTable;
 	private JTable vTableControllers;
 	private JTable tableTL;
+	private double Kc;
+	private double tau;
 	
 	
 	/**
 	 * Create the panel constructor.
 	 */
 
-	public MethodPanelCohenCoon(final MainView ventana) {
+	public MethodPanelPrueba(final MainView ventana) {
 		
 		int marginTop = 30;
 		int marginRight = 5;
 		int marginRight2 = 645;
+		
 		
 		graficador = new Graficador();
 		
@@ -109,7 +110,7 @@ public class MethodPanelCohenCoon extends JPanel {
 		
 /*********************  Create Tables  ******************************/
 		//Create a table of controller's value
-		vTableControllers = new JTable();
+		vTableControllers = new JTable() ;
 		vTableControllers.setModel( getModelValuesControllers() );
 		vTableControllers.getColumnModel().getColumn(0).setPreferredWidth(106);
 		scrollPane.setViewportView(vTableControllers);
@@ -131,6 +132,10 @@ public class MethodPanelCohenCoon extends JPanel {
 		//spInputTable.setBounds(20, 20, 20, 20);
 		spInputTable.setViewportView(inputTable);
 		
+		JLabel lblMtodoDeLa = new JLabel(headTitle);
+		lblMtodoDeLa.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblMtodoDeLa.setBounds(marginRight, 5, 400, 20);
+		mainPanel.add(lblMtodoDeLa);
 		
 		
 /**********************  Define Buttons  ******************************/
@@ -169,19 +174,12 @@ public class MethodPanelCohenCoon extends JPanel {
 		aditionalInfo.setLayout(null);
 		aditionalInfo.add(btnAssumedModel);
 		aditionalInfo.add(btnEquations);
-		//aditionalInfo.add(buttonValues);
+		aditionalInfo.add(buttonValues);
 		aditionalInfo.add(btnDescription);
 		
 		
 /***********************  Define Labels  ********************************/
 		//Create leabels
-		//Title
-		JLabel lblMtodoDeLa = new JLabel(headTitle);
-		lblMtodoDeLa.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblMtodoDeLa.setBounds(marginRight, 5, 500, 20);
-		mainPanel.add(lblMtodoDeLa);
-		
-		
 		JLabel lblGanancia = new JLabel("Ganancia");
 		JLabel lblRespuesta = new JLabel("Respuesta");
 		JLabel lblRectaTangenteAl = new JLabel("Recta tangente al punto de inflexi\u00F3n");
@@ -217,7 +215,6 @@ public class MethodPanelCohenCoon extends JPanel {
 		colorC1 += 20;
 		colorC2 += 20;
 		//Set Label dimensions
-		//blanco
 		lblGanancia.setBounds(42, 18, 100, 14);
 		lblRespuesta.setBounds(42, 38, 150, 14);
 		lblCteDeTiempo.setBounds(220, 37, 100, 16);
@@ -268,11 +265,13 @@ public class MethodPanelCohenCoon extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				
 				JDialog dialog =  new JDialog(ventana);
-				dialog.setTitle("Constantes Metodo de Cohen y Coon");
+				dialog.setBounds(100, 100, 500, 200);
+				dialog.setModal(true);
+				dialog.setTitle("Constantes Metodo de Lopez");
 			    dialog.getContentPane().add(new JScrollPane(constantTable));
 			    dialog.setVisible(true);
 				dialog.setLocationRelativeTo(ventana);
-				dialog.setBounds(100, 100, 500, 200);
+				
 				
 			}
 		});
@@ -291,7 +290,7 @@ public class MethodPanelCohenCoon extends JPanel {
 		btnEquations.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				ModalEquationView dialog = new ModalEquationView(ventana, "/iconos/equationCohenCoon.png");
+				ModalEquationView dialog = new ModalEquationView(ventana, "/iconos/equationLopez.png");
 				dialog.setVisible(true);
 				dialog.setLocationRelativeTo(ventana);
 				dialog.setBounds(100, 100, 500, 200);
@@ -314,6 +313,7 @@ public class MethodPanelCohenCoon extends JPanel {
 		 * Insertar grafica
 		 */
 		btnDibujar.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent arg0) {
 				
 				if(inputTable.isEditing()){
@@ -323,24 +323,14 @@ public class MethodPanelCohenCoon extends JPanel {
 				
 				TableModel modelo = inputTable.getModel();
 				
-				//Empty Validate
 				if(modelo.getValueAt(0, 1) != null && modelo.getValueAt(0, 0) != null){
+					
+					Kc =  Double.parseDouble((String) modelo.getValueAt(0,0));
+					tau = Double.parseDouble((String) modelo.getValueAt(0,1));
 				
-					Pattern pat = Pattern.compile("[a-zA-Z]");
-				     Matcher mat1 = pat.matcher((String) modelo.getValueAt(0, 0));
-				     Matcher mat2 = pat.matcher((String) modelo.getValueAt(0, 1));
-				     
-				     //Number Validate
-				     if (!mat1.matches() && !mat2.matches()) {
-				         System.out.println("Are Numbers");
-				         
-				        double k = Double.parseDouble((String) modelo.getValueAt(0,0));
-						double tau = Double.parseDouble((String) modelo.getValueAt(0,1));
+					if(Kc >= 0.0 && tau >= 0.0) {
 					
-					//Validate
-					if(k >= 0.0 && tau >= 0.0) {
-					
-					graficador.insertarCurva(k, tau, 2);
+					graficador.insertarCurva(Kc, tau, 2);
 					/**
 					 * DIBUJO EL GRAFICO
 					 */
@@ -349,14 +339,16 @@ public class MethodPanelCohenCoon extends JPanel {
 					graphicPanel.validate();
 					
 					if(graficador.getCurvaActual() != null) {
+						
 						Curva curvaActual = graficador.getCurvaActual();
 						
 						double vT = curvaActual.getT();
 						double vL = curvaActual.getL();
 						
-						vTableControllers.setModel(setModelValuesControllers(tau ,vL, vT));
-						vTableControllers.getColumnModel().getColumn(0).setPreferredWidth(106);
+						vTableControllers.setModel(setModelValuesControllers(vL, vT));
+						//vTableControllers.getModel().getColumnClass(0).getModifiers()
 						
+						vTableControllers.getColumnModel().getColumn(0).setPreferredWidth(106);
 						tableTL.setModel(setTableLT(curvaActual.getL(), curvaActual.getT()));
 						
 					}
@@ -365,10 +357,6 @@ public class MethodPanelCohenCoon extends JPanel {
 				JOptionPane.showMessageDialog(null, "Las constantes deben ser valores mayores que cero", 
 						"Error", JOptionPane.ERROR_MESSAGE, null);
 				}
-			     } else {
-			    	 JOptionPane.showMessageDialog(null, "Debe ingresar valores numéricos", 
-								"Error", JOptionPane.ERROR_MESSAGE, null);
-			     }
 			}
 			else {
 				JOptionPane.showMessageDialog(null, "Debe ingresar constantes de tiempo y ganancia", 
@@ -392,7 +380,7 @@ public class MethodPanelCohenCoon extends JPanel {
 				try {
 					graficador.getImage();
 				} catch (IOException e) {
-
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -412,10 +400,10 @@ public class MethodPanelCohenCoon extends JPanel {
 		panel.validate();
 		
 		vTableControllers.setModel( getModelValuesControllers() );
+		
 		vTableControllers.getColumnModel().getColumn(0).setPreferredWidth(106);
 			
 		tableTL.setModel( getTableLT() );
-
 	}
 	
 	
@@ -437,9 +425,7 @@ public class MethodPanelCohenCoon extends JPanel {
 	
 	private JTable getConstantTable(){
 		JTable constantesMetodo;
-		double [][] constantesM = {{1.435,-0.921,0.878,-0.749,0.482,1.137},
-				{1.357,-0.947,0.842,-0.738,0.381,0.995},
-				{1.495,-0.945,1.101,-0.771,0.560,1.006}};
+		
 		constantesMetodo = new JTable();
 		constantesMetodo.setModel(new DefaultTableModel(
 			new Object[][] { 
@@ -485,45 +471,49 @@ public class MethodPanelCohenCoon extends JPanel {
 	private DefaultTableModel getModelValuesControllers(){
 
 		return new DefaultTableModel( new Object[][] {
-						{"P", null, null, null},
-						{"PI", null, null, null},
-						{"PID", null, null, null}},
-				new String[] {"Tipo controlador", "Kp", "Ti", "Td"}){
-	
-				private static final long serialVersionUID = 1L;
-				
-				Class[] columnTypes = new Class[] {
-					String.class, String.class, String.class, String.class
-				};
-				public Class getColumnClass(int columnIndex) {
-					return columnTypes[columnIndex];
-				}
-				boolean[] columnEditables = new boolean[] {
-					false, false, false, false
-				};
-				public boolean isCellEditable(int row, int column) {
-					return columnEditables[column];
-				}
+				{"PID-IAE", null, null, null},
+				{"PID-ITAE", null, null, null},
+				{"PID-ISE", null, null, null}},
+			new String[] {"Tipo controlador", "Kp", "Ti", "Td"}){
+
+			private static final long serialVersionUID = 1L;
+			
+			Class[] columnTypes = new Class[] {
+				String.class, String.class, String.class, String.class
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+			boolean[] columnEditables = new boolean[] {
+				false, false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
 			
 		};
 
 	}
 	
 	//Devuelvo valores calculados
-	private DefaultTableModel setModelValuesControllers(double tau , double vL, double vT){
+	private DefaultTableModel setModelValuesControllers( double vL, double vT){
 		
-		double[][] result = new double[3][3];
-		result[0][0] = redondear((vT/vL) * (1 + (vL/(3*vT))));
-		result[1][0] = redondear((vT/vL) * (0.9 + (vL/(12*vT))));
-		result[1][1] = redondear((vL*(30*vT + 3*vL))/(9*vT + 20*vL));
-		result[2][0] = redondear((vT/vL) * (4/3 + (vL/(4*tau))));
-		result[2][1] = redondear(( vL*(32 + 6*vL/tau))/(13 + 8*vL/tau));
-		result[2][2] = redondear(( vL*( 4/ (11 + 2*vL/tau))));
+		double[][] result = new double[3][6];
+		result[0][0] = redondear( (constantesM[0][0]/Kc)*(Math.pow((vL/tau),constantesM[0][1])) );
+		result[0][1] = redondear( (tau/constantesM[0][2])*(Math.pow((vL/tau),-constantesM[0][3])) );
+		result[0][2] = redondear( (tau*constantesM[0][4])*(Math.pow((vL/tau),constantesM[0][5])) );
+		result[1][0] = redondear( (constantesM[1][0]/Kc)*(Math.pow((vL/tau),constantesM[1][1])) );
+		result[1][1] = redondear( (tau/constantesM[1][2])*(Math.pow((vL/tau),-constantesM[1][3])) );
+		result[1][2] = redondear( (tau*constantesM[1][4])*(Math.pow((vL/tau),constantesM[1][5])) );
+		result[2][0] = redondear( (constantesM[2][0]/Kc)*(Math.pow((vL/tau),constantesM[2][1])) );
+		result[2][1] = redondear( (tau/constantesM[2][2])*(Math.pow((vL/tau),-constantesM[2][3])) );
+		result[2][2] = redondear( (tau*constantesM[2][4])*(Math.pow((vL/tau),constantesM[2][5])) );
+		
 				
 		return new DefaultTableModel( new Object[][] {
-				{"P", result[0][0], null, null},
-				{"PI", result[1][0], result[1][1], null},
-				{"PID", result[2][0], result[2][1], result[2][2]}},
+				{"PID-IAE", result[0][0],result[0][1], result[0][2]},
+				{"PID-ITAE", result[1][0], result[1][1], result[1][2]},
+				{"PID-ISE", result[2][0], result[2][1], result[2][2]}},
 		new String[] {"Tipo controlador", "Kp", "Ti", "Td"}) {
 			
 			private static final long serialVersionUID = 1L;
@@ -544,12 +534,21 @@ public class MethodPanelCohenCoon extends JPanel {
 		
 	}
 	
-	private String headTitle = "Método de Cohen y Coon - Sistema de lazo abierto";
+	private String headTitle = "Método de Lopez - Sistema de lazo abierto";
 	
-	private String mensaje = "Cohen y Coon introdujeron un índice de auto regulación definido como μ = tm/τ"
-			+ " y plantearon nuevas ecuaciones de sintonización. Estas se basan en el mejor modelo de primer "
-			+ "orden más tiempo muerto que se pueda obtener para lazos de control que funcionan como regulador,"
-			+ "con el criterio de desempeño de decaimiento de ¼ con sobrepaso mínimo, y con mínima área bajo la "
-			+ "curva de respuesta, y un controlador PID-Ideal.";
+	double [][] constantesM = {{1.435,-0.921,0.878,-0.749,0.482,1.137},
+			{1.357,-0.947,0.842,-0.738,0.381,0.995},
+			{1.495,-0.945,1.101,-0.771,0.560,1.006}};
+	
+	private String mensaje = "El primer método basado en criterios integrales que presentó ecuaciones para el cálculo de los parámetros del controlador fue desarrollado por López y es conocido como el método de López. Definiendo una función de costo de la forma: Φ=F[ e(t),t] dt "
+			+ "Donde F es una función del error y del tiempo, se obtiene un valor que caracteriza la respuesta del sistema. Entre menor sea el valor de Φ, mejor será el desempeño del sistema de control, por ello, un desempeño óptimo se obtiene cuando Φ es mínimo."
+			+ "Como Φ es una función de los parámetros del controlador ( Kc, Ti, Td ), el valor mínimo de" 
+			+ "Φ se obtiene resolviendo las siguientes ecuaciones:"
+			+ "Los criterios de desempeño utilizados por López fueron:" 
+			+ "Integral del error absoluto (IAE),  Integral del error absoluto por el tiempo (ITAE) y"
+			+ "Integral del error cuadrático (ISE)."
+			+ "La optimización de los criterios de desempeño integrales de López está basada en el mejor modelo de primer orden más tiempo muerto que se pueda obtener, para lazos de control que funcionan como reguladores con un controlador PID-Ideal."
+			+ "Según el criterio de López los parámetros del PID se encuentran en base a la minimización de los índices de funcionamiento."
+			+ "Para esto se asume que la respuesta se aproxima por una función de transferencia de primer orden con retardo.";
 	
 }

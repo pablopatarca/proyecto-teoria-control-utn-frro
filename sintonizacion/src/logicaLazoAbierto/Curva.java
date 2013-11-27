@@ -125,4 +125,12 @@ public class Curva {
 		return k;
 	}
 	
+	public static void detenerTiempo () { 
+		try {
+			System.out.println("Entro al timer");
+			Thread.sleep(1);
+			System.out.println("Salio del timer");
+		} catch (InterruptedException e) {} 
+	}
+	
 }

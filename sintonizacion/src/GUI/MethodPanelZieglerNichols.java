@@ -13,6 +13,7 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
@@ -210,11 +211,11 @@ public class MethodPanelZieglerNichols extends JPanel {
 		colorC1 += 20;
 		colorC2 += 20;
 		//Set Label dimensions
-		lblGanancia.setBounds(220, 18, 100, 14);
-		lblRespuesta.setBounds(220, 37, 100, 16);
+		lblGanancia.setBounds(42, 18, 100, 14);
+		lblRespuesta.setBounds(42, 38, 150, 14);
+		lblCteDeTiempo.setBounds(220, 37, 100, 16);
+		lblRetardol.setBounds(220, 18, 100, 14);
 		lblRectaTangenteAl.setBounds(42, 57, 300, 16);
-		lblRetardol.setBounds(42, 18, 100, 14);
-		lblCteDeTiempo.setBounds(42, 38, 150, 14);
 		
 		//Add colors to panel
 		referencePanel.setLayout(null);
@@ -239,6 +240,10 @@ public class MethodPanelZieglerNichols extends JPanel {
 		lblModeloAsumidoDe.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblModeloAsumidoDe.setBounds(695, 243, 350, 19);
 		mainPanel.add(lblModeloAsumidoDe);
+		
+		JButton btnSave = new JButton("Guardar");
+		btnSave.setBounds(850, 112, 140, 33);
+		mainPanel.add(btnSave);
 		
 		/*Add assumed model
 		JLabel lblEcuacionImagen = new JLabel("");
@@ -363,6 +368,17 @@ public class MethodPanelZieglerNichols extends JPanel {
 		btnLimpiar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				limpiaGrafica(graphicPanel);
+			}
+		});
+		
+		//Save Graphics
+		btnSave.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					graficador.getImage();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		});
 	}
@@ -525,5 +541,4 @@ public class MethodPanelZieglerNichols extends JPanel {
 			+ "determinan dibujando una recta tangente en el punto de inflexión de la curva "
 			+ "y determinando las intersecciones de esta tangente con el eje del tiempo "
 			+ "y la línea Y(t) = K, es decir, la ganancia aplicada.";
-	
 }
