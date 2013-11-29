@@ -14,16 +14,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JScrollPane;
-
-import logicaLazoCerrado.Graficador;
-import logicaLazoCerrado.TablaRender;
-
 import javax.swing.JComboBox;
 
 import java.awt.Font;
 
 import javax.swing.ImageIcon;
 import javax.swing.border.EtchedBorder;
+
+import logicCloseLoop.Graficador;
+import logicCloseLoop.TablaRender;
 
 public class PanelOscilaciones extends JPanel {
 
@@ -78,7 +77,7 @@ public class PanelOscilaciones extends JPanel {
 				
 				JLabel rojo = new JLabel("New label");
 				rojo.setBounds(120, 26, 24, 7);
-				rojo.setIcon(new ImageIcon(MainView.class.getResource("/iconos/azul.png")));
+				rojo.setIcon(new ImageIcon(MainView.class.getResource("/icons/azul.png")));
 				
 				JLabel lblRespuesta = new JLabel("Respuesta");
 				lblRespuesta.setBounds(152, 18, 51, 23);
@@ -87,7 +86,7 @@ public class PanelOscilaciones extends JPanel {
 				panel.add(lblRespuesta);
 				
 				JLabel label = new JLabel("");
-				label.setIcon(new ImageIcon(MainView.class.getResource("/iconos/rojo.png")));
+				label.setIcon(new ImageIcon(MainView.class.getResource("/icons/rojo.png")));
 				label.setBounds(10, 26, 24, 7);
 				panel.add(label);
 				
@@ -96,7 +95,7 @@ public class PanelOscilaciones extends JPanel {
 				panel.add(lblEntrada);
 				
 				JLabel label_1 = new JLabel("");
-				label_1.setIcon(new ImageIcon(MainView.class.getResource("/iconos/verde.png")));
+				label_1.setIcon(new ImageIcon(MainView.class.getResource("/icons/verde.png")));
 				label_1.setBounds(238, 26, 24, 7);
 				panel.add(label_1);
 				
@@ -195,9 +194,9 @@ public class PanelOscilaciones extends JPanel {
 									valoresKP.getColumnModel().getColumn(0).setPreferredWidth(51);
 									valoresKP.getColumnModel().getColumn(1).setPreferredWidth(51);
 								break;
-						case 1: ftLabel.setIcon(new ImageIcon(MainView.class.getResource("/iconos/ft1.png"))); break;
-						case 2: ftLabel.setIcon(new ImageIcon(MainView.class.getResource("/iconos/ft2.png"))); break;
-						case 3: ftLabel.setIcon(new ImageIcon(MainView.class.getResource("/iconos/ft3.png"))); break;
+						case 1: ftLabel.setIcon(new ImageIcon(MainView.class.getResource("/icons/ft1.png"))); break;
+						case 2: ftLabel.setIcon(new ImageIcon(MainView.class.getResource("/icons/ft2.png"))); break;
+						case 3: ftLabel.setIcon(new ImageIcon(MainView.class.getResource("/icons/ft3.png"))); break;
 						}
 					}
 				});

@@ -22,8 +22,8 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import logicaLazoAbierto.Curva;
-import logicaLazoAbierto.Graficador;
+import logicOpenLoop.Curva;
+import logicOpenLoop.Graficador;
 
 public class MethodPanelKayaSheib extends JPanel {
 	
@@ -193,15 +193,15 @@ public class MethodPanelKayaSheib extends JPanel {
 		
 		//Create label color
 		JLabel blanco = new JLabel("Ganancia");
-		blanco.setIcon(new ImageIcon(MainView.class.getResource("/iconos/blanco.png")));
+		blanco.setIcon(new ImageIcon(MainView.class.getResource("/icons/blanco.png")));
 		JLabel rojo = new JLabel("Red");
-		rojo.setIcon(new ImageIcon(MainView.class.getResource("/iconos/rojo.png")));
+		rojo.setIcon(new ImageIcon(MainView.class.getResource("/icons/rojo.png")));
 		JLabel azul = new JLabel("Blue");
-		azul.setIcon(new ImageIcon(MainView.class.getResource("/iconos/azul.png")));
+		azul.setIcon(new ImageIcon(MainView.class.getResource("/icons/azul.png")));
 		JLabel amarillo = new JLabel("Yelow");
-		amarillo.setIcon(new ImageIcon(MainView.class.getResource("/iconos/amarillo.png")));
+		amarillo.setIcon(new ImageIcon(MainView.class.getResource("/icons/amarillo.png")));
 		JLabel green = new JLabel("Green");
-		green.setIcon(new ImageIcon(MainView.class.getResource("/iconos/verde.png")));
+		green.setIcon(new ImageIcon(MainView.class.getResource("/icons/verde.png")));
 	
 		int widthColor = 15;
 		int heightColor = 10;
@@ -252,7 +252,7 @@ public class MethodPanelKayaSheib extends JPanel {
 		/*Add assumed model
 		JLabel lblEcuacionImagen = new JLabel("");
 		lblModeloAsumidoDe.setLabelFor(lblEcuacionImagen);
-		ImageIcon img = new ImageIcon(Ventana.class.getResource("/iconos/ecuacion.png"));
+		ImageIcon img = new ImageIcon(Ventana.class.getResource("/icons/ecuacion.png"));
 		
 		lblEcuacionImagen.setIcon(img);
 		lblEcuacionImagen.setBounds(695, 443, 200, 200);
@@ -284,7 +284,7 @@ public class MethodPanelKayaSheib extends JPanel {
 		btnAssumedModel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				ModalEquationView dialog = new ModalEquationView(ventana, "/iconos/equationFirstOrder.png");
+				ModalEquationView dialog = new ModalEquationView(ventana, "/icons/equationFirstOrder.png");
 				dialog.setVisible(true);
 				dialog.setLocationRelativeTo(ventana);
 			}
@@ -294,7 +294,7 @@ public class MethodPanelKayaSheib extends JPanel {
 		btnEquations.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				ModalEquationView dialog = new ModalEquationView(ventana, "/iconos/equationLopez.png");
+				ModalEquationView dialog = new ModalEquationView(ventana, "/icons/equationLopez.png");
 				dialog.setVisible(true);
 				dialog.setLocationRelativeTo(ventana);
 				dialog.setBounds(100, 100, 500, 200);

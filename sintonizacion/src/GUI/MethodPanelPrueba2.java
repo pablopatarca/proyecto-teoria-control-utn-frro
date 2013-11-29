@@ -15,16 +15,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JScrollPane;
-
-import logicaLazoAbierto.CurvaPrueba1;
-import logicaLazoAbierto.GraficadorPrueba;
-
 import javax.swing.JComboBox;
 
 import java.awt.Font;
 
 import javax.swing.ImageIcon;
 import javax.swing.border.EtchedBorder;
+
+import logicOpenLoop.CurvaPrueba1;
+import logicOpenLoop.GraficadorPrueba;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -74,7 +73,7 @@ public class MethodPanelPrueba2 extends JPanel {
 				
 				JLabel rojo = new JLabel("New label");
 				rojo.setBounds(120, 26, 24, 7);
-				rojo.setIcon(new ImageIcon(MainView.class.getResource("/iconos/azul.png")));
+				rojo.setIcon(new ImageIcon(MainView.class.getResource("/icons/azul.png")));
 				
 				JLabel lblRespuesta = new JLabel("Respuesta");
 				lblRespuesta.setBounds(152, 18, 51, 23);
@@ -83,7 +82,7 @@ public class MethodPanelPrueba2 extends JPanel {
 				panel.add(lblRespuesta);
 				
 				JLabel label = new JLabel("");
-				label.setIcon(new ImageIcon(MainView.class.getResource("/iconos/rojo.png")));
+				label.setIcon(new ImageIcon(MainView.class.getResource("/icons/rojo.png")));
 				label.setBounds(10, 26, 24, 7);
 				panel.add(label);
 				
@@ -92,7 +91,7 @@ public class MethodPanelPrueba2 extends JPanel {
 				panel.add(lblEntrada);
 				
 				JLabel label_1 = new JLabel("");
-				label_1.setIcon(new ImageIcon(MainView.class.getResource("/iconos/verde.png")));
+				label_1.setIcon(new ImageIcon(MainView.class.getResource("/icons/verde.png")));
 				label_1.setBounds(238, 26, 24, 7);
 				panel.add(label_1);
 				

@@ -32,7 +32,7 @@ public class ModalMethodDescription extends JDialog {
 		super(frame,true);
 		
 		setTitle("Descripci\u00F3n del m\u00E9todo");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(ModalMethodDescription.class.getResource("/iconos/imagen de respuessta transitoria.jpg")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ModalMethodDescription.class.getResource("/icons/imagen de respuessta transitoria.jpg")));
 		setResizable(false);
 		setBounds(100, 100, 429, 384);
 		getContentPane().setLayout(new BorderLayout());

@@ -72,7 +72,7 @@ public class MainView extends JFrame {
 		//this.setResizable(false);
 		
 		setTitle("Sintonizaci\u00F3n de controladores");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(MainView.class.getResource("/iconos/imagen de respuessta transitoria.jpg")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MainView.class.getResource("/icons/imagen de respuessta transitoria.jpg")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//setBounds(100, 100, 1010, 637);//M\u00E9todos de Ziegler y Nichols
 		
@@ -139,7 +139,7 @@ public class MainView extends JFrame {
 		});
 		
 		/* Kaya and Sheib Method */
-		JMenu kayaSheib = new JMenu("Kasha-Sheib");
+		JMenu kayaSheib = new JMenu("Kaya-Sheib");
 		kayaSheib.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e){

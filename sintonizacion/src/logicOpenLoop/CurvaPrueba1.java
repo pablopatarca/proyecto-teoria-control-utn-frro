@@ -1,4 +1,4 @@
-package logicaLazoAbierto;
+package logicOpenLoop;
 
 import java.awt.BasicStroke;
 import java.awt.Color;

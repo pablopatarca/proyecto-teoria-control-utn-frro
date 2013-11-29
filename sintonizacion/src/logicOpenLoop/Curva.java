@@ -1,4 +1,4 @@
-package logicaLazoAbierto;
+package logicOpenLoop;
 
 import org.jfree.data.xy.XYSeries;
 

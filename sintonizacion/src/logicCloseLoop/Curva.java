@@ -1,4 +1,4 @@
-package logicaLazoCerrado;
+package logicCloseLoop;
 
 import org.jfree.chart.plot.ValueMarker;
 import org.jfree.chart.title.TextTitle;

@@ -1,4 +1,4 @@
-package logicaLazoAbierto;
+package logicOpenLoop;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;

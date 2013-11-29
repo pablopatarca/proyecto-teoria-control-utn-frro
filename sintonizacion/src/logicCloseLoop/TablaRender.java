@@ -1,4 +1,4 @@
-package logicaLazoCerrado;
+package logicCloseLoop;
 
 
 import java.awt.Component;
