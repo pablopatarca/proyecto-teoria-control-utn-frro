@@ -323,24 +323,27 @@ public class MethodPanelCohenCoon extends JPanel {
 				
 				TableModel modelo = inputTable.getModel();
 				
+				System.out.println("a value:"+modelo.getValueAt(0, 0));
+				System.out.println("b value:"+modelo.getValueAt(0, 1));
+				
 				//Empty Validate
 				if(modelo.getValueAt(0, 1) != null && modelo.getValueAt(0, 0) != null){
 				
-					Pattern pat = Pattern.compile("[a-zA-Z]");
+					Pattern pat = Pattern.compile("^\\d+|^\\d+\\.?\\d+");
 				     Matcher mat1 = pat.matcher((String) modelo.getValueAt(0, 0));
 				     Matcher mat2 = pat.matcher((String) modelo.getValueAt(0, 1));
 				     
 				     //Number Validate
-				     if (!mat1.matches() && !mat2.matches()) {
+				     if (mat1.matches() && mat2.matches()) {
 				         System.out.println("Are Numbers");
 				         
-				        double k = Double.parseDouble((String) modelo.getValueAt(0,0));
-						double tau = Double.parseDouble((String) modelo.getValueAt(0,1));
+				        double k = Double.parseDouble((String) "0"+modelo.getValueAt(0,0));
+						double tau = Double.parseDouble((String) "0"+modelo.getValueAt(0,1));
 					
 					//Validate
-					if(k >= 0.0 && tau >= 0.0) {
+					if(k > 0.0 && tau > 0.0) {
 					
-					graficador.insertarCurva(k, tau, 2);
+					graficador.insertarCurva(k, tau);
 					/**
 					 * DIBUJO EL GRAFICO
 					 */
@@ -365,10 +368,11 @@ public class MethodPanelCohenCoon extends JPanel {
 				JOptionPane.showMessageDialog(null, "Las constantes deben ser valores mayores que cero", 
 						"Error", JOptionPane.ERROR_MESSAGE, null);
 				}
-			     } else {
-			    	 JOptionPane.showMessageDialog(null, "Debe ingresar valores numéricos", 
-								"Error", JOptionPane.ERROR_MESSAGE, null);
-			     }
+			
+				}else{
+					JOptionPane.showMessageDialog(null, "Debe ingresar valores numéricos", 
+							"Error", JOptionPane.ERROR_MESSAGE, null);
+				}
 			}
 			else {
 				JOptionPane.showMessageDialog(null, "Debe ingresar constantes de tiempo y ganancia", 
@@ -543,6 +547,7 @@ public class MethodPanelCohenCoon extends JPanel {
 		};
 		
 	}
+
 	
 	private String headTitle = "Método de Cohen y Coon - Sistema de lazo abierto";
 	

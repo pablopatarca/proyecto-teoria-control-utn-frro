@@ -233,8 +233,7 @@ public class PanelOscilaciones extends JPanel {
 					}
 				});
 	}
-	public JPanel getContentPane() {
-		// TODO Auto-generated method stub
+	public JPanel getMainPanel() {
 		return contentPane;
 	}
 

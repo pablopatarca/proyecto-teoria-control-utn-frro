@@ -274,7 +274,7 @@ public class PanelCurvaReaccion extends JPanel {
 					if(modelo.getValueAt(0, 1) != null && modelo.getValueAt(0, 0) != null && (double)modelo.getValueAt(0, 1) >= 0.0 && (double)modelo.getValueAt(0, 0) >= 0.0) {
 						double k = (double)modelo.getValueAt(0, 0);
 						double tau = (double)modelo.getValueAt(0, 1);
-							graficador.insertarCurva(k, tau, 1);
+							//graficador.insertarCurva(k, tau, 1);
 							/**
 							 * DIBUJO EL GRAFICO
 							 */

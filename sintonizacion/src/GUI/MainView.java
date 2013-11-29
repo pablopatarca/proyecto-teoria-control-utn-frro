@@ -87,7 +87,6 @@ public class MainView extends JFrame {
 		
 		
 		/* Menú Principal */
-		
 		JMenu menuPrincipal = new JMenu("Inicio");
 		menuPrincipal.addMouseListener(new MouseAdapter() {
 			@Override
@@ -98,9 +97,8 @@ public class MainView extends JFrame {
 			}
 		});
 		
-		/*  Ziegler and Nichols Method */
-		
-		JMenu curvaR = new JMenu("Ziengler-Nichols");
+		/* Curva reacción - Ziegler and Nichols */
+		JMenu curvaR = new JMenu("Curva Reacción Z-N");
 		curvaR.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -115,7 +113,6 @@ public class MainView extends JFrame {
 		});
 		
 		/* Cohen y Coon - Lazo abierto */
-		
 		JMenu cohenCoon = new JMenu("Cohen - Coon");
 		cohenCoon.addMouseListener(new MouseAdapter() {
 			@Override
@@ -129,7 +126,6 @@ public class MainView extends JFrame {
 		});
 		
 		/* Lopez - Lazo abierto */
-		
 		JMenu lopez = new JMenu("Lopez");
 		lopez.addMouseListener(new MouseAdapter() {
 			@Override
@@ -143,7 +139,6 @@ public class MainView extends JFrame {
 		});
 		
 		/* Kaya and Sheib Method */
-		
 		JMenu kayaSheib = new JMenu("Kasha-Sheib");
 		kayaSheib.addMouseListener(new MouseAdapter() {
 			@Override
@@ -154,33 +149,44 @@ public class MainView extends JFrame {
 				contentPane.updateUI();
 				setLocationRelativeTo(null);
 			}
-		}
-				);
+		});
 		
 		
-		/* Oscilaciones Sostenidas */
-		
-		JMenu oscilaciones = new JMenu("Ziegler-Nichols");
+		/* Oscilaciones Sostenidas - Ziegler-Nichols*/
+		JMenu oscilaciones = new JMenu("Oscilaciones Sostenidas Z-N");
 		oscilaciones.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				contentPane.removeAll();
 				PanelClosedZieglerNichols panel = new PanelClosedZieglerNichols(frame);
-				contentPane.add(panel.getContentPane(), BorderLayout.CENTER);
+				contentPane.add(panel.getMainPanel(), BorderLayout.CENTER);
 				contentPane.updateUI();
 				setLocationRelativeTo(null);
 			}
 		});
 		
+		//Results Compare
 		JMenu compare = new JMenu("Comparación");
 		compare.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseClicked(MouseEvent e){
 				contentPane.removeAll();
-				MethodPanelPrueba panel = new MethodPanelPrueba(frame);
+				PanelCompare panel = new PanelCompare(frame);
 				contentPane.add(panel.getMainPanel(), BorderLayout.CENTER);
 				//PanelCompare panel = new PanelCompare(frame);
 				//contentPane.add(panel.getMainPane(), BorderLayout.CENTER);
+				contentPane.updateUI();
+			}
+		});
+		
+		//Animate Test
+		JMenu test = new JMenu("Animate Graphics Test");
+		test.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent e){
+				contentPane.removeAll();
+				MethodPanelPrueba panel = new MethodPanelPrueba(frame);
+				contentPane.add(panel.getMainPanel(), BorderLayout.CENTER);
 				contentPane.updateUI();
 			}
 		});
@@ -212,6 +218,8 @@ public class MainView extends JFrame {
 		//Lazo cerrado
 		menuBar.add(oscilaciones);	//Ziegler-Nichols
 		menuBar.add(compare);
+		
+		menuBar.add(test);
 
 		menuBar.add(mnSalir);
 	}

@@ -42,7 +42,7 @@ public class PanelCompare extends JPanel {
 		add(panelL);
 
 	}
-	public JPanel getMainPane() {
+	public JPanel getMainPanel() {
 		return this;
 	}
 }

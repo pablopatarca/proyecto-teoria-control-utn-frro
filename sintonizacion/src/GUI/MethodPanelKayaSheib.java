@@ -14,6 +14,8 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
@@ -325,14 +327,27 @@ public class MethodPanelKayaSheib extends JPanel {
 				
 				TableModel modelo = inputTable.getModel();
 				
-				if(modelo.getValueAt(0, 1) != null && modelo.getValueAt(0, 0) != null){
-					
-					kc =  Double.parseDouble((String) modelo.getValueAt(0,0));
-					tau = Double.parseDouble((String) modelo.getValueAt(0,1));
+				System.out.println("a value:"+modelo.getValueAt(0, 0));
+				System.out.println("b value:"+modelo.getValueAt(0, 1));
 				
-					if(kc >= 0.0 && tau >= 0.0) {
+				//Empty Validate
+				if(modelo.getValueAt(0, 1) != null && modelo.getValueAt(0, 0) != null){
+				
+					Pattern pat = Pattern.compile("^\\d+|^\\d+\\.?\\d+");
+				     Matcher mat1 = pat.matcher((String) modelo.getValueAt(0, 0));
+				     Matcher mat2 = pat.matcher((String) modelo.getValueAt(0, 1));
+				     
+				     //Number Validate
+				     if (mat1.matches() && mat2.matches()) {
+				         System.out.println("Are Numbers");
+				         
+				        double k = Double.parseDouble((String) "0"+modelo.getValueAt(0,0));
+						double tau = Double.parseDouble((String) "0"+modelo.getValueAt(0,1));
 					
-					graficador.insertarCurva(kc, tau, 2);
+					//Validate
+					if(k > 0.0 && tau > 0.0) {
+					
+					graficador.insertarCurva(k, tau);
 					/**
 					 * DIBUJO EL GRAFICO
 					 */
@@ -347,8 +362,6 @@ public class MethodPanelKayaSheib extends JPanel {
 						double vL = curvaActual.getL();
 						
 						vTableControllers.setModel(setModelValuesControllers(vL, vT));
-						//vTableControllers.getModel().getColumnClass(0).getModifiers()
-						
 						vTableControllers.getColumnModel().getColumn(0).setPreferredWidth(106);
 						
 						tableTL.setModel(setTableLT(curvaActual.getL(), curvaActual.getT()));
@@ -358,6 +371,11 @@ public class MethodPanelKayaSheib extends JPanel {
 				else {
 				JOptionPane.showMessageDialog(null, "Las constantes deben ser valores mayores que cero", 
 						"Error", JOptionPane.ERROR_MESSAGE, null);
+				}
+			
+				}else{
+					JOptionPane.showMessageDialog(null, "Debe ingresar valores numéricos", 
+							"Error", JOptionPane.ERROR_MESSAGE, null);
 				}
 			}
 			else {

@@ -233,7 +233,7 @@ public class PanelClosedZieglerNichols extends JPanel {
 					}
 				});
 	}
-	public JPanel getContentPane() {
+	public JPanel getMainPanel() {
 		// TODO Auto-generated method stub
 		return contentPane;
 	}

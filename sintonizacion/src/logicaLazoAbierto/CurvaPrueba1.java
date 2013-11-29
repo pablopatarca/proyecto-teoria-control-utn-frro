@@ -8,22 +8,21 @@ import org.jfree.chart.title.TextTitle;
 import org.jfree.data.xy.XYSeries;
 
 public class CurvaPrueba1 {
-	
-protected XYSeries dibujoCurva, dibujoPeriodo;
-	
-	public XYSeries getDibujoPeriodo() {
-		return dibujoPeriodo;
-	}
 
-	protected double KCritico, PCritico, puntoXInicio, puntoXFin, puntoYInicio, puntoYFin;
-	
 
+	private double KCritico, PCritico, puntoXInicio, puntoXFin, puntoYInicio, puntoYFin;
+	private TextTitle comentario;
 	
-	private XYSeries dibujoDerivada, dibujoK, dibujoLY, dibujoTY, dibujoLX, dibujoTX;
+	
+	private XYSeries entrada;
+	private XYSeries dibujoCurva, rectaTangente, dibujoK, tiempoMuerto, retardo;
+	
+	private XYSeries dibujoPeriodo, dibujoLY, dibujoTY, dibujoLX, dibujoTX;
+	private ValueMarker[] marcadoresCurva,marcadoresInd;
 	private double k, tau, tiempoFin, L, T;
 
 	public CurvaPrueba1(double k, double tau) {
-		
+
 		KCritico = 20.0;
 		PCritico = 1.895;
 		//puntoXInicio = 26.53;
@@ -32,40 +31,42 @@ protected XYSeries dibujoCurva, dibujoPeriodo;
 		puntoXFin = puntoXInicio + tau;
 		puntoYInicio = 0.0;
 		puntoYFin = k+k*.3;
-		//comentario.setText("    K = 1                                                          K = 4                                             K crítica = 10");
-		marcadores = new ValueMarker[2];
-		marcadores[0] = new ValueMarker(3.0);
-		marcadores[1] = new ValueMarker(10.0);
-		for(ValueMarker marcador : marcadores) {
-			marcador.setStroke(new BasicStroke(1.0f));
-			marcador.setPaint(Color.BLACK);
-		}
+		//Set Markers		
 		
-		//dibujoCurva = new XYSeries(0);
-		dibujoPeriodo = new XYSeries(1);
-		comentario = new TextTitle();
+		dibujoCurva = new XYSeries(0);
+		rectaTangente = new XYSeries(1);
+		dibujoK = new XYSeries(2);
+		tiempoMuerto = new XYSeries(3);
+		retardo = new XYSeries(4);
 		
 		
 		//Metodo lazo abierto
-		dibujoCurva = new XYSeries(2);
-		dibujoDerivada = new XYSeries(3);
-		dibujoK = new XYSeries(4);
-		dibujoLY = new XYSeries(5);
-		dibujoTY = new XYSeries(6);
-		dibujoLX = new XYSeries(7);
-		dibujoTX = new XYSeries(8);
+		//dibujoCurva = new XYSeries(2);
+		//dibujoPeriodo = new XYSeries(3);
+		
+		//dibujoLY = new XYSeries(5);
+		//dibujoTY = new XYSeries(6);
+		//dibujoLX = new XYSeries(7);
+		//dibujoTX = new XYSeries(8);
 		this.k = k;
 		this.tau = tau;
 		tiempoFin = this.getTiempoAsentamiento() + 2;
+		
+		
+		this.setMarkers(k, tau);
 
 		
 	}
 	
-	public void graphI(){
-		/*this.dibujarCurva();*/
+	/*public void graphI(){
+		this.dibujarCurva();
 		this.dibujarDerivada();
 		this.dibujarRetardo();
 		this.dibujarCteTiempo();
+	}*/
+	
+	public XYSeries getDibujoPeriodo() {
+		return dibujoPeriodo;
 	}
 	
 	public double getPuntoYInicio() {
@@ -83,20 +84,14 @@ protected XYSeries dibujoCurva, dibujoPeriodo;
 	public double getPuntoXFin() {
 		return puntoXFin;
 	}
-	
-	protected ValueMarker[] marcadores;
 
-	public ValueMarker[] getMarcadores() {
-		return marcadores;
+	//return plot markers
+	public ValueMarker[] getMarcadoresCurva() {
+		return marcadoresCurva;
 	}
-
-	protected TextTitle comentario;
-	private XYSeries entrada;
-	
-	public void generarEntrada(double t) {
-		entrada = new XYSeries("Entrada");
-		for(double x = 0.0; x <=t; x += 0.01)
-			entrada.add(x, 1);
+	//return plot markers
+	public ValueMarker[] getMarcadoresInd() {
+		return marcadoresInd;
 	}
 	
 	public XYSeries getEntrada() {
@@ -107,10 +102,6 @@ protected XYSeries dibujoCurva, dibujoPeriodo;
 		return comentario;
 	}
 	
-	public XYSeries getDibujoCurva() {
-		return dibujoCurva;
-	}
-	
 	public double getKCritico() {
 		return KCritico;
 	}
@@ -119,26 +110,15 @@ protected XYSeries dibujoCurva, dibujoPeriodo;
 		return PCritico;
 	}
 	
-	//********* DIBUJA GRAFICA ******************+	
-	public void dibujarCurva(double t) {
-		/*
-		if(t <= 10.0) {
-			dibujoCurva.add(t, funcionCurva1(t));
-		}
-		else if(t <= 20.0){
-			dibujoCurva.add(t, funcionCurva2(t-10.0));
-		}
-		else {
-			dibujoCurva.add(t, funcionCurva3(t-20.0));
-		}*/
-		dibujoCurva.add(t, funcionCurva(t));
-		
-	}
+/*************************  Equations *************************************/
+	
 	
 	//Primer orden mas tiempo muerto
-		private double funcionCurva(double t) {
-				return k*(1 - ((1+(t/tau))*Math.pow(Math.E, -1*t/tau)));
+		public double funcionCurva(double t) {
+				
+			return k*(1 - ((1+(t/tau))*Math.pow(Math.E, -1*t/tau)));
 		}
+		
 	//Polo doble mas tiempo muerto
 	private double funcionDerivadaPrimera(double puntoInflexionY) {
 			return (k*puntoInflexionY*Math.pow(Math.E, -1*puntoInflexionY/tau))/(Math.pow(tau, 2));
@@ -165,7 +145,116 @@ protected XYSeries dibujoCurva, dibujoPeriodo;
 		return 1;
 	}
 	
-	/******************************************************************/
+/******************************************************************/
+	
+	/********* DIBUJA GRAFICA ******************/
+	
+	public XYSeries getDibujoCurva() {
+		return dibujoCurva;
+	}
+	
+	public XYSeries getDibujoTangente() {
+		return rectaTangente;
+	}
+	
+	public void dibujarCurva(double t) {
+		/*
+		if(t <= 10.0) {
+			dibujoCurva.add(t, funcionCurva1(t));
+		}
+		else if(t <= 20.0){
+			dibujoCurva.add(t, funcionCurva2(t-10.0));
+		}
+		else {
+			dibujoCurva.add(t, funcionCurva3(t-20.0));
+		}*/
+		
+		dibujoCurva.add(t, funcionCurva(t));
+		
+	}
+	
+	public void dibujarTangente(double t) {
+		
+		double m = funcionDerivadaPrimera(tau);
+		double h = funcionCurva(tau) - (tau*m);
+		
+		T = (k-h)/m;
+		L = (-1*h)/m;
+		
+		double esCeroEn = tau*(3-Math.E);
+			rectaTangente.add(t, (m*t)+h);
+		//}
+	}
+	
+	public void dibujarK(double t) {
+				
+		dibujoK.add(t, k);
+		
+	}
+	
+	public XYSeries getDibujoK() {
+		return dibujoK;
+	}
+	
+	public void dibujaLT(double t) {
+		
+		if(t < L){
+			tiempoMuerto.add(t, 0);
+		}
+		else if(t > L && t < T){
+			retardo.add(t, 0);
+		}
+	}
+	
+	public XYSeries getTiempoMuerto(){
+		return tiempoMuerto;
+	}
+	public XYSeries getRetardo(){
+		return retardo;
+	}
+	
+	
+	
+	public void setMarkers(double k, double tau){
+		
+		marcadoresCurva = new ValueMarker[2];
+		
+		double m = funcionDerivadaPrimera(tau);
+		double h = funcionCurva(tau) - (tau*m);
+		
+		T = (k-h)/m;
+		L = (-1*h)/m;
+		
+		double esCeroEn = tau*(3-Math.E);
+		
+		System.out.println(esCeroEn);
+		System.out.println(T-L);
+		
+		marcadoresCurva[0] = new ValueMarker(esCeroEn);
+		marcadoresCurva[1] = new ValueMarker(T);
+		
+		for(ValueMarker marcador : marcadoresCurva) {
+			marcador.setStroke(new BasicStroke(1.0f));
+			marcador.setPaint(Color.BLACK);
+		}
+		
+	}
+	
+	
+	
+
+	
+/**************************************************************/
+	
+	
+	
+	
+	
+	public void generarEntrada(double t) {
+		entrada = new XYSeries("Entrada");
+		for(double x = 0.0; x <=t; x += 0.01)
+			entrada.add(x, 1);
+	}
 	
 	private void dibujarCteTiempo() {
 		for(double x = 0.0; x <= k; x += 0.001)
@@ -188,25 +277,12 @@ protected XYSeries dibujoCurva, dibujoPeriodo;
 		L = (-1*h)/m;
 		double esCeroEn = tau*(3-Math.E);
 		for(double t = esCeroEn; ((m*t)+h) <= (k+(k*0.15)); t += 0.01) {
-			dibujoDerivada.add(t, (m*t)+h);
-		}
-	}
-
-	private void dibujarCurva() {
-		for(double t = 0.00; t <= tiempoFin; t += 0.01) {
-			dibujoCurva.add(t, funcionCurva(t));
-		}
-		for(double t = 0.00; t <= tiempoFin; t += 0.01) {
-			dibujoK.add(t, k);
+			rectaTangente.add(t, (m*t)+h);
 		}
 	}
 	
-	public XYSeries getDibujoDerivada() {
-		return dibujoDerivada;
-	}
-	
-	public XYSeries getDibujoK() {
-		return dibujoK;
+	public XYSeries getTangente() {
+		return rectaTangente;
 	}
 	
 	public double getT() {

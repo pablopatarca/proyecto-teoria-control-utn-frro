@@ -61,7 +61,7 @@ public class Curva {
 	}
 	//Primer orden mas tiempo muerto
 	private double funcionCurva(double t) {
-			return k*(1 - ((1+(t/tau))*Math.pow(Math.E, -1*t/tau)));
+			return k*(1 - (  (1+(t/tau) ) * Math.pow(Math.E, -1*t/tau)));
 	}
 	//Polo doble mas tiempo muerto
 	private double funcionDerivadaPrimera(double puntoInflexionY) {

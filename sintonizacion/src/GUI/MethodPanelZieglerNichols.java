@@ -14,6 +14,8 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
@@ -21,16 +23,19 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import logicaLazoAbierto.Curva;
+import logicaLazoAbierto.CurvaPrueba1;
 import logicaLazoAbierto.Graficador;
+import logicaLazoAbierto.GraficadorPrueba;
 
 public class MethodPanelZieglerNichols extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel mainPanel; //Panel principal
-	private Graficador graficador; 
+	private GraficadorPrueba graficador; 
 	private JTable inputTable;
 	private JTable vTableControllers;
 	private JTable tableTL;
+	boolean band=true;
 	
 	
 	/**
@@ -44,7 +49,7 @@ public class MethodPanelZieglerNichols extends JPanel {
 		int marginRight2 = 645;
 		
 		
-		graficador = new Graficador();
+		graficador = new GraficadorPrueba();
 		
 /**********************  Define Panels  ***************************************/
 		
@@ -147,6 +152,12 @@ public class MethodPanelZieglerNichols extends JPanel {
 		btnLimpiar.setBounds(850, marginTop+40, 140, 33);
 		mainPanel.setLayout(null);
 		
+		JButton btnSave = new JButton("Guardar");
+		btnSave.setBounds(850, marginTop+80, 140, 33);
+		
+		JButton btnStop = new JButton("Parar");
+		btnStop.setBounds(850, marginTop+120, 140, 33);
+		
 		JButton btnAssumedModel = new JButton("Modelo asumido");
 		btnAssumedModel.setBounds(10, 22, 190, 25);
 		btnAssumedModel.setSize(140, 35);
@@ -167,6 +178,8 @@ public class MethodPanelZieglerNichols extends JPanel {
 		//Add Buttons to panels		
 		mainPanel.add(btnLimpiar);
 		mainPanel.add(btnDibujar);
+		mainPanel.add(btnSave);
+		mainPanel.add(btnStop);
 		aditionalInfo.setLayout(null);
 		aditionalInfo.add(btnAssumedModel);
 		aditionalInfo.add(btnEquations);
@@ -241,9 +254,7 @@ public class MethodPanelZieglerNichols extends JPanel {
 		lblModeloAsumidoDe.setBounds(695, 243, 350, 19);
 		mainPanel.add(lblModeloAsumidoDe);
 		
-		JButton btnSave = new JButton("Guardar");
-		btnSave.setBounds(850, 112, 140, 33);
-		mainPanel.add(btnSave);
+		
 		
 		/*Add assumed model
 		JLabel lblEcuacionImagen = new JLabel("");
@@ -308,7 +319,7 @@ public class MethodPanelZieglerNichols extends JPanel {
 		
 
 		/**
-		 * Insertar grafica
+		 * Insert Graphic
 		 */
 		btnDibujar.addActionListener(new ActionListener() {
 			
@@ -321,31 +332,65 @@ public class MethodPanelZieglerNichols extends JPanel {
 				
 				TableModel modelo = inputTable.getModel();
 				
-				if(modelo.getValueAt(0, 1) != null && modelo.getValueAt(0, 0) != null){
-					
-					double k =  Double.parseDouble((String) modelo.getValueAt(0,0));
-					double taw = Double.parseDouble((String) modelo.getValueAt(0,1));
+				System.out.println("a value:"+modelo.getValueAt(0, 0));
+				System.out.println("b value:"+modelo.getValueAt(0, 1));
 				
-					if(k >= 0.0 && taw >= 0.0) {
+				//Empty Validate
+				if(modelo.getValueAt(0, 1) != null && modelo.getValueAt(0, 0) != null){
+				
+					Pattern pat = Pattern.compile("^\\d+|^\\d+\\.?\\d+");
+				     Matcher mat1 = pat.matcher((String) modelo.getValueAt(0, 0));
+				     Matcher mat2 = pat.matcher((String) modelo.getValueAt(0, 1));
+				     
+				     //Number Validate
+				     if (mat1.matches() && mat2.matches()) {
+				         System.out.println("Are Numbers");
+				         
+				        double k = Double.parseDouble((String) "0"+modelo.getValueAt(0,0));
+						double tau = Double.parseDouble((String) "0"+modelo.getValueAt(0,1));
 					
-					graficador.insertarCurva(k, taw, 2);
+					//Validate
+					if(k > 0.0 && tau > 0.0) {
+					
+					
+					/**
+					 * Draw Graphic
+					 */
+					
+					/*
+					graficador.insertarCurva(k, tau);
+					graphicPanel.removeAll();
+					graphicPanel.add(graficador.getDiagrama(),BorderLayout.CENTER);
+					graphicPanel.validate();
+					*/
+					
+					graficador.insertCurve(k , tau);
+					
+					
 					/**
 					 * DIBUJO EL GRAFICO
 					 */
+					
 					graphicPanel.removeAll();
 					graphicPanel.add(graficador.getDiagrama(),BorderLayout.CENTER);
 					graphicPanel.validate();
 					
+					//Inicia el ploteo
+	  				graficador.iniciarGraficoCurva();
+	  				
+	  				graficador.insertarDerivada();
+	  				
+/****************************************************************************************/
+					
 					if(graficador.getCurvaActual() != null) {
-						Curva curvaActual = graficador.getCurvaActual();
+						CurvaPrueba1 curvaActual = graficador.getCurvaActual();
 						
 						double vT = curvaActual.getT();
 						double vL = curvaActual.getL();
 						
 						vTableControllers.setModel(setModelValuesControllers(vL, vT));
-						//vTableControllers.getModel().getColumnClass(0).getModifiers()
-						
 						vTableControllers.getColumnModel().getColumn(0).setPreferredWidth(106);
+						
 						tableTL.setModel(setTableLT(curvaActual.getL(), curvaActual.getT()));
 						
 					}
@@ -353,6 +398,11 @@ public class MethodPanelZieglerNichols extends JPanel {
 				else {
 				JOptionPane.showMessageDialog(null, "Las constantes deben ser valores mayores que cero", 
 						"Error", JOptionPane.ERROR_MESSAGE, null);
+				}
+			
+				}else{
+					JOptionPane.showMessageDialog(null, "Debe ingresar valores numéricos", 
+							"Error", JOptionPane.ERROR_MESSAGE, null);
 				}
 			}
 			else {
@@ -371,6 +421,7 @@ public class MethodPanelZieglerNichols extends JPanel {
 			}
 		});
 		
+		
 		//Save Graphics
 		btnSave.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
@@ -381,13 +432,27 @@ public class MethodPanelZieglerNichols extends JPanel {
 				}
 			}
 		});
+		
+		btnStop.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				if(band==true){
+						graficador.stop();
+						band=false;
+					}else{
+						graficador.start();
+						band=true;
+					}
+			}
+		});
+		
+		
 	}
 	
 /**********  Application Methods ***************************************************/	
 	
 	private void limpiaGrafica(JPanel panel){
 		inputTable.setModel( getInputTableModel() );
-		graficador.limpiar();
+		graficador.clean();
 		/**
 		 * DIBUJO EL GRAFICO
 		 */
