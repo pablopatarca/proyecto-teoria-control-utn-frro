@@ -103,7 +103,7 @@ public class MainView extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				contentPane.removeAll();
-				MethodPanelZieglerNichols panel = new MethodPanelZieglerNichols(frame);
+				MethodPanelView panel = new MethodPanelView(frame, "zn");
 				//PanelCurvaReaccion panel = new PanelCurvaReaccion(frame);
 				//contentPane.add(panel.getContentPane(), BorderLayout.CENTER);
 				contentPane.add(panel.getMainPanel(), BorderLayout.CENTER);
@@ -118,7 +118,7 @@ public class MainView extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				contentPane.removeAll();
-				MethodPanelCohenCoon panel = new MethodPanelCohenCoon(frame);
+				MethodPanelView panel = new MethodPanelView(frame, "cc");
 				contentPane.add(panel.getMainPanel(), BorderLayout.CENTER);
 				contentPane.updateUI();
 				setLocationRelativeTo(null);
@@ -131,7 +131,7 @@ public class MainView extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				contentPane.removeAll();
-				MethodPanelLopez panel = new MethodPanelLopez(frame);
+				MethodPanelView panel = new MethodPanelView(frame, "lopez");
 				contentPane.add(panel.getMainPanel(), BorderLayout.CENTER);
 				contentPane.updateUI();
 				setLocationRelativeTo(null);
@@ -144,7 +144,7 @@ public class MainView extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e){
 				contentPane.removeAll();
-				MethodPanelKayaSheib panel = new MethodPanelKayaSheib(frame);
+				MethodPanelView panel = new MethodPanelView(frame, "ks");
 				contentPane.add(panel.getMainPanel(), BorderLayout.CENTER);
 				contentPane.updateUI();
 				setLocationRelativeTo(null);
