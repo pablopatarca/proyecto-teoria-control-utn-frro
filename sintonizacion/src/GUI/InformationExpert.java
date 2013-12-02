@@ -3,7 +3,7 @@ package GUI;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class DataTables {
+public class InformationExpert {
 	
 	DefaultTableModel globalModelLT, globalModelConstants;
 	
@@ -65,7 +65,7 @@ public class DataTables {
 	}
 	
 	//Returns model L y T 
-	public static DefaultTableModel getModelLT(){
+	public DefaultTableModel getModelLT(){
 		return new DefaultTableModel(
 				new Object[][] {{null, null}},
 				new String[] {"L", "T"}){

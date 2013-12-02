@@ -179,18 +179,6 @@ public class MainView extends JFrame {
 			}
 		});
 		
-		//Animate Test
-		JMenu test = new JMenu("Animate Graphics Test");
-		test.addMouseListener(new MouseAdapter(){
-			@Override
-			public void mouseClicked(MouseEvent e){
-				contentPane.removeAll();
-				MethodPanelPrueba panel = new MethodPanelPrueba(frame);
-				contentPane.add(panel.getMainPanel(), BorderLayout.CENTER);
-				contentPane.updateUI();
-			}
-		});
-		
 		
 		/* Salir */
 		
@@ -218,8 +206,7 @@ public class MainView extends JFrame {
 		//Lazo cerrado
 		menuBar.add(oscilaciones);	//Ziegler-Nichols
 		menuBar.add(compare);
-		
-		menuBar.add(test);
+
 
 		menuBar.add(mnSalir);
 	}

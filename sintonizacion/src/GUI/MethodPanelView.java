@@ -22,16 +22,16 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import logicOpenLoop.CurvaPrueba1;
-import logicOpenLoop.GraficadorPrueba;
+import logicOpenLoop.CurveGenerator;
+import logicOpenLoop.Grapher;
 
 public class MethodPanelView extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 	private String method;
 	private JPanel mainPanel; //Panel principal
-	private GraficadorPrueba graficador;
-	private DataTables dataTables;
+	private Grapher graficador;
+	private InformationExpert dataTables;
 	private JTable inputTable;
 	private JTable vTableControllers;
 	private JTable tableTL;
@@ -45,14 +45,14 @@ public class MethodPanelView extends JPanel {
 		
 		method = paramM;
 		
-		dataTables = new DataTables();
+		dataTables = new InformationExpert();
 		
 		int marginTop = 30;
 		int marginRight = 5;
 		int marginRight2 = 645;
 		
 		
-		graficador = new GraficadorPrueba();
+		graficador = new Grapher();
 		
 		String headTitle = dataTables.getTitle(method);
 		final String description = dataTables.getDescription(method);
@@ -174,9 +174,9 @@ public class MethodPanelView extends JPanel {
 		btnEquations.setBounds(180, 22, 190, 25);
 		btnEquations.setSize(140, 35);
 		
-		JButton buttonValues = new JButton("Constantes");
-		buttonValues.setBounds(10, 69, 190, 25);
-		buttonValues.setSize(140, 35);
+		JButton btnConstants = new JButton("Constantes");
+		btnConstants.setBounds(10, 69, 190, 25);
+		btnConstants.setSize(140, 35);
 		
 		JButton btnDescription = new JButton("Descripci\u00F3n m\u00E9todo");
 		btnDescription.setBounds(180, 69, 190, 25);
@@ -191,7 +191,9 @@ public class MethodPanelView extends JPanel {
 		aditionalInfo.setLayout(null);
 		aditionalInfo.add(btnAssumedModel);
 		aditionalInfo.add(btnEquations);
-		//aditionalInfo.add(buttonValues);
+		if(method=="lopez" || method=="ks"){
+			aditionalInfo.add(btnConstants);
+		}
 		aditionalInfo.add(btnDescription);
 		
 		
@@ -280,7 +282,7 @@ public class MethodPanelView extends JPanel {
 		if(method=="lopez" || method=="ks"){
 			//Constantes para ecuaciónes del metodo de Lopez o Kaya-sheib  **********
 			//Show constants method
-			buttonValues.addActionListener(new ActionListener() {
+			btnConstants.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					
 					JDialog dialog =  new JDialog(ventana);
@@ -392,7 +394,7 @@ public class MethodPanelView extends JPanel {
 /****************************************************************************************/
 					
 					if(graficador.getCurvaActual() != null) {
-						CurvaPrueba1 curvaActual = graficador.getCurvaActual();
+						CurveGenerator curvaActual = graficador.getCurvaActual();
 						
 						double vT = curvaActual.getT();
 						double vL = curvaActual.getL();

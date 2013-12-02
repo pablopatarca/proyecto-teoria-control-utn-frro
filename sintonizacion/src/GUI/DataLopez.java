@@ -19,7 +19,7 @@ public abstract class DataLopez {
 	
 	//Devuelvo valores calculados
 	public static DefaultTableModel getModelValuesControllers( double vL, double vT, double tau){
-		
+		//TODO: verificar formula
 		double Kc =0;
 		
 		double[][] result = new double[3][6];

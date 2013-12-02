@@ -22,10 +22,10 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.data.xy.XYSeriesCollection;
 
-public class GraficadorPrueba {
+public class Grapher {
 	
 	private XYSeriesCollection conjuntoDatos;
-	private CurvaPrueba1 curvaActual;
+	private CurveGenerator curvaActual;
 	private JFreeChart diagrama;
 	double t = 0;
 	private double curveTime = 0.1;
@@ -33,7 +33,7 @@ public class GraficadorPrueba {
 	private Timer timerCurve;
 	int flag = 0;
 	
-	public GraficadorPrueba() {
+	public Grapher() {
 				
 		conjuntoDatos = new XYSeriesCollection();
 		resetTimer();
@@ -145,7 +145,7 @@ public class GraficadorPrueba {
 		
 		curveTime = tau;
 		
-		curvaActual = new CurvaPrueba1(k, tau); 
+		curvaActual = new CurveGenerator(k, tau); 
 		
 		
 		//curvaActual.generarEntrada(curveTime);
@@ -196,7 +196,7 @@ public class GraficadorPrueba {
 	
 
 	
-	public CurvaPrueba1 getCurvaActual() {
+	public CurveGenerator getCurvaActual() {
 		return curvaActual;
 	}
 

@@ -7,7 +7,7 @@ import org.jfree.chart.plot.ValueMarker;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.xy.XYSeries;
 
-public class CurvaPrueba1 {
+public class CurveGenerator {
 
 
 	private double KCritico, PCritico, puntoXInicio, puntoXFin, puntoYInicio, puntoYFin;
@@ -21,7 +21,7 @@ public class CurvaPrueba1 {
 	private ValueMarker[] marcadoresCurva,marcadoresInd;
 	private double k, tau, tiempoFin, L, T;
 
-	public CurvaPrueba1(double k, double tau) {
+	public CurveGenerator(double k, double tau) {
 
 		KCritico = 20.0;
 		PCritico = 1.895;
