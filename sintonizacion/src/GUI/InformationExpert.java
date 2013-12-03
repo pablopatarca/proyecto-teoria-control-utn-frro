@@ -133,7 +133,7 @@ public class InformationExpert {
 		};
 	}
 	
-	public JTable getTableControllers(String typeModel, double vL, double vT, double tau){
+	public JTable getTableControllers(String typeModel, double vL, double vT, double kp, double tau){
 			
 			JTable tableControllers = new JTable();
 			
@@ -142,7 +142,7 @@ public class InformationExpert {
 			}else if(typeModel=="cc"){
 				tableControllers.setModel( DataCC.getModelValuesControllers(vL, vT, tau) );
 			}else if(typeModel=="lopez"){
-				tableControllers.setModel( DataLopez.getModelValuesControllers(vL, vT, tau) );
+				tableControllers.setModel( DataLopez.getModelValuesControllers(vL, vT, kp, tau) );
 			}else if(typeModel=="ks"){
 				tableControllers.setModel( DataKS.getModelValuesControllers(vL, vT, tau) );
 			}
@@ -152,14 +152,14 @@ public class InformationExpert {
 			return tableControllers;
 		}
 	
-	public DefaultTableModel getModelControllers(String typeModel, double vL, double vT, double tau){
+	public DefaultTableModel getModelControllers(String typeModel, double vL, double vT, double kp, double tau){
 		
 		if(typeModel=="zn"){
 			return DataZN.getModelValuesControllers(vL, vT);
 		}else if(typeModel=="cc"){
 			return DataCC.getModelValuesControllers(vL, vT, tau);
 		}else if(typeModel=="lopez"){
-			return DataLopez.getModelValuesControllers(vL, vT, tau);
+			return DataLopez.getModelValuesControllers(vL, vT, kp, tau);
 		}else if(typeModel=="ks"){
 			return DataKS.getModelValuesControllers(vL, vT, tau);
 		}else{

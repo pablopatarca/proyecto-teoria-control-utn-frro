@@ -39,6 +39,8 @@ public abstract class DataCC {
 		
 	}
 	
+	
+	
 	public static String getURLEquationImage(){
 		return "/icons/equationCohenCoon.png";
 	}

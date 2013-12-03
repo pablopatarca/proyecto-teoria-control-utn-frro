@@ -56,7 +56,7 @@ public abstract class DataZN {
 	}
 	
 	public static String getURLEquationImage(){
-		return "/icons/equationLopez.png";
+		return "/icons/equationZieglerNichols.png";
 	}
 	
 	public static String getTitle(){

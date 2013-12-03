@@ -41,7 +41,7 @@ public class MethodPanelView extends JPanel {
 	 * Create the panel constructor.
 	 */
 
-	public MethodPanelView(final MainView ventana, String paramM) {
+	public MethodPanelView(final MainView mainView, String paramM) {
 		
 		method = paramM;
 		
@@ -285,11 +285,11 @@ public class MethodPanelView extends JPanel {
 			btnConstants.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					
-					JDialog dialog =  new JDialog(ventana);
+					JDialog dialog =  new JDialog(mainView);
 					dialog.setTitle("Constantes Metodo de Lopez");
 				    dialog.getContentPane().add(new JScrollPane( dataTables.getConstantTable(method) ));
 				    dialog.setVisible(true);
-					dialog.setLocationRelativeTo(ventana);
+					dialog.setLocationRelativeTo(mainView);
 					dialog.setBounds(100, 100, 500, 200);
 					
 				}
@@ -300,9 +300,9 @@ public class MethodPanelView extends JPanel {
 		btnAssumedModel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				ModalEquationView dialog = new ModalEquationView(ventana, "/icons/equationFirstOrder.png");
+				ModalEquationView dialog = new ModalEquationView(mainView, "/icons/equationFirstOrder.png");
 				dialog.setVisible(true);
-				dialog.setLocationRelativeTo(ventana);
+				dialog.setLocationRelativeTo(mainView);
 			}
 		});
 		
@@ -310,10 +310,11 @@ public class MethodPanelView extends JPanel {
 		btnEquations.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				ModalEquationView dialog = new ModalEquationView(ventana, "/icons/equationZieglerNichols.png");
+				ModalEquationView dialog = new ModalEquationView(mainView, dataTables.getURLEquationImage(method));
 				dialog.setVisible(true);
-				dialog.setLocationRelativeTo(ventana);
 				dialog.setBounds(100, 100, 500, 200);
+				dialog.setLocationRelativeTo(mainView);
+				
 				
 			}
 		});
@@ -321,10 +322,11 @@ public class MethodPanelView extends JPanel {
 		//Show Description
 		btnDescription.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ModalMethodDescription dialog = new ModalMethodDescription(ventana, description);
+				ModalMethodDescription dialog = new ModalMethodDescription(mainView, description);
 				dialog.setVisible(true);
-				dialog.setLocationRelativeTo(ventana);
 				dialog.setBounds(100, 100, 500, 200);
+				dialog.setLocationRelativeTo(mainView);
+				
 			}
 		});
 		
@@ -357,11 +359,11 @@ public class MethodPanelView extends JPanel {
 				     if (mat1.matches() && mat2.matches()) {
 				         System.out.println("Are Numbers");
 				         
-				        double k = Double.parseDouble((String) "0"+modelo.getValueAt(0,0));
+				        double kp = Double.parseDouble((String) "0"+modelo.getValueAt(0,0));
 						double tau = Double.parseDouble((String) "0"+modelo.getValueAt(0,1));
 					
 					//Validate
-					if(k > 0.0 && tau > 0.0) {
+					if(kp > 0.0 && tau > 0.0) {
 					
 					
 					/**
@@ -374,8 +376,10 @@ public class MethodPanelView extends JPanel {
 					graphicPanel.add(graficador.getDiagrama(),BorderLayout.CENTER);
 					graphicPanel.validate();
 					*/
+						
+					graficador = new Grapher();
 					
-					graficador.insertCurve(k , tau);
+					graficador.insertCurve(kp, tau);
 					
 					
 					/**
@@ -400,7 +404,7 @@ public class MethodPanelView extends JPanel {
 						double vL = curvaActual.getL();
 						
 						
-						vTableControllers.setModel(dataTables.getModelControllers(method, vL, vT, tau));
+						vTableControllers.setModel(dataTables.getModelControllers(method, vL, vT, kp, tau));
 						vTableControllers.getColumnModel().getColumn(0).setPreferredWidth(106);
 						
 						tableTL.setModel(dataTables.getModelLT(vL, vT));

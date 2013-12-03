@@ -38,7 +38,7 @@ public abstract class DataKS {
 				{"PID-IAE", result[0][0],result[0][1], result[0][2]},
 				{"PID-ITAE", result[1][0], result[1][1], result[1][2]},
 				{"PID-ISE", result[2][0], result[2][1], result[2][2]}},
-		new String[] {"Tipo controlador", "Kp", "Ti", "Td"}) {
+		new String[] {"Tipo controlador", "Kc", "Ti", "Td"}) {
 			
 			private static final long serialVersionUID = 1L;
 			
