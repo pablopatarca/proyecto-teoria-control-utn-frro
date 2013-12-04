@@ -22,7 +22,6 @@ import javax.swing.ImageIcon;
 import javax.swing.border.EtchedBorder;
 
 import logicCloseLoop.Graficador;
-import logicCloseLoop.TablaRender;
 
 public class PanelClosedZieglerNichols extends JPanel {
 
@@ -121,10 +120,6 @@ public class PanelClosedZieglerNichols extends JPanel {
 					new String[] {"Tipo de controlador", "Kp", "Ti", "Td"}));
 				valoresZieglerNichols.getColumnModel().getColumn(0).setPreferredWidth(106);
 				
-				TablaRender miRender = new TablaRender();
-				valoresZieglerNichols.setDefaultRenderer(Double.class, miRender);
-				valoresZieglerNichols.setDefaultRenderer(String.class, miRender);
-				
 				scrollPane.setViewportView(valoresZieglerNichols);
 				
 				JScrollPane scrollPane_1 = new JScrollPane();
@@ -137,8 +132,6 @@ public class PanelClosedZieglerNichols extends JPanel {
 					new String[] {"K cr\u00EDtica", "P cr\u00EDtico"}));
 				valoresKP.getColumnModel().getColumn(0).setPreferredWidth(51);
 				valoresKP.getColumnModel().getColumn(1).setPreferredWidth(51);
-				
-				valoresKP.setDefaultRenderer(Double.class, miRender);
 				
 				scrollPane_1.setViewportView(valoresKP);
 				

@@ -66,7 +66,7 @@ public abstract class DataZN {
 		return description;
 	}
 	
-	private static String headTitle = "Método de Ziengler y Nichols - Sistema de lazo abierto";
+	private static String headTitle = "Método de Ziegler y Nichols - Sistema de lazo abierto";
 	
 	private static String description = "El Método consiste en obtener la respuesta de la señal medida "
 			+ "a una entrada escalón en un sistema de lazo abierto. Si la planta no "

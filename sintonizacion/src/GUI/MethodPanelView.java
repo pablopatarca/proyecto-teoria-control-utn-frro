@@ -1,14 +1,5 @@
 package GUI;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -17,6 +8,15 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
@@ -24,6 +24,7 @@ import javax.swing.table.TableModel;
 
 import logicOpenLoop.CurveGenerator;
 import logicOpenLoop.Grapher;
+import javax.swing.ScrollPaneConstants;
 
 public class MethodPanelView extends JPanel {
 	
@@ -117,11 +118,14 @@ public class MethodPanelView extends JPanel {
 		//mainPanel.add(spInputTable);
 		mainPanel.add(jpInput, BorderLayout.CENTER);
 		JScrollPane spInputTable = new JScrollPane();
+		spInputTable.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		jpInput.add(spInputTable);
 		
 /*********************  Create Tables  ******************************/
 		//Create a table of controller's value
 		vTableControllers = new JTable() ;
+		vTableControllers.setFocusTraversalKeysEnabled(false);
+		vTableControllers.setFocusable(false);
 		vTableControllers.setModel( dataTables.getModelValuesControllers() );
 		vTableControllers.getColumnModel().getColumn(0).setPreferredWidth(106);
 		//TablaRender miRender = new TablaRender();
@@ -130,6 +134,8 @@ public class MethodPanelView extends JPanel {
 		
 		// L y T table values
 		tableTL = new JTable();
+		tableTL.setFocusTraversalKeysEnabled(false);
+		tableTL.setFocusable(false);
 		tableTL.setModel( dataTables.getModelLT() );
 		tableTL.setRowSelectionAllowed(false);
 		tableTL.setCellSelectionEnabled(true);
@@ -152,35 +158,42 @@ public class MethodPanelView extends JPanel {
 		
 		
 /**********************  Define Buttons  ******************************/
-		//Define Buttons
-		JButton btnDibujar = new JButton("Dibujar");
-		btnDibujar.setBounds(850, marginTop, 140, 33);
 		
-		JButton btnLimpiar = new JButton("Limpiar");
-		btnLimpiar.setBounds(850, marginTop+40, 140, 33);
 		mainPanel.setLayout(null);
+
+		//Define Buttons
+		JButton btnDibujar = new JButton("  Graficar",new ImageIcon(MethodPanelView.class.getResource("/icons/icon_graficar.png")));
+		btnDibujar.setHorizontalAlignment(SwingConstants.LEFT);
+		btnDibujar.setBounds(850, marginTop, 140, 40);
 		
-		JButton btnSave = new JButton("Guardar");
-		btnSave.setBounds(850, marginTop+80, 140, 33);
+		JButton btnLimpiar = new JButton("  Limpiar", new ImageIcon(MethodPanelView.class.getResource("/icons/icon_limpiar.png")));
+		btnLimpiar.setHorizontalAlignment(SwingConstants.LEFT);
+		btnLimpiar.setBounds(850, marginTop+40, 140, 40);
 		
-		JButton btnStop = new JButton("Parar");
-		btnStop.setBounds(850, marginTop+120, 140, 33);
+		JButton btnSave = new JButton("  Guardar", new ImageIcon(MethodPanelView.class.getResource("/icons/icon_guardar.png")));
+		btnSave.setHorizontalAlignment(SwingConstants.LEFT);
+		btnSave.setBounds(850, marginTop+80, 140, 40);
 		
-		JButton btnAssumedModel = new JButton("Modelo asumido");
-		btnAssumedModel.setBounds(10, 22, 190, 25);
-		btnAssumedModel.setSize(140, 35);
+		JButton btnStop = new JButton("  Parar", new ImageIcon(MethodPanelView.class.getResource("/icons/icon_cancelar.png")));
+		btnStop.setHorizontalAlignment(SwingConstants.LEFT);
+		btnStop.setBounds(850, marginTop+120, 140, 40);
 		
-		JButton btnEquations = new JButton("Ecuaciones");
-		btnEquations.setBounds(180, 22, 190, 25);
-		btnEquations.setSize(140, 35);
+		JButton btnAssumedModel = new JButton("Modelo asumido", new ImageIcon(MethodPanelView.class.getResource("/icons/icon_formula.png")));
+		btnAssumedModel.setHorizontalAlignment(SwingConstants.LEFT);
+		btnAssumedModel.setBounds(10, 22, 150, 40);
 		
-		JButton btnConstants = new JButton("Constantes");
-		btnConstants.setBounds(10, 69, 190, 25);
-		btnConstants.setSize(140, 35);
+		JButton btnEquations = new JButton("Ecuaciones", new ImageIcon(MethodPanelView.class.getResource("/icons/icon_formula.png")));
+		btnEquations.setHorizontalAlignment(SwingConstants.LEFT);
+		btnEquations.setBounds(180, 22, 150, 40);
 		
-		JButton btnDescription = new JButton("Descripci\u00F3n m\u00E9todo");
-		btnDescription.setBounds(180, 69, 190, 25);
-		btnDescription.setSize(140, 35);
+		JButton btnConstants = new JButton("Constantes", new ImageIcon(MethodPanelView.class.getResource("/icons/icon_formula.png")));
+		btnConstants.setHorizontalAlignment(SwingConstants.LEFT);
+		btnConstants.setBounds(10, 69, 150, 40);
+		
+		JButton btnDescription = new JButton("Descripci\u00F3n m\u00E9todo", new ImageIcon(MethodPanelView.class.getResource("/icons/icon_formula.png")));
+		btnDescription.setHorizontalAlignment(SwingConstants.LEFT);
+		btnDescription.setBounds(180, 69, 150, 40);
+		
 		
 		
 		//Add Buttons to panels		
@@ -263,18 +276,7 @@ public class MethodPanelView extends JPanel {
 		lblModeloAsumidoDe.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblModeloAsumidoDe.setBounds(695, 243, 350, 19);
 		mainPanel.add(lblModeloAsumidoDe);
-		
-		
-		
-		/*Add assumed model
-		JLabel lblEcuacionImagen = new JLabel("");
-		lblModeloAsumidoDe.setLabelFor(lblEcuacionImagen);
-		ImageIcon img = new ImageIcon(Ventana.class.getResource("/icons/ecuacion.png"));
-		
-		lblEcuacionImagen.setIcon(img);
-		lblEcuacionImagen.setBounds(695, 443, 200, 200);
-		mainPanel.add(lblEcuacionImagen);
-		*/
+
 		
 		
 /*****************  Define Listeners  ***************************************/
@@ -365,34 +367,22 @@ public class MethodPanelView extends JPanel {
 					//Validate
 					if(kp > 0.0 && tau > 0.0) {
 					
-					
 					/**
 					 * Draw Graphic
 					 */
-					
-					/*
-					graficador.insertarCurva(k, tau);
-					graphicPanel.removeAll();
-					graphicPanel.add(graficador.getDiagrama(),BorderLayout.CENTER);
-					graphicPanel.validate();
-					*/
 						
 					graficador = new Grapher();
-					
 					graficador.insertCurve(kp, tau);
-					
 					
 					/**
 					 * DIBUJO EL GRAFICO
 					 */
-					
 					graphicPanel.removeAll();
 					graphicPanel.add(graficador.getDiagrama(),BorderLayout.CENTER);
 					graphicPanel.validate();
 					
 					//Inicia el ploteo
 	  				graficador.iniciarGraficoCurva();
-	  				
 	  				graficador.insertarDerivada();
 	  				
 /****************************************************************************************/
@@ -493,6 +483,10 @@ public class MethodPanelView extends JPanel {
 	//Retorno Panel Principal
 	public JPanel getMainPanel() {
 		return mainPanel;
+	}
+	
+	public JTable getInputTable(){
+		return inputTable;
 	}
 
 }

@@ -14,11 +14,16 @@ import javax.swing.JDialog;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JOptionPane;
+import javax.swing.JSeparator;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import javax.swing.JMenuItem;
 
 public class MainView extends JFrame {
 	
@@ -87,7 +92,7 @@ public class MainView extends JFrame {
 		
 		
 		/* Menú Principal */
-		JMenu menuPrincipal = new JMenu("Inicio");
+		final JMenu menuPrincipal = new JMenu("Inicio");
 		menuPrincipal.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -95,10 +100,19 @@ public class MainView extends JFrame {
 				contentPane.updateUI();
 				setLocationRelativeTo(null);
 			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				menuPrincipal.setSelected(false);
+		    }
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				menuPrincipal.setSelected(true);
+		    }
 		});
 		
 		/* Curva reacción - Ziegler and Nichols */
-		JMenu curvaR = new JMenu("Curva Reacción Z-N");
+		final JMenuItem curvaR = new JMenuItem("Curva Reacción Z-N");
 		curvaR.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -109,11 +123,25 @@ public class MainView extends JFrame {
 				contentPane.add(panel.getMainPanel(), BorderLayout.CENTER);
 				contentPane.updateUI();
 				setLocationRelativeTo(null);
+				//Focus first field
+				JTable tabla = panel.getInputTable();
+				tabla.requestFocus();
+				tabla.changeSelection(0, 0, false, false);
+				
 			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				curvaR.setSelected(false);
+		    }
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				curvaR.setSelected(true);
+		    }
 		});
 		
 		/* Cohen y Coon - Lazo abierto */
-		JMenu cohenCoon = new JMenu("Cohen - Coon");
+		final JMenuItem cohenCoon = new JMenuItem("Cohen - Coon");
 		cohenCoon.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -122,11 +150,24 @@ public class MainView extends JFrame {
 				contentPane.add(panel.getMainPanel(), BorderLayout.CENTER);
 				contentPane.updateUI();
 				setLocationRelativeTo(null);
+				//Focus first field
+				JTable tabla = panel.getInputTable();
+				tabla.requestFocus();
+				tabla.changeSelection(0, 0, false, false);
 			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				cohenCoon.setSelected(false);
+		    }
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				cohenCoon.setSelected(true);
+		    }
 		});
 		
 		/* Lopez - Lazo abierto */
-		JMenu lopez = new JMenu("Lopez");
+		final JMenuItem lopez = new JMenuItem("Lopez");
 		lopez.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -135,11 +176,24 @@ public class MainView extends JFrame {
 				contentPane.add(panel.getMainPanel(), BorderLayout.CENTER);
 				contentPane.updateUI();
 				setLocationRelativeTo(null);
+				//Focus first field
+				JTable tabla = panel.getInputTable();
+				tabla.requestFocus();
+				tabla.changeSelection(0, 0, false, false);
+				
 			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				lopez.setSelected(false);
+		    }
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				lopez.setSelected(true);
+		    }
 		});
 		
 		/* Kaya and Sheib Method */
-		JMenu kayaSheib = new JMenu("Kaya-Sheib");
+		final JMenuItem kayaSheib = new JMenuItem("Kaya-Sheib");
 		kayaSheib.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e){
@@ -148,12 +202,24 @@ public class MainView extends JFrame {
 				contentPane.add(panel.getMainPanel(), BorderLayout.CENTER);
 				contentPane.updateUI();
 				setLocationRelativeTo(null);
+				//Focus first field
+				JTable tabla = panel.getInputTable();
+				tabla.requestFocus();
+				tabla.changeSelection(0, 0, false, false);
 			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				kayaSheib.setSelected(false);
+		    }
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				kayaSheib.setSelected(true);
+		    }
 		});
 		
 		
 		/* Oscilaciones Sostenidas - Ziegler-Nichols*/
-		JMenu oscilaciones = new JMenu("Oscilaciones Sostenidas Z-N");
+		final JMenuItem oscilaciones = new JMenuItem("Oscilaciones Sostenidas Z-N");
 		oscilaciones.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -163,10 +229,18 @@ public class MainView extends JFrame {
 				contentPane.updateUI();
 				setLocationRelativeTo(null);
 			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				oscilaciones.setSelected(false);
+		    }
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				oscilaciones.setSelected(true);
+		    }
 		});
 		
 		//Results Compare
-		JMenu compare = new JMenu("Comparación");
+		final JMenuItem compare = new JMenuItem("Comparación");
 		compare.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseClicked(MouseEvent e){
@@ -176,20 +250,40 @@ public class MainView extends JFrame {
 				//PanelCompare panel = new PanelCompare(frame);
 				//contentPane.add(panel.getMainPane(), BorderLayout.CENTER);
 				contentPane.updateUI();
+				panel.getInputField().requestFocus();
+				
 			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				compare.setSelected(false);
+		    }
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				compare.setSelected(true);
+		    }
+			
 		});
 		
 		
 		/* Salir */
 		
-		JMenu mnSalir = new JMenu("Salir");
-		mnSalir.addMouseListener(new MouseAdapter() {
+		final JMenuItem mnExit = new JMenuItem("Salir");
+		mnExit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				int decision = JOptionPane.showConfirmDialog(frame, "¿Seguro que desea salir?", "Aviso", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null);
 				if(decision == 0)
 					System.exit(0);
 			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				mnExit.setSelected(false);
+		    }
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				mnExit.setSelected(true);
+		    }
 		});
 		
 		
@@ -203,11 +297,18 @@ public class MainView extends JFrame {
 		menuBar.add(cohenCoon);		//Cohen-Coon
 		menuBar.add(lopez);			//Lopez
 		menuBar.add(kayaSheib);		//Kaya-Sheib
+		menuBar.add(compare);
+		
+		JSeparator sep = new JSeparator(SwingConstants.VERTICAL);
+		sep.setPreferredSize(new Dimension(1, 1));
+		menuBar.add(sep);
 		//Lazo cerrado
 		menuBar.add(oscilaciones);	//Ziegler-Nichols
-		menuBar.add(compare);
+		
+		menuBar.add(new JSeparator(SwingConstants.VERTICAL));
 
-
-		menuBar.add(mnSalir);
+		menuBar.add(mnExit);
+		
+		menuBar.add(new JSeparator(SwingConstants.VERTICAL));
 	}
 }
