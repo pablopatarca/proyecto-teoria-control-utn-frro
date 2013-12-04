@@ -36,7 +36,7 @@ public class MethodPanelView extends JPanel {
 	private JTable inputTable;
 	private JTable vTableControllers;
 	private JTable tableTL;
-	boolean band=true;
+	int band=0;
 	
 	/**
 	 * Create the panel constructor.
@@ -174,7 +174,7 @@ public class MethodPanelView extends JPanel {
 		btnSave.setHorizontalAlignment(SwingConstants.LEFT);
 		btnSave.setBounds(850, marginTop+80, 140, 40);
 		
-		JButton btnStop = new JButton("  Parar", new ImageIcon(MethodPanelView.class.getResource("/icons/icon_cancelar.png")));
+		final JButton btnStop = new JButton("  Parar", new ImageIcon(MethodPanelView.class.getResource("/icons/icon_cancelar.png")));
 		btnStop.setHorizontalAlignment(SwingConstants.LEFT);
 		btnStop.setBounds(850, marginTop+120, 140, 40);
 		
@@ -367,6 +367,8 @@ public class MethodPanelView extends JPanel {
 					//Validate
 					if(kp > 0.0 && tau > 0.0) {
 					
+						band = 1;
+					
 					/**
 					 * Draw Graphic
 					 */
@@ -424,6 +426,7 @@ public class MethodPanelView extends JPanel {
 		btnLimpiar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				limpiaGrafica(graphicPanel);
+				band = 0;
 			}
 		});
 		
@@ -441,12 +444,16 @@ public class MethodPanelView extends JPanel {
 		
 		btnStop.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-				if(band==true){
+				if(band == 1){
+						btnStop.setIcon(new ImageIcon(MethodPanelView.class.getResource("/icons/icon_aceptar.png")));
+						btnStop.setText(" Continuar");
 						graficador.stop();
-						band=false;
-					}else{
+						band = 2;
+					}else if(band == 2){
+						btnStop.setIcon(new ImageIcon(MethodPanelView.class.getResource("/icons/icon_cancelar.png")));
+						btnStop.setText(" Parar");
 						graficador.start();
-						band=true;
+						band = 1;
 					}
 			}
 		});
