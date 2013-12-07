@@ -18,26 +18,23 @@ public abstract class DataKS {
 
 	
 	//Devuelvo valores calculados
-	public static DefaultTableModel getModelValuesControllers( double vL, double vT, double tau){
-		//TODO
-		double kc = 1;
+	public static DefaultTableModel getModelValuesControllers( double vL, double vT, double kp, double tau){
 		
 		double[][] result = new double[3][6];
-		result[0][0] = redondear( (constantesM[0][0]/kc)*(Math.pow((vL/tau),constantesM[0][1])) );
+		result[0][0] = redondear( (constantesM[0][0]/kp)*(Math.pow((vL/tau),constantesM[0][1])) );
 		result[0][1] = redondear( (tau/constantesM[0][2])*(Math.pow((vL/tau),-constantesM[0][3])) );
 		result[0][2] = redondear( (tau*constantesM[0][4])*(Math.pow((vL/tau),constantesM[0][5])) );
-		result[1][0] = redondear( (constantesM[1][0]/kc)*(Math.pow((vL/tau),constantesM[1][1])) );
+		result[1][0] = redondear( (constantesM[1][0]/kp)*(Math.pow((vL/tau),constantesM[1][1])) );
 		result[1][1] = redondear( (tau/constantesM[1][2])*(Math.pow((vL/tau),-constantesM[1][3])) );
 		result[1][2] = redondear( (tau*constantesM[1][4])*(Math.pow((vL/tau),constantesM[1][5])) );
-		result[2][0] = redondear( (constantesM[2][0]/kc)*(Math.pow((vL/tau),constantesM[2][1])) );
+		result[2][0] = redondear( (constantesM[2][0]/kp)*(Math.pow((vL/tau),constantesM[2][1])) );
 		result[2][1] = redondear( (tau/constantesM[2][2])*(Math.pow((vL/tau),-constantesM[2][3])) );
 		result[2][2] = redondear( (tau*constantesM[2][4])*(Math.pow((vL/tau),constantesM[2][5])) );
 		
-				
 		return new DefaultTableModel( new Object[][] {
-				{"PID-IAE", result[0][0],result[0][1], result[0][2]},
-				{"PID-ITAE", result[1][0], result[1][1], result[1][2]},
-				{"PID-ISE", result[2][0], result[2][1], result[2][2]}},
+		{"PID-IAE", result[0][0],result[0][1], result[0][2]},
+		{"PID-ITAE", result[1][0], result[1][1], result[1][2]},
+		{"PID-ISE", result[2][0], result[2][1], result[2][2]}},
 		new String[] {"Tipo controlador", "Kc", "Ti", "Td"}) {
 			
 			private static final long serialVersionUID = 1L;

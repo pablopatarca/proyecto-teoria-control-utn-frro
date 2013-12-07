@@ -1,29 +1,26 @@
 package GUI;
 
-import javax.swing.JPanel;
-import javax.swing.border.TitledBorder;
-import javax.swing.JLabel;
-
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.ImageIcon;
-import javax.swing.JCheckBox;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.SwingConstants;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.TitledBorder;
 
 import logicOpenLoop.CurveGenerator;
 import logicOpenLoop.Grapher;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 public class PanelCompare extends JPanel {
@@ -50,7 +47,7 @@ public class PanelCompare extends JPanel {
 		setLayout(null);
 		
 		JLabel lblComparacinDeMetodos = new JLabel("Comparación de metodos - Sistemas de lazo abierto");
-		lblComparacinDeMetodos.setFont(new Font("Dialog", Font.BOLD, 18));
+		lblComparacinDeMetodos.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblComparacinDeMetodos.setBounds(12, 0, 578, 34);
 		add(lblComparacinDeMetodos);
 		
@@ -173,8 +170,8 @@ public class PanelCompare extends JPanel {
 				double vL = actualCurve.getL();
 				double vT = actualCurve.getT();
 				
-				tableTL.getModel().setValueAt(vL, 0, 0);
-				tableTL.getModel().setValueAt(vT, 0, 1);
+				tableTL.getModel().setValueAt(infoExpert.round(vL), 0, 0);
+				tableTL.getModel().setValueAt(infoExpert.round(vT), 0, 1);
 			
 				if(checkBoxCurvaReaccinZN.isSelected() ){
 					panelZN = new JPanel();
@@ -190,7 +187,6 @@ public class PanelCompare extends JPanel {
 					panelTable.setViewportView(table);
 					
 					panelZN.repaint();
-					
 					containerPanel.add(panelZN);
 					top += height;
 				}

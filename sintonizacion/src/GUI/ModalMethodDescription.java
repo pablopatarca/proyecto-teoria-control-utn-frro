@@ -13,6 +13,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 
@@ -34,7 +35,7 @@ public class ModalMethodDescription extends JDialog {
 		setTitle("Descripci\u00F3n del m\u00E9todo");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ModalMethodDescription.class.getResource("/icons/imagen de respuessta transitoria.jpg")));
 		setResizable(false);
-		setBounds(100, 100, 429, 384);
+		setBounds(100, 100, 429, 500);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -42,8 +43,21 @@ public class ModalMethodDescription extends JDialog {
 		
 		JLabel label = new JLabel();
 		label.setIcon(new ImageIcon(ModalMethodDescription.class.getResource("/javax/swing/plaf/metal/icons/ocean/info.png")));
-		label.setBounds(20, 21, 32, 43);
+		label.setBounds(10, 10, 32, 43);
 		contentPanel.add(label);
+		
+		
+		JTextPane textPane = new JTextPane();
+		textPane.setText(mensaje);
+		JScrollPane scrollPane = new JScrollPane(textPane);
+		textPane.setBounds(40, 18, 350, 400);
+		scrollPane.setBounds(40, 18, 350, 400);
+		textPane.setEditable(false);
+		textPane.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		textPane.setBackground(SystemColor.control);
+		//textPane.setSize(textPane.getPreferredSize());
+		contentPanel.add(scrollPane);
+		
 		
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
@@ -51,15 +65,7 @@ public class ModalMethodDescription extends JDialog {
 				dispose();
 			}
 		});
-		btnAceptar.setBounds(165, 321, 89, 23);
+		btnAceptar.setBounds(150, 420, 100, 40);
 		contentPanel.add(btnAceptar);
-		
-		JTextPane textPane = new JTextPane();
-		textPane.setEditable(false);
-		textPane.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		textPane.setBackground(SystemColor.control);
-		textPane.setText(mensaje);
-		textPane.setBounds(62, 24, 317, 286);
-		contentPanel.add(textPane);
 	}
 }

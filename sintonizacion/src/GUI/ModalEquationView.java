@@ -35,9 +35,11 @@ public class ModalEquationView extends JDialog {
 		
 		setTitle("Ecuaciones utilizadas");
 		
-		Dimension d = new Dimension();
+		setBounds(100, 100, (int)minW+20, (int)minH+40);
+		
+		/*Dimension d = new Dimension();
 		d.setSize(minW+20, minH+40);
-		this.setMinimumSize(d);
+		this.setMinimumSize(d);*/
 		setResizable(false);
 		
 		getContentPane().setLayout(new BorderLayout());
@@ -51,14 +53,14 @@ public class ModalEquationView extends JDialog {
 		label.setBounds(10, 10, (int) minW, (int) minH);
 		contentPanel.add(label);
 		
-		JButton btnAceptar = new JButton("Aceptar");
+		/*JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
 		});
 		btnAceptar.setBounds(165, 321, 89, 23);
-		contentPanel.add(btnAceptar);
+		contentPanel.add(btnAceptar);*/
 		
 		/*
 		JTextPane textPane = new JTextPane();

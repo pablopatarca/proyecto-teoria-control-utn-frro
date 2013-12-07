@@ -19,7 +19,6 @@ public abstract class DataLopez {
 	
 	//Devuelvo valores calculados
 	public static DefaultTableModel getModelValuesControllers( double vL, double vT, double Kp, double tau){
-		//TODO: verificar formula
 		
 		double[][] result = new double[3][6];
 		result[0][0] = redondear( (constantesM[0][0]/Kp)*(Math.pow((vL/tau),constantesM[0][1])) );
@@ -32,11 +31,11 @@ public abstract class DataLopez {
 		result[2][1] = redondear( (tau/constantesM[2][2])*(Math.pow((vL/tau),-constantesM[2][3])) );
 		result[2][2] = redondear( (tau*constantesM[2][4])*(Math.pow((vL/tau),constantesM[2][5])) );
 		
-				
 		return new DefaultTableModel( new Object[][] {
-				{"PID-IAE", result[0][0],result[0][1], result[0][2]},
-				{"PID-ITAE", result[1][0], result[1][1], result[1][2]},
-				{"PID-ISE", result[2][0], result[2][1], result[2][2]}},
+		{"PID-IAE", result[0][0],result[0][1], result[0][2]},
+		{"PID-ITAE", result[1][0], result[1][1], result[1][2]},
+		{"PID-ISE", result[2][0], result[2][1], result[2][2]}},
+		
 		new String[] {"Tipo controlador", "Kc", "Ti", "Td"}) {
 			
 			private static final long serialVersionUID = 1L;

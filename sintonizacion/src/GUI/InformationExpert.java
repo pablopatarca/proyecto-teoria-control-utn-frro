@@ -140,11 +140,11 @@ public class InformationExpert {
 			if(typeModel=="zn"){
 				tableControllers.setModel( DataZN.getModelValuesControllers(vL, vT) );
 			}else if(typeModel=="cc"){
-				tableControllers.setModel( DataCC.getModelValuesControllers(vL, vT, tau) );
+				tableControllers.setModel( DataCC.getModelValuesControllers(vL, vT, kp, tau) );
 			}else if(typeModel=="lopez"){
 				tableControllers.setModel( DataLopez.getModelValuesControllers(vL, vT, kp, tau) );
 			}else if(typeModel=="ks"){
-				tableControllers.setModel( DataKS.getModelValuesControllers(vL, vT, tau) );
+				tableControllers.setModel( DataKS.getModelValuesControllers(vL, vT, kp, tau) );
 			}
 			
 			tableControllers.setRowSelectionAllowed(false);
@@ -157,11 +157,11 @@ public class InformationExpert {
 		if(typeModel=="zn"){
 			return DataZN.getModelValuesControllers(vL, vT);
 		}else if(typeModel=="cc"){
-			return DataCC.getModelValuesControllers(vL, vT, tau);
+			return DataCC.getModelValuesControllers(vL, vT, kp, tau);
 		}else if(typeModel=="lopez"){
 			return DataLopez.getModelValuesControllers(vL, vT, kp, tau);
 		}else if(typeModel=="ks"){
-			return DataKS.getModelValuesControllers(vL, vT, tau);
+			return DataKS.getModelValuesControllers(vL, vT, kp, tau);
 		}else{
 			return null;
 		}
@@ -220,7 +220,7 @@ public class InformationExpert {
 		return "/icons/equationFirstOrder.png";
 	}
 	
-	private double round(double numero) {
+	public double round(double numero) {
 		return (Math.rint(numero*100)/100);
 	}
 

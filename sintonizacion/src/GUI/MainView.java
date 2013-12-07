@@ -1,29 +1,25 @@
 package GUI;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
+import java.awt.Insets;
 import java.awt.Toolkit;
-
-import javax.swing.JDialog;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JOptionPane;
-import javax.swing.JSeparator;
-import javax.swing.JTable;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-
-import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
 
 public class MainView extends JFrame {
 	
@@ -113,6 +109,8 @@ public class MainView extends JFrame {
 		
 		/* Curva reacción - Ziegler and Nichols */
 		final JMenuItem curvaR = new JMenuItem("Curva Reacción Z-N");
+		curvaR.setHorizontalAlignment(SwingConstants.CENTER);
+		curvaR.setMargin(new Insets(0, 0, 0, 0));
 		curvaR.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -142,6 +140,7 @@ public class MainView extends JFrame {
 		
 		/* Cohen y Coon - Lazo abierto */
 		final JMenuItem cohenCoon = new JMenuItem("Cohen - Coon");
+		cohenCoon.setHorizontalAlignment(SwingConstants.CENTER);
 		cohenCoon.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -168,6 +167,7 @@ public class MainView extends JFrame {
 		
 		/* Lopez - Lazo abierto */
 		final JMenuItem lopez = new JMenuItem("Lopez");
+		lopez.setHorizontalAlignment(SwingConstants.CENTER);
 		lopez.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -194,6 +194,7 @@ public class MainView extends JFrame {
 		
 		/* Kaya and Sheib Method */
 		final JMenuItem kayaSheib = new JMenuItem("Kaya-Sheib");
+		kayaSheib.setHorizontalAlignment(SwingConstants.CENTER);
 		kayaSheib.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e){
@@ -220,6 +221,7 @@ public class MainView extends JFrame {
 		
 		/* Oscilaciones Sostenidas - Ziegler-Nichols*/
 		final JMenuItem oscilaciones = new JMenuItem("Oscilaciones Sostenidas Z-N");
+		oscilaciones.setHorizontalAlignment(SwingConstants.CENTER);
 		oscilaciones.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -241,6 +243,7 @@ public class MainView extends JFrame {
 		
 		//Results Compare
 		final JMenuItem compare = new JMenuItem("Comparación");
+		compare.setHorizontalAlignment(SwingConstants.CENTER);
 		compare.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseClicked(MouseEvent e){
@@ -269,6 +272,7 @@ public class MainView extends JFrame {
 		/* Salir */
 		
 		final JMenuItem mnExit = new JMenuItem("Salir");
+		mnExit.setHorizontalAlignment(SwingConstants.CENTER);
 		mnExit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -298,17 +302,14 @@ public class MainView extends JFrame {
 		menuBar.add(lopez);			//Lopez
 		menuBar.add(kayaSheib);		//Kaya-Sheib
 		menuBar.add(compare);
-		
-		JSeparator sep = new JSeparator(SwingConstants.VERTICAL);
-		sep.setPreferredSize(new Dimension(1, 1));
-		menuBar.add(sep);
 		//Lazo cerrado
 		menuBar.add(oscilaciones);	//Ziegler-Nichols
 		
-		menuBar.add(new JSeparator(SwingConstants.VERTICAL));
+		//menuBar.add(new JSeparator(SwingConstants.VERTICAL));
 
 		menuBar.add(mnExit);
 		
-		menuBar.add(new JSeparator(SwingConstants.VERTICAL));
+		//menuBar.add(new JSeparator(SwingConstants.VERTICAL));
+		
 	}
 }

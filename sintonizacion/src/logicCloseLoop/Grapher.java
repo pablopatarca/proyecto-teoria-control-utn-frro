@@ -4,9 +4,14 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.Timer;
@@ -14,12 +19,13 @@ import javax.swing.table.DefaultTableModel;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.ValueMarker;
 import org.jfree.data.xy.XYSeriesCollection;
 
-public class Graficador {
+public class Grapher {
 	
 	private XYSeriesCollection conjuntoDatos;
 	private Curva curvaActual;
@@ -32,7 +38,7 @@ public class Graficador {
 	private JButton boton;
 	private JComboBox<String> combo;
 	
-	public Graficador() {
+	public Grapher() {
 		conjuntoDatos = new XYSeriesCollection();
 		curvaActual = null;
 		bandera = true;
@@ -181,7 +187,37 @@ public class Graficador {
 		bandera = true;
 	}
 	
-	public void pararTimer() {
+	public void stop() {
 		timer.stop();
+	}
+	
+	public void start() {
+		timer.start();
+	}
+	
+	public void clean() {
+		curvaActual = null;
+		conjuntoDatos.removeAllSeries();
+		t = 0;
+		//timerCurve = null;
+		//resetTimer();
+	}
+	
+	public void getImage() throws IOException{
+		
+		JFileChooser fc = new JFileChooser();
+		
+		int returnVal = fc.showSaveDialog(fc);
+		
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            //This is where a real application would save the file.
+            
+            OutputStream in= new FileOutputStream(file.getPath()+".png");
+            ChartUtilities.writeChartAsPNG(in,diagrama, 800,600);
+            
+            
+        }
+		
 	}
 }

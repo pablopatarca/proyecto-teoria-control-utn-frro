@@ -15,7 +15,7 @@ public class Curva3 extends Curva{
 		puntoXFin = puntoXInicio + PCritico;
 		puntoYInicio = 0.0;
 		puntoYFin = 1.80;
-		comentario.setText("    K = 1                                                          K = 6                                             K cr�tica = 10");
+		comentario.setText("    K = 1                                                          K = 6                                             K crítica = 10");
 		marcadores = new ValueMarker[2];
 		marcadores[0] = new ValueMarker(4.0);
 		marcadores[1] = new ValueMarker(8.0);
