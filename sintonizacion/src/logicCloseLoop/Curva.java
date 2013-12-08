@@ -8,11 +8,12 @@ public abstract class Curva {
 	
 	protected XYSeries dibujoCurva, dibujoPeriodo;
 	
+	protected double KCritico, PCritico, puntoXInicio, puntoXFin, puntoYInicio, puntoYFin;
+	protected double step[];
+	
 	public XYSeries getDibujoPeriodo() {
 		return dibujoPeriodo;
 	}
-
-	protected double KCritico, PCritico, puntoXInicio, puntoXFin, puntoYInicio, puntoYFin;
 	
 	public double getPuntoYInicio() {
 		return puntoYInicio;
@@ -69,6 +70,10 @@ public abstract class Curva {
 	
 	public double getPCritico() {
 		return PCritico;
+	}
+	
+	public double getStep(int i){
+		return step[i];
 	}
 	
 	public abstract void dibujarCurva(double t);

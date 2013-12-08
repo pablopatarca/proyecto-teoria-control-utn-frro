@@ -3,9 +3,13 @@ package logicCloseLoop;
 import java.awt.BasicStroke;
 import java.awt.Color;
 
+import javax.swing.JTable;
+
 import org.jfree.chart.plot.ValueMarker;
 
 public class Curva3 extends Curva{
+	
+	double step[] = {0.0, 4.0, 8.0};
 	
 	public Curva3() {
 		super();
@@ -17,8 +21,8 @@ public class Curva3 extends Curva{
 		puntoYFin = 1.80;
 		comentario.setText("    K = 1                                                          K = 6                                             K crítica = 10");
 		marcadores = new ValueMarker[2];
-		marcadores[0] = new ValueMarker(4.0);
-		marcadores[1] = new ValueMarker(8.0);
+		marcadores[0] = new ValueMarker(step[1]);
+		marcadores[1] = new ValueMarker(step[2]);
 		for(ValueMarker marcador : marcadores) {
 			marcador.setStroke(new BasicStroke(1.0f));
 			marcador.setPaint(Color.BLACK);
@@ -26,13 +30,19 @@ public class Curva3 extends Curva{
 	}
 
 	public void dibujarCurva(double t) {
-		if(t <= 4.0)
+		if(t <= step[1])
 			dibujoCurva.add(t, funcionCurva1(t));
-		else if(t <= 8.0)
-			dibujoCurva.add(t, funcionCurva2(t-4.0));
+		else if(t <= step[2])
+			dibujoCurva.add(t, funcionCurva2(t-step[1]));
 		else {
-			dibujoCurva.add(t, funcionCurva3(t-8.0));
+			dibujoCurva.add(t, funcionCurva3(t-step[2]));
 		}
+	}
+	
+	public double getStep(int i){
+		
+		return step[i];
+			
 	}
 	
 	

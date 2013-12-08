@@ -3,9 +3,14 @@ package logicCloseLoop;
 import java.awt.BasicStroke;
 import java.awt.Color;
 
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 import org.jfree.chart.plot.ValueMarker;
 
 public class Curva1 extends Curva {
+	
+	double step[] = {0.0, 10.0, 20.0};
 
 	public Curva1() {
 		super();
@@ -17,8 +22,8 @@ public class Curva1 extends Curva {
 		puntoYFin = 2.25;
 		comentario.setText("    K = 1                                                          K = 4                                             K crítica = 10");
 		marcadores = new ValueMarker[2];
-		marcadores[0] = new ValueMarker(10.0);
-		marcadores[1] = new ValueMarker(20.0);
+		marcadores[0] = new ValueMarker(step[1]);
+		marcadores[1] = new ValueMarker(step[2]);
 		for(ValueMarker marcador : marcadores) {
 			marcador.setStroke(new BasicStroke(1.0f));
 			marcador.setPaint(Color.BLACK);
@@ -26,15 +31,21 @@ public class Curva1 extends Curva {
 	}
 
 	public void dibujarCurva(double t) {
-		if(t <= 10.0) {
+		if(t <= step[1]) {
 			dibujoCurva.add(t, funcionCurva1(t));
 		}
-		else if(t <= 20.0){
-			dibujoCurva.add(t, funcionCurva2(t-10.0));
+		else if(t <= step[2]){
+			dibujoCurva.add(t, funcionCurva2(t-step[1]));
 		}
 		else {
-			dibujoCurva.add(t, funcionCurva3(t-20.0));
+			dibujoCurva.add(t, funcionCurva3(t-step[2]));
 		}
+	}
+	
+	public double getStep(int i){
+			
+		return step[i];
+			
 	}
 	
 	private double funcionCurva3(double t) {
@@ -52,6 +63,7 @@ public class Curva1 extends Curva {
 	public void dibujarPeriodo(double t) {
 		dibujoPeriodo.add(t, funcionCurva3(puntoXInicio-20.0));
 	}
+	
 
 	@Override
 	public int getTipoCurva() {

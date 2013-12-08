@@ -15,7 +15,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.Timer;
-import javax.swing.table.DefaultTableModel;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -25,26 +24,33 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.ValueMarker;
 import org.jfree.data.xy.XYSeriesCollection;
 
+import GUI.DataClosedZN;
+
 public class Grapher {
 	
 	private XYSeriesCollection conjuntoDatos;
 	private Curva curvaActual;
 	private JFreeChart diagrama;
-	double t = 0.0;
+	private double t = 0.0;
 	private double tiempoDeCurva;
 	private Timer timer;
+	private int band = 0;
 	private boolean bandera;
 	private JTable tabla1, tabla2;
 	private JButton boton;
 	private JComboBox<String> combo;
 	
 	public Grapher() {
+		
+		
 		conjuntoDatos = new XYSeriesCollection();
 		curvaActual = null;
 		bandera = true;
 		tabla1 = null;
+		
 		timer = new Timer (1, new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
+		    	
 		    	if(t <= tiempoDeCurva && bandera) {
 		        	curvaActual.dibujarCurva(t);
 		        	if(curvaActual.getTipoCurva() != 3)
@@ -55,8 +61,30 @@ public class Grapher {
 		    	else {
 		    		if(bandera)
 			    		t = curvaActual.getPuntoXInicio();
-		    		bandera = false;
+		    			bandera = false;
 		    	}
+		    	
+		    	if(t <= curvaActual.getStep(1) && band == 0){
+		    		System.out.println(curvaActual.getStep(0));
+		    		tabla1.setModel(DataClosedZN.getControllerModel(1, 1));
+		    		tabla2.setModel(DataClosedZN.getKPModel(1, 1));
+		    		tabla1.getColumnModel().getColumn(0).setPreferredWidth(106);
+		    		band = 1;
+		    	}else if( t >= curvaActual.getStep(1) && t <= curvaActual.getStep(2) && band == 1){
+		    		System.out.println(curvaActual.getStep(1));
+		    		tabla1.setModel(DataClosedZN.getControllerModel(2, 2));
+		    		tabla2.setModel(DataClosedZN.getKPModel(2, 2));
+		    		tabla1.getColumnModel().getColumn(0).setPreferredWidth(106);
+		    		band = 2;
+		    	}else if(t > curvaActual.getStep(2) && band == 2){
+		    		System.out.println(curvaActual.getStep(2));
+		    		tabla1.setModel(DataClosedZN.getControllerModel(curvaActual.getKCritico(), curvaActual.getPCritico()));
+		    		tabla2.setModel(DataClosedZN.getKPModel(curvaActual.getKCritico(), curvaActual.getPCritico()));
+		    		tabla1.getColumnModel().getColumn(0).setPreferredWidth(106);
+		    		band = 3;
+		    	}
+		    	
+		    	
 	    		if(t <= curvaActual.getPuntoXFin() && !bandera) {
 	    			curvaActual.dibujarPeriodo(t);
 	    			if(curvaActual.getTipoCurva() != 3)
@@ -65,66 +93,18 @@ public class Grapher {
 	    				t += 0.01;
 	    		}
 	    		else if(!bandera){
-    				tabla1.setModel(new DefaultTableModel(
-							new Object[][] {
-									{"P", 0.5*curvaActual.getKCritico(), 0.0, 0.0},
-									{"PI", 0.45*curvaActual.getKCritico(), (1.0/1.2)*curvaActual.getPCritico(), 0.0},
-									{"PID", 0.6*curvaActual.getKCritico(), 0.5*curvaActual.getPCritico(), 0.125*curvaActual.getPCritico()},
-							},
-							new String[] {
-								"Tipo de controlador", "Kp", "Ti", "Td"
-							}
-						) {
-							/**
-							 * 
-							 */
-							private static final long serialVersionUID = 1L;
-							Class[] columnTypes = new Class[] {
-								String.class, Double.class, Double.class, Double.class
-							};
-							public Class getColumnClass(int columnIndex) {
-								return columnTypes[columnIndex];
-							}
-							boolean[] columnEditables = new boolean[] {
-								false, false, false, false
-							};
-							public boolean isCellEditable(int row, int column) {
-								return columnEditables[column];
-							}
-						});
-						tabla1.getColumnModel().getColumn(0).setPreferredWidth(106);
-						tabla2.setModel(new DefaultTableModel(
-								new Object[][] {
-									{curvaActual.getKCritico(), curvaActual.getPCritico()},
-								},
-								new String[] {
-									"K cr\u00EDtica", "P cr\u00EDtico"
-								}
-							) {
-								/**
-								 * 
-								 */
-								private static final long serialVersionUID = 1L;
-								Class[] columnTypes = new Class[] {
-									Double.class, Double.class
-								};
-								public Class getColumnClass(int columnIndex) {
-									return columnTypes[columnIndex];
-								}
-								boolean[] columnEditables = new boolean[] {
-									false, false
-								};
-								public boolean isCellEditable(int row, int column) {
-									return columnEditables[column];
-								}
-							});
-							tabla2.getColumnModel().getColumn(0).setPreferredWidth(51);
-							tabla2.getColumnModel().getColumn(1).setPreferredWidth(51);
-						boton.setEnabled(true);
-						combo.setEnabled(true);
+    				//tabla1.setModel(DataClosedZN.getControllerModel(curvaActual.getKCritico(), curvaActual.getPCritico()));
+					//tabla1.getColumnModel().getColumn(0).setPreferredWidth(106);
+					//tabla2.setModel(DataClosedZN.getKPModel(curvaActual.getKCritico(), curvaActual.getPCritico()));
+	    			//tabla2.getColumnModel().getColumn(0).setPreferredWidth(51);
+	    			//tabla2.getColumnModel().getColumn(1).setPreferredWidth(51);
+	    			
+					boton.setEnabled(true);
+					combo.setEnabled(true);
+					stop();
 	    		}
 		     }
-		}); 
+		});
 	}
 	
 	public JPanel getDiagrama() {
@@ -169,6 +149,7 @@ public class Grapher {
 		this.tabla2 = tabla2;
 		this.boton = boton;
 		this.combo = combo;
+		band = 0;
 		diagrama.addSubtitle(curvaActual.getComentario());
 		for(ValueMarker marcador : curvaActual.getMarcadores())
 			diagrama.getXYPlot().addDomainMarker(marcador);

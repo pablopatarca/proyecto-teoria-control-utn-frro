@@ -16,7 +16,6 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
-import javax.swing.table.DefaultTableModel;
 
 import logicCloseLoop.Grapher;
 
@@ -68,7 +67,7 @@ public class PanelClosedZieglerNichols extends JPanel {
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "Referencias", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(647, 386, 349, 47);
+		panel.setBounds(marginRight2, 386, 390, 47);
 		mainPanel.add(panel);
 		
 		final JPanel grafico = new JPanel();
@@ -85,20 +84,23 @@ public class PanelClosedZieglerNichols extends JPanel {
 		
 		JPanel ziegerynichols = new JPanel();
 		ziegerynichols.setBorder(new TitledBorder(null, "Valores propuestos por Ziegler y Nichols", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		ziegerynichols.setBounds(marginRight2, 206, 349, 178);
+		ziegerynichols.setBounds(marginRight2, 206, 390, 178);
 		mainPanel.add(ziegerynichols);
 		ziegerynichols.setLayout(null);
 		
+		//Aditional information panel
+		JPanel aditionalInfo = new JPanel();
+		aditionalInfo.setBorder(new TitledBorder(null, "Información Adicional", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		aditionalInfo.setBounds(marginRight2, 430, 390, 130);
+		aditionalInfo.setAlignmentX(LEFT_ALIGNMENT);
+		mainPanel.add(aditionalInfo);
+		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 85, 329, 81);
+		scrollPane.setBounds(10, 85, 370, 81);
 		ziegerynichols.add(scrollPane);
 		
 		valoresZieglerNichols = new JTable();
-		valoresZieglerNichols.setModel(new DefaultTableModel(
-			new Object[][] {{"P", "0.5 Kcr", null, null},
-							{"PI", "0.45 Kcr", "(1/1.2) Pcr", null},
-							{"PID", "0.6 Kcr", "0.5 Pcr", "0.125 Pcr"}},
-			new String[] {"Tipo de controlador", "Kp", "Ti", "Td"}));
+		valoresZieglerNichols.setModel(DataClosedZN.getControllerModel());
 		valoresZieglerNichols.getColumnModel().getColumn(0).setPreferredWidth(106);
 		
 		scrollPane.setViewportView(valoresZieglerNichols);
@@ -108,25 +110,7 @@ public class PanelClosedZieglerNichols extends JPanel {
 		ziegerynichols.add(scrollPane_1);
 		
 		valoresKP = new JTable();
-		valoresKP.setModel(new DefaultTableModel(
-			new Object[][] {{null, null}},
-			new String[] {"K cr\u00EDtica", "P cr\u00EDtico"}){
-			
-			private static final long serialVersionUID = 1L;
-			
-			Class[] columnTypes = new Class[] {
-				String.class, String.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-			boolean[] columnEditables = new boolean[] {
-				false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			};
-		});
+		valoresKP.setModel(DataClosedZN.getKPModel());
 		valoresKP.setFocusTraversalKeysEnabled(false);
 		valoresKP.setFocusable(false);
 		valoresKP.setRowSelectionAllowed(false);
@@ -156,28 +140,29 @@ public class PanelClosedZieglerNichols extends JPanel {
 		rojo.setIcon(new ImageIcon(MainView.class.getResource("/icons/azul.png")));
 		
 		JLabel lblRespuesta = new JLabel("Respuesta");
-		lblRespuesta.setBounds(152, 18, 51, 23);
+		lblRespuesta.setBounds(152, 18, 70, 23);
 		panel.setLayout(null);
 		panel.add(rojo);
 		panel.add(lblRespuesta);
+		
+		JLabel lblEntrada = new JLabel("Entrada");
+		lblEntrada.setBounds(44, 22, 60, 14);
+		panel.add(lblEntrada);
+		
+		JLabel lblPerodoCrtico = new JLabel("Per\u00EDodo cr\u00EDtico");
+		lblPerodoCrtico.setBounds(272, 22, 90, 14);
+		panel.add(lblPerodoCrtico);
 		
 		JLabel label = new JLabel("");
 		label.setIcon(new ImageIcon(MainView.class.getResource("/icons/rojo.png")));
 		label.setBounds(10, 26, 24, 7);
 		panel.add(label);
 		
-		JLabel lblEntrada = new JLabel("Entrada");
-		lblEntrada.setBounds(44, 22, 46, 14);
-		panel.add(lblEntrada);
-		
 		JLabel label_1 = new JLabel("");
 		label_1.setIcon(new ImageIcon(MainView.class.getResource("/icons/verde.png")));
 		label_1.setBounds(238, 26, 24, 7);
 		panel.add(label_1);
 		
-		JLabel lblPerodoCrtico = new JLabel("Per\u00EDodo cr\u00EDtico");
-		lblPerodoCrtico.setBounds(272, 22, 67, 14);
-		panel.add(lblPerodoCrtico);
 		
 		
 /****** JButtons **************/
@@ -210,7 +195,7 @@ public class PanelClosedZieglerNichols extends JPanel {
 		JButton btnDescripcinDelMtodo = new JButton("Descripci\u00F3n m\u00E9todo", new ImageIcon(MethodPanelView.class.getResource("/icons/icon_formula.png")));
 		btnDescripcinDelMtodo.setHorizontalAlignment(SwingConstants.LEFT);
 		btnDescripcinDelMtodo.setBounds(647, 452, 240, 40);
-		mainPanel.add(btnDescripcinDelMtodo);
+		aditionalInfo.add(btnDescripcinDelMtodo);
 		
 		
 		btnDescripcinDelMtodo.addActionListener(new ActionListener() {
@@ -224,22 +209,14 @@ public class PanelClosedZieglerNichols extends JPanel {
 		/**
 		 * CAMBIAR IMAGEN DE FT
 		 */
-
-
 		funcionesTransferencias.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				graficador.stop();
 				switch(funcionesTransferencias.getSelectedIndex()) {
 				case 0: ftLabel.setIcon(null); 
-					valoresZieglerNichols.setModel(new DefaultTableModel(
-							new Object[][] {{"P", "0.5 Kcr", null, null},
-									{"PI", "0.45 Kcr", "(1/1.2) Pcr", null},
-									{"PID", "0.6 Kcr", "0.5 Pcr", "0.125 Pcr"}},
-							new String[] {"Tipo de controlador", "Kp", "Ti", "Td"}));
+					valoresZieglerNichols.setModel(DataClosedZN.getControllerModel());
 						valoresZieglerNichols.getColumnModel().getColumn(0).setPreferredWidth(106);
-						valoresKP.setModel(new DefaultTableModel(
-								new Object[][] {null, null},
-								new String[] {"K cr\u00EDtica", "P cr\u00EDtico"}));
+						valoresKP.setModel(DataClosedZN.getKPModel());
 							valoresKP.getColumnModel().getColumn(0).setPreferredWidth(51);
 							valoresKP.getColumnModel().getColumn(1).setPreferredWidth(51);
 						break;
@@ -260,17 +237,13 @@ public class PanelClosedZieglerNichols extends JPanel {
 					
 					band = 1;
 					
-					valoresZieglerNichols.setModel(new DefaultTableModel(
-							new Object[][] {{null, null, null, null},
-									{null, null, null, null},
-									{null, null, null, null}},
-							new String[] {"Tipo de controlador", "Kp", "Ti", "Td"}));
-						valoresZieglerNichols.getColumnModel().getColumn(0).setPreferredWidth(106);
-						valoresKP.setModel(new DefaultTableModel(
-								new Object[][] {{null, null}},
-								new String[] {"K cr\u00EDtica", "P cr\u00EDtico"}));
-							valoresKP.getColumnModel().getColumn(0).setPreferredWidth(51);
-							valoresKP.getColumnModel().getColumn(1).setPreferredWidth(51);
+					valoresZieglerNichols.setModel(DataClosedZN.getControllerModel());
+					
+					valoresZieglerNichols.getColumnModel().getColumn(0).setPreferredWidth(106);
+					valoresKP.setModel(DataClosedZN.getKPModel());
+					
+					valoresKP.getColumnModel().getColumn(0).setPreferredWidth(51);
+					valoresKP.getColumnModel().getColumn(1).setPreferredWidth(51);
 					btnDibujar.setEnabled(false);
 					funcionesTransferencias.setEnabled(false);
 					graficador.insertarCurva(funcionesTransferencias.getSelectedIndex());
@@ -317,7 +290,6 @@ public class PanelClosedZieglerNichols extends JPanel {
 	};
 	
 	
-			
 	public JPanel getMainPanel() {
 		// TODO Auto-generated method stub
 		return mainPanel;

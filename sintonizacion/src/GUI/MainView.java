@@ -23,7 +23,7 @@ import javax.swing.border.EmptyBorder;
 
 public class MainView extends JFrame {
 	
-	private double minW = 1000;
+	private double minW = 1060;
 	private double minH = 630;
 
 

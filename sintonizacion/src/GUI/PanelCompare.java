@@ -10,6 +10,8 @@ import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -33,6 +35,7 @@ public class PanelCompare extends JPanel {
 	JCheckBox checkBoxCC;
 	JCheckBox checkBoxLopez;
 	JCheckBox checkBoxKS;
+	JFrame mainView1;
 
 	private static final long serialVersionUID = 1L;
 	private JTextField inputA;
@@ -40,7 +43,9 @@ public class PanelCompare extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelCompare(final MainView ventana) {
+	public PanelCompare(final MainView mainView) {
+		
+		mainView1 = mainView;
 		
 		infoExpert = new InformationExpert();
 		
@@ -117,7 +122,7 @@ public class PanelCompare extends JPanel {
 		//Create comparer container Panel
 		containerPanel = new JPanel();
 		containerPanel.setBorder(new TitledBorder(null, "Methods", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		containerPanel.setBounds(223, 33, 754, 545);
+		containerPanel.setBounds(223, 33, 800, 545);
 		add(containerPanel);
 		containerPanel.setLayout(null);
 		
@@ -154,7 +159,7 @@ public class PanelCompare extends JPanel {
 				int top = 20;
 				int left = 5;
 				int height = 120;
-				int width = 730;
+				int width = 770;
 				
 				containerPanel.removeAll();
 				
@@ -186,6 +191,9 @@ public class PanelCompare extends JPanel {
 					panelZN.add(panelTable);
 					panelTable.setViewportView(table);
 					
+					//Set Buttons
+					generateButtons("zn", panelZN);
+					
 					panelZN.repaint();
 					containerPanel.add(panelZN);
 					top += height;
@@ -203,8 +211,10 @@ public class PanelCompare extends JPanel {
 					panelCC.add(panelTable);
 					panelTable.setViewportView(table);
 					
-					panelCC.repaint();
+					//Set Buttons
+					generateButtons("cc", panelCC);
 					
+					panelCC.repaint();
 					containerPanel.add(panelCC);
 					top += height;
 				}
@@ -222,11 +232,14 @@ public class PanelCompare extends JPanel {
 					//panelL.add(panelTableL, BorderLayout.CENTER);
 					panelL.add(panelTable);
 					panelTable.setViewportView(tableL);
+					
+					//Set Buttons
+					generateButtons("lopez", panelL);
+					
+					
 					containerPanel.add(panelL);
 					
 					panelL.repaint();
-					
-					
 					top += height;
 				}
 				
@@ -243,10 +256,11 @@ public class PanelCompare extends JPanel {
 					panelKS.add(panelTable);
 					panelTable.setViewportView(table);
 					
+					//Set Buttons
+					generateButtons("ks", panelKS);
+					
 					panelKS.repaint();
-					
 					containerPanel.add(panelKS);
-					
 					top += height;
 					
 				}
@@ -267,6 +281,66 @@ public class PanelCompare extends JPanel {
 		}
 		
 	}
+	
+	private void generateButtons(final String method, JPanel panel){
+		
+		JButton btnEquations = new JButton("Ecuaciones", new ImageIcon(MethodPanelView.class.getResource("/icons/icon_formula.png")));
+		btnEquations.setHorizontalAlignment(SwingConstants.LEFT);
+		btnEquations.setBounds(420, 15, 150, 40);
+		
+		JButton btnDescription = new JButton("Descripci\u00F3n m\u00E9todo", new ImageIcon(MethodPanelView.class.getResource("/icons/icon_formula.png")));
+		btnDescription.setHorizontalAlignment(SwingConstants.LEFT);
+		btnDescription.setBounds(580, 15, 150, 40);
+		
+		if(method=="lopez" || method=="ks"){
+			
+			JButton btnConstants = new JButton("Constantes", new ImageIcon(MethodPanelView.class.getResource("/icons/icon_formula.png")));
+			btnConstants.setHorizontalAlignment(SwingConstants.LEFT);
+			btnConstants.setBounds(420, 65, 150, 40);
+			
+			//Constantes para ecuaciónes del metodo de Lopez o Kaya-sheib  **********
+			//Show constants method
+			btnConstants.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+					JDialog dialog =  new JDialog(mainView1);
+					dialog.setTitle("Constantes Metodo de Lopez");
+				    dialog.getContentPane().add(new JScrollPane( infoExpert.getConstantTable(method) ));
+				    dialog.setVisible(true);
+					dialog.setLocationRelativeTo(mainView1);
+					dialog.setBounds(100, 100, 500, 200);
+				}
+			});
+			
+			panel.add(btnConstants);
+		}
+		
+		btnEquations.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ModalEquationView dialog = new ModalEquationView(mainView1, infoExpert.getURLEquationImage(method));
+				dialog.setVisible(true);
+				dialog.setBounds(100, 100, 500, 200);
+				dialog.setLocationRelativeTo(mainView1);
+			}
+		});
+		
+		//Show Description
+		btnDescription.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ModalMethodDescription dialog = new ModalMethodDescription(mainView1, infoExpert.getDescription(method));
+				dialog.setVisible(true);
+				dialog.setBounds(100, 100, 500, 200);
+				dialog.setLocationRelativeTo(mainView1);
+			}
+		});
+		
+		
+		panel.add(btnEquations);
+		panel.add(btnDescription);
+		
+	}
+	
+	
 	public JTextField getInputField(){
 		return inputA;
 	}
