@@ -10,6 +10,7 @@ import org.jfree.chart.plot.ValueMarker;
 public class Curva2 extends Curva {
 	
 	double step[] = {0.0, 12.5, 25.0};
+	private double ktest[] = {1, 5, 8};
 
 	public Curva2() {
 		super();
@@ -42,6 +43,11 @@ public class Curva2 extends Curva {
 		
 		return step[i];
 		
+	}
+	
+	@Override
+	public double getKtest(int i){
+		return ktest[i];
 	}
 	
 	private double funcionCurva3(double t) {

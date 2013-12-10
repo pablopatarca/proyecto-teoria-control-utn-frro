@@ -10,6 +10,7 @@ public abstract class Curva {
 	
 	protected double KCritico, PCritico, puntoXInicio, puntoXFin, puntoYInicio, puntoYFin;
 	protected double step[];
+	protected double ktest[];
 	
 	public XYSeries getDibujoPeriodo() {
 		return dibujoPeriodo;
@@ -74,6 +75,9 @@ public abstract class Curva {
 	
 	public double getStep(int i){
 		return step[i];
+	}
+	public double getKtest(int i){
+		return ktest[i];
 	}
 	
 	public abstract void dibujarCurva(double t);

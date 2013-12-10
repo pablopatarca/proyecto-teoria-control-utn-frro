@@ -25,25 +25,11 @@ public class PanelClosedZieglerNichols extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	int band=0;
+	int band = 0;
 	private JPanel mainPanel;
 	private Grapher graficador;
 	private JTable valoresZieglerNichols;
 	private JTable valoresKP;
-	private String mensaje = "El Método consiste en obtener la respuesta de la señal medida "
-							+ "a una perturbación (por ejemplo un pulso en el "
-							+ "set point), quitando la acción del controlador derivativo "
-							+ "y la del integral, es decir, aplicando solamente control "
-							+ "proporcional."
-							+ "\n\n"
-							+ "Se observa la respuesta y si es amortiguada, se incrementa "
-							+ "la ganancia hasta lograr OSCILACIONES SOSTENIDAS "
-							+ "(oscilación con amplitud constante)."
-							+ "\n\n"
-							+ "Una vez alcanzadas estas oscilaciones, se toman los valores "
-							+ "de la ganancia para la cual se llego a dichas oscilaciones "
-							+ "(ganancia crítica Kc) y del período de las mismas (período "
-							+ "crítico Pc).";
 	/**
 	 * Create the panel.
 	 */
@@ -200,7 +186,7 @@ public class PanelClosedZieglerNichols extends JPanel {
 		
 		btnDescripcinDelMtodo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ModalMethodDescription dialog = new ModalMethodDescription(ventana, mensaje);
+				ModalMethodDescription dialog = new ModalMethodDescription(ventana, DataClosedZN.getDescription());
 				dialog.setVisible(true);
 				dialog.setLocationRelativeTo(ventana);
 			}

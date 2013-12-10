@@ -66,14 +66,14 @@ public class Grapher {
 		    	
 		    	if(t <= curvaActual.getStep(1) && band == 0){
 		    		System.out.println(curvaActual.getStep(0));
-		    		tabla1.setModel(DataClosedZN.getControllerModel(1, 1));
-		    		tabla2.setModel(DataClosedZN.getKPModel(1, 1));
+		    		tabla1.setModel(DataClosedZN.getControllerModel(curvaActual.getKtest(0), curvaActual.getKtest(0)));
+		    		tabla2.setModel(DataClosedZN.getTransientKPModel(curvaActual.getKtest(0), curvaActual.getKtest(0)));
 		    		tabla1.getColumnModel().getColumn(0).setPreferredWidth(106);
 		    		band = 1;
 		    	}else if( t >= curvaActual.getStep(1) && t <= curvaActual.getStep(2) && band == 1){
 		    		System.out.println(curvaActual.getStep(1));
-		    		tabla1.setModel(DataClosedZN.getControllerModel(2, 2));
-		    		tabla2.setModel(DataClosedZN.getKPModel(2, 2));
+		    		tabla1.setModel(DataClosedZN.getControllerModel(curvaActual.getKtest(1), curvaActual.getKtest(1)));
+		    		tabla2.setModel(DataClosedZN.getTransientKPModel(curvaActual.getKtest(1), curvaActual.getKtest(1)));
 		    		tabla1.getColumnModel().getColumn(0).setPreferredWidth(106);
 		    		band = 2;
 		    	}else if(t > curvaActual.getStep(2) && band == 2){
@@ -84,9 +84,9 @@ public class Grapher {
 		    		band = 3;
 		    	}
 		    	
-		    	
 	    		if(t <= curvaActual.getPuntoXFin() && !bandera) {
 	    			curvaActual.dibujarPeriodo(t);
+	    			
 	    			if(curvaActual.getTipoCurva() != 3)
 	    				t += 0.03;
 	    			else
