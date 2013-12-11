@@ -15,6 +15,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -109,7 +110,6 @@ public class MainView extends JFrame {
 		/* Curva reacción - Ziegler and Nichols */
 		final JMenu curvaR = new JMenu("Curva Reacción Z-N");
 		curvaR.setHorizontalAlignment(SwingConstants.CENTER);
-		curvaR.setMargin(new Insets(0, 0, 0, 0));
 		curvaR.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -293,6 +293,7 @@ public class MainView extends JFrame {
 		
 		
 		/* Agrego opciones del según orden */
+		//menuBar.setLayout(new FlowLayout(FlowLayout.LEFT, 15, 0));
 		
 		menuBar.add(menuPrincipal);
 		//Lazo abierto
@@ -301,14 +302,36 @@ public class MainView extends JFrame {
 		menuBar.add(lopez);			//Lopez
 		menuBar.add(kayaSheib);		//Kaya-Sheib
 		menuBar.add(compare);
+
+		//JSeparator separator = new JSeparator(SwingConstants.VERTICAL);
+		//separator.setPreferredSize(new Dimension(50, 20));
+		//menuBar.add(separator);
+		JMenu separator = new JMenu("||");
+		JMenu separator2 = new JMenu("||");
+		separator.setEnabled(false);
+		separator2.setEnabled(false);
+		
+		menuBar.add(separator);
 		//Lazo cerrado
+		
 		menuBar.add(oscilaciones);	//Ziegler-Nichols
 		
-		//menuBar.add(new JSeparator(SwingConstants.VERTICAL));
+		menuBar.add(separator2);
 
 		menuBar.add(mnExit);
 		
-		//menuBar.add(new JSeparator(SwingConstants.VERTICAL));
+		
+		curvaR.setMargin(new Insets(0, 20, 0, 20));
+		cohenCoon.setMargin(new Insets(0, 20, 0, 20));
+		lopez.setMargin(new Insets(0, 20, 0, 20));
+		kayaSheib.setMargin(new Insets(0, 20, 0, 20));
+		compare.setMargin(new Insets(0, 20, 0, 20));
+		
+		separator.setMargin(new Insets(0, 0, 0, 40));
+		separator2.setMargin(new Insets(0, 0, 0, 40));
+		
+		oscilaciones.setMargin(new Insets(0, 20, 0, 20));
+		mnExit.setMargin(new Insets(0, 20, 0, 20));
 		
 	}
 }

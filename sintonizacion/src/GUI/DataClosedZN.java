@@ -72,7 +72,7 @@ public static DefaultTableModel getTransientKPModel(double vK, double vP){
 				new Object[][] {{"P", "0.5 Kcr", null, null},
 								{"PI", "0.45 Kcr", "(1/1.2) Pcr", null},
 								{"PID", "0.6 Kcr", "0.5 Pcr", "0.125 Pcr"}},
-				new String[] {"Tipo de controlador", "Kp", "Ti", "Td"}){
+				new String[] {"Tipo de controlador", "Kc", "Ti", "Td"}){
 				
 				private static final long serialVersionUID = 1L;
 				
@@ -99,7 +99,7 @@ public static DefaultTableModel getTransientKPModel(double vK, double vP){
 						{"PI", 0.45*criticK, (1.0/1.2)*criticP, null},
 						{"PID", 0.6*criticK, 0.5*criticP, 0.125*criticP},
 				},
-				new String[] {"Tipo de controlador", "Kp", "Ti", "Td"}){
+				new String[] {"Tipo de controlador", "Kc", "Ti", "Td"}){
 				
 				private static final long serialVersionUID = 1L;
 				

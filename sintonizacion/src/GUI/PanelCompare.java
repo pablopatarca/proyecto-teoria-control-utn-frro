@@ -167,6 +167,7 @@ public class PanelCompare extends JPanel {
 				double tau = Double.parseDouble(inputB.getText());
 				
 				if(Kp > 0 && tau > 0){
+					if(Kp < 20.0 && tau < 20.0) {
 				
 				//Obtain L and T values
 				Grapher graph = new Grapher();
@@ -266,6 +267,11 @@ public class PanelCompare extends JPanel {
 				}
 				
 				containerPanel.repaint();
+				
+					}else{
+						JOptionPane.showMessageDialog(null, "Valor de constantes muy grande. El valor puede tomar una constante como máximo es 20", 
+								"Error", JOptionPane.ERROR_MESSAGE, null);
+					}
 			
 				}else{
 					JOptionPane.showMessageDialog(null, "Las constantes deben ser valores mayores que cero", 
