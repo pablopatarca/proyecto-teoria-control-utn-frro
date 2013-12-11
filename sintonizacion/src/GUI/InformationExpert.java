@@ -113,7 +113,7 @@ public class InformationExpert {
 						{"P", null, null, null},
 						{"PI", null, null, null},
 						{"PID", null, null, null},},
-				new String[] {"Tipo controlador", "Kp", "Ti", "Td"}){
+				new String[] {"Tipo controlador", "Kc", "Ti", "Td"}){
 	
 				private static final long serialVersionUID = 1L;
 				

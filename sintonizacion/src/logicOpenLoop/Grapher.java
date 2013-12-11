@@ -22,23 +22,37 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.data.xy.XYSeriesCollection;
 
+import GUI.MethodPanelView;
+
 public class Grapher {
 	
 	private XYSeriesCollection conjuntoDatos;
 	private CurveGenerator curvaActual;
 	private JFreeChart diagrama;
 	double t = 0;
-	private double curveTime = 0.1;
+	private double curveTime = 0.0;
+	private double kPlant = 0.0;
 	private double systemTime = curveTime*7;
 	private Timer timerCurve;
 	int flag = 0;
+	public MethodPanelView globalPanelView;
+	private Grapher graph = this;
 	
-	public Grapher() {
-				
+public Grapher() {
+		
 		conjuntoDatos = new XYSeriesCollection();
 		resetTimer();
 	}
 	
+	
+	public Grapher(MethodPanelView view) {
+		
+		globalPanelView = view;
+		
+		conjuntoDatos = new XYSeriesCollection();
+		resetTimer();
+	}
+
 	public JPanel getDiagrama() {
 		
 		diagrama = ChartFactory.createXYLineChart(
@@ -114,9 +128,11 @@ public class Grapher {
 		    		}
 		    	}
 		    	//Draw L and T
-		    	if(t < curveTime*7 && flag==3){
+		    	if(t < curvaActual.getRealT() && flag==3){
+		    		
 		    		curvaActual.dibujaLT(t);
 		    		t += 0.05;
+		    	
 		    	}else{
 		    		if(flag==3){
 		    			t=0;
@@ -126,6 +142,7 @@ public class Grapher {
 		    	
 		    	if(flag==4){
 		    		
+		    		globalPanelView.completeTables(graph, kPlant, curveTime);
 		    				    		
 		    	}else{
 		    		if(flag==4){
@@ -144,6 +161,7 @@ public class Grapher {
 	public void insertCurve(double k, double tau) {
 		
 		curveTime = tau;
+		kPlant = k;
 		
 		curvaActual = new CurveGenerator(k, tau); 
 		
@@ -156,25 +174,6 @@ public class Grapher {
 		conjuntoDatos.addSeries(curvaActual.getTiempoMuerto());
 		conjuntoDatos.addSeries(curvaActual.getRetardo());
 		
-		
-		
-		
-		
-		//curvaActual.graphI();
-		
-		
-		//conjuntoDatos.addSeries(curvaActual.getEntrada());
-		
-		/*conjuntoDatos.addSeries(curvaActual.getDibujoDerivada());
-		conjuntoDatos.addSeries(curvaActual.getDibujoK());
-		conjuntoDatos.addSeries(curvaActual.getdibujoLY());
-		conjuntoDatos.addSeries(curvaActual.getdibujoTY());
-		conjuntoDatos.addSeries(curvaActual.getdibujoLX());
-		conjuntoDatos.addSeries(curvaActual.getdibujoTX());
-		conjuntoDatos.addSeries(CurvaPrueba.getEntrada());
-		conjuntoDatos.addSeries(curvaActual.getDibujoCurva());
-		conjuntoDatos.addSeries(curvaActual.getDibujoPeriodo());
-		*/
 	}
 	
 	public void insertarDerivada(){
@@ -192,8 +191,6 @@ public class Grapher {
 		timerCurve.start();
 			
 	}
-	
-	
 
 	
 	public CurveGenerator getCurvaActual() {
@@ -218,16 +215,15 @@ public class Grapher {
 	public void getImage() throws IOException{
 		
 		JFileChooser fc = new JFileChooser();
-		
+		stop();
 		int returnVal = fc.showSaveDialog(fc);
-		
+		start();
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fc.getSelectedFile();
             //This is where a real application would save the file.
             
             OutputStream in= new FileOutputStream(file.getPath()+".png");
             ChartUtilities.writeChartAsPNG(in,diagrama, 800,600);
-            
             
         }
 		

@@ -23,8 +23,6 @@ public class CurveGenerator {
 
 	public CurveGenerator(double k, double tau) {
 
-		KCritico = 20.0;
-		PCritico = 1.895;
 		//puntoXInicio = 26.53;
 		puntoXInicio = 0;
 		//puntoXFin = puntoXInicio + PCritico;
@@ -101,10 +99,7 @@ public class CurveGenerator {
 	public TextTitle getComentario() {
 		return comentario;
 	}
-	
-	public double getKCritico() {
-		return KCritico;
-	}
+
 	
 	public double getPCritico() {
 		return PCritico;
@@ -158,16 +153,6 @@ public class CurveGenerator {
 	}
 	
 	public void dibujarCurva(double t) {
-		/*
-		if(t <= 10.0) {
-			dibujoCurva.add(t, funcionCurva1(t));
-		}
-		else if(t <= 20.0){
-			dibujoCurva.add(t, funcionCurva2(t-10.0));
-		}
-		else {
-			dibujoCurva.add(t, funcionCurva3(t-20.0));
-		}*/
 		
 		dibujoCurva.add(t, funcionCurva(t));
 		
@@ -291,6 +276,10 @@ public class CurveGenerator {
 	
 	public double getL() {
 		return L;
+	}
+	
+	public double getRealT(){
+		return T;
 	}
 	
 	private double getTiempoAsentamiento() {

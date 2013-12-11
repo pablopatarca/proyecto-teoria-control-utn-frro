@@ -317,7 +317,10 @@ public class PanelCompare extends JPanel {
 		
 		btnEquations.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ModalEquationView dialog = new ModalEquationView(mainView1, infoExpert.getURLEquationImage(method));
+				
+				String title = "Ecuaciones del método";
+				
+				ModalEquationView dialog = new ModalEquationView(mainView1, title, infoExpert.getURLEquationImage(method));
 				dialog.setVisible(true);
 				dialog.setBounds(100, 100, 500, 200);
 				dialog.setLocationRelativeTo(mainView1);

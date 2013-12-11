@@ -1,18 +1,12 @@
 package GUI;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-
-import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class ModalEquationView extends JDialog {
 
@@ -25,7 +19,7 @@ public class ModalEquationView extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ModalEquationView(JFrame frame, String url) {
+	public ModalEquationView(JFrame frame, String title, String url) {
 		
 		super(frame,true);
 		
@@ -33,7 +27,7 @@ public class ModalEquationView extends JDialog {
 		double minW = img.getIconWidth();
 		double minH =img.getIconHeight();
 		
-		setTitle("Ecuaciones utilizadas");
+		setTitle(title);
 		
 		setBounds(100, 100, (int)minW+20, (int)minH+40);
 		

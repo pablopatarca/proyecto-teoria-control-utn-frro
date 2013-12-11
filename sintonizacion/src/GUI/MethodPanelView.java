@@ -37,6 +37,7 @@ public class MethodPanelView extends JPanel {
 	private JTable vTableControllers;
 	private JTable tableTL;
 	int band=0;
+	private MethodPanelView globalMethodView = this;
 	
 	/**
 	 * Create the panel constructor.
@@ -53,7 +54,7 @@ public class MethodPanelView extends JPanel {
 		int marginRight2 = 645;
 		
 		
-		graficador = new Grapher();
+		graficador = new Grapher(globalMethodView);
 		
 		String headTitle = dataTables.getTitle(method);
 		final String description = dataTables.getDescription(method);
@@ -162,9 +163,9 @@ public class MethodPanelView extends JPanel {
 		mainPanel.setLayout(null);
 
 		//Define Buttons
-		JButton btnDibujar = new JButton("  Graficar",new ImageIcon(MethodPanelView.class.getResource("/icons/icon_graficar.png")));
-		btnDibujar.setHorizontalAlignment(SwingConstants.LEFT);
-		btnDibujar.setBounds(850, marginTop, 140, 40);
+		JButton btnDraw = new JButton("  Graficar",new ImageIcon(MethodPanelView.class.getResource("/icons/icon_graficar.png")));
+		btnDraw.setHorizontalAlignment(SwingConstants.LEFT);
+		btnDraw.setBounds(850, marginTop, 140, 40);
 		
 		JButton btnLimpiar = new JButton("  Limpiar", new ImageIcon(MethodPanelView.class.getResource("/icons/icon_limpiar.png")));
 		btnLimpiar.setHorizontalAlignment(SwingConstants.LEFT);
@@ -198,7 +199,7 @@ public class MethodPanelView extends JPanel {
 		
 		//Add Buttons to panels		
 		mainPanel.add(btnLimpiar);
-		mainPanel.add(btnDibujar);
+		mainPanel.add(btnDraw);
 		mainPanel.add(btnSave);
 		mainPanel.add(btnStop);
 		aditionalInfo.setLayout(null);
@@ -302,7 +303,9 @@ public class MethodPanelView extends JPanel {
 		btnAssumedModel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				ModalEquationView dialog = new ModalEquationView(mainView, "/icons/equationFirstOrder.png");
+				String title = "Modelo asumido";
+				
+				ModalEquationView dialog = new ModalEquationView(mainView, title, "/icons/equationFirstOrder.png");
 				dialog.setVisible(true);
 				dialog.setLocationRelativeTo(mainView);
 			}
@@ -312,7 +315,9 @@ public class MethodPanelView extends JPanel {
 		btnEquations.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				ModalEquationView dialog = new ModalEquationView(mainView, dataTables.getURLEquationImage(method));
+				String title = "Ecuaciones del método";
+				
+				ModalEquationView dialog = new ModalEquationView(mainView, title, dataTables.getURLEquationImage(method));
 				dialog.setVisible(true);
 				dialog.setBounds(100, 100, 500, 200);
 				dialog.setLocationRelativeTo(mainView);
@@ -336,7 +341,7 @@ public class MethodPanelView extends JPanel {
 		/**
 		 * Insert Graphic
 		 */
-		btnDibujar.addActionListener(new ActionListener() {
+		btnDraw.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -366,14 +371,14 @@ public class MethodPanelView extends JPanel {
 					
 					//Validate
 					if(kp > 0.0 && tau > 0.0) {
+						//Validate
+						if(kp < 20.0 && tau < 20.0) {
 					
 						band = 1;
 					
-					/**
-					 * Draw Graphic
-					 */
+					//Draw Graphic
 						
-					graficador = new Grapher();
+					graficador = new Grapher(globalMethodView);
 					graficador.insertCurve(kp, tau);
 					
 					/**
@@ -389,18 +394,13 @@ public class MethodPanelView extends JPanel {
 	  				
 /****************************************************************************************/
 					
-					if(graficador.getCurvaActual() != null) {
-						CurveGenerator curvaActual = graficador.getCurvaActual();
-						
-						double vT = curvaActual.getT();
-						double vL = curvaActual.getL();
-						
-						
-						vTableControllers.setModel(dataTables.getModelControllers(method, vL, vT, kp, tau));
-						vTableControllers.getColumnModel().getColumn(0).setPreferredWidth(106);
-						
-						tableTL.setModel(dataTables.getModelLT(vL, vT));
-						
+	  				//completeTables(graficador, kp, tau);
+	  				
+	  				
+					}
+					else{
+						JOptionPane.showMessageDialog(null, "Valor de constantes muy grande. El valor puede tomar una constante como máximo es 20", 
+								"Error", JOptionPane.ERROR_MESSAGE, null);
 					}
 				}
 				else {
@@ -418,6 +418,7 @@ public class MethodPanelView extends JPanel {
 						"Error", JOptionPane.ERROR_MESSAGE, null);
 			}
 			}
+			
 		});
 		
 		/**
@@ -461,7 +462,25 @@ public class MethodPanelView extends JPanel {
 		
 	}
 	
-/**********  Application Methods ***************************************************/	
+/**********  Application Methods ***************************************************/
+	
+	public void completeTables(Grapher graficador, double kp, double tau) {
+		
+		if(graficador.getCurvaActual() != null) {
+			CurveGenerator curvaActual = graficador.getCurvaActual();
+			
+			double vT = curvaActual.getT();
+			double vL = curvaActual.getL();
+			
+			
+			vTableControllers.setModel(dataTables.getModelControllers(method, vL, vT, kp, tau));
+			vTableControllers.getColumnModel().getColumn(0).setPreferredWidth(106);
+			
+			tableTL.setModel(dataTables.getModelLT(vL, vT));
+			
+		}
+		
+	}
 	
 	private void limpiaGrafica(JPanel panel){
 		inputTable.setModel( getInputTableModel() );

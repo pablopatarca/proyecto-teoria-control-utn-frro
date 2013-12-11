@@ -187,9 +187,9 @@ public class Grapher {
 	public void getImage() throws IOException{
 		
 		JFileChooser fc = new JFileChooser();
-		
+		stop();
 		int returnVal = fc.showSaveDialog(fc);
-		
+		start();
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fc.getSelectedFile();
             //This is where a real application would save the file.

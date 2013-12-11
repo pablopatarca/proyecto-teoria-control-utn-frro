@@ -13,7 +13,6 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -108,7 +107,7 @@ public class MainView extends JFrame {
 		});
 		
 		/* Curva reacción - Ziegler and Nichols */
-		final JMenuItem curvaR = new JMenuItem("Curva Reacción Z-N");
+		final JMenu curvaR = new JMenu("Curva Reacción Z-N");
 		curvaR.setHorizontalAlignment(SwingConstants.CENTER);
 		curvaR.setMargin(new Insets(0, 0, 0, 0));
 		curvaR.addMouseListener(new MouseAdapter() {
@@ -139,7 +138,7 @@ public class MainView extends JFrame {
 		});
 		
 		/* Cohen y Coon - Lazo abierto */
-		final JMenuItem cohenCoon = new JMenuItem("Cohen - Coon");
+		final JMenu cohenCoon = new JMenu("Cohen - Coon");
 		cohenCoon.setHorizontalAlignment(SwingConstants.CENTER);
 		cohenCoon.addMouseListener(new MouseAdapter() {
 			@Override
@@ -166,7 +165,7 @@ public class MainView extends JFrame {
 		});
 		
 		/* Lopez - Lazo abierto */
-		final JMenuItem lopez = new JMenuItem("Lopez");
+		final JMenu lopez = new JMenu("Lopez");
 		lopez.setHorizontalAlignment(SwingConstants.CENTER);
 		lopez.addMouseListener(new MouseAdapter() {
 			@Override
@@ -193,7 +192,7 @@ public class MainView extends JFrame {
 		});
 		
 		/* Kaya and Sheib Method */
-		final JMenuItem kayaSheib = new JMenuItem("Kaya-Sheib");
+		final JMenu kayaSheib = new JMenu("Kaya-Sheib");
 		kayaSheib.setHorizontalAlignment(SwingConstants.CENTER);
 		kayaSheib.addMouseListener(new MouseAdapter() {
 			@Override
@@ -220,7 +219,7 @@ public class MainView extends JFrame {
 		
 		
 		/* Oscilaciones Sostenidas - Ziegler-Nichols*/
-		final JMenuItem oscilaciones = new JMenuItem("Oscilaciones Sostenidas Z-N");
+		final JMenu oscilaciones = new JMenu("Oscilaciones Sostenidas Z-N");
 		oscilaciones.setHorizontalAlignment(SwingConstants.CENTER);
 		oscilaciones.addMouseListener(new MouseAdapter() {
 			@Override
@@ -242,7 +241,7 @@ public class MainView extends JFrame {
 		});
 		
 		//Results Compare
-		final JMenuItem compare = new JMenuItem("Comparación");
+		final JMenu compare = new JMenu("Comparación");
 		compare.setHorizontalAlignment(SwingConstants.CENTER);
 		compare.addMouseListener(new MouseAdapter(){
 			@Override
@@ -271,7 +270,7 @@ public class MainView extends JFrame {
 		
 		/* Salir */
 		
-		final JMenuItem mnExit = new JMenuItem("Salir");
+		final JMenu mnExit = new JMenu("Salir");
 		mnExit.setHorizontalAlignment(SwingConstants.CENTER);
 		mnExit.addMouseListener(new MouseAdapter() {
 			@Override
