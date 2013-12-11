@@ -56,11 +56,9 @@ public abstract class DataCC {
 	
 	private static String headTitle = "Método de Cohen y Coon - Sistema de lazo abierto";
 	
-	private static String description = "Cohen y Coon introdujeron un índice de auto regulación definido como μ = tm/τ"
-			+ " y plantearon nuevas ecuaciones de sintonización. Estas se basan en el mejor modelo de primer "
-			+ "orden más tiempo muerto que se pueda obtener para lazos de control que funcionan como regulador,"
-			+ "con el criterio de desempeño de decaimiento de ¼ con sobrepaso mínimo, y con mínima área bajo la "
-			+ "curva de respuesta, y un controlador PID-Ideal.";
+	private static String description = "Cohen y Coon introdujeron un índice de auto regulación definido como μ = tm/τ y plantearon nuevas ecuaciones de sintonización, "
+			+ "basadas en el mejor modelo de primer orden más tiempo muerto que se pueda obtener para lazos de control que funcionan como regulador, "
+			+ "con el criterio de desempeño de decaimiento de ¼ con sobrepaso mínimo, y con mínima área bajo la curva de respuesta, y un controlador PID-Ideal.";
 	
 	private static double redondear(double numero) {
 		return (Math.rint(numero*100)/100);

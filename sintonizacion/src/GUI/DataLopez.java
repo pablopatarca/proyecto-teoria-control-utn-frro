@@ -74,15 +74,14 @@ public abstract class DataLopez {
 			{1.357,-0.947,0.842,-0.738,0.381,0.995},
 			{1.495,-0.945,1.101,-0.771,0.560,1.006}};
 	
-	private static String description = "El primer método basado en criterios integrales que presentó ecuaciones para el cálculo de los parámetros del controlador fue desarrollado por López y es conocido como el método de López. Definiendo una función de costo de la forma: Φ=F[ e(t),t] dt "
-			+ "Donde F es una función del error y del tiempo, se obtiene un valor que caracteriza la respuesta del sistema. Entre menor sea el valor de Φ, mejor será el desempeño del sistema de control, por ello, un desempeño óptimo se obtiene cuando Φ es mínimo."
-			+ "Como Φ es una función de los parámetros del controlador ( Kc, Ti, Td ), el valor mínimo de" 
-			+ "Φ se obtiene resolviendo las siguientes ecuaciones:"
-			+ "Los criterios de desempeño utilizados por López fueron:" 
-			+ "Integral del error absoluto (IAE),  Integral del error absoluto por el tiempo (ITAE) y"
-			+ "Integral del error cuadrático (ISE)."
-			+ "La optimización de los criterios de desempeño integrales de López está basada en el mejor modelo de primer orden más tiempo muerto que se pueda obtener, para lazos de control que funcionan como reguladores con un controlador PID-Ideal."
-			+ "Según el criterio de López los parámetros del PID se encuentran en base a la minimización de los índices de funcionamiento."
+	private static String description = "El primer método basado en criterios integrales que presentó ecuaciones para el cálculo de los parámetros del controlador "
+			+ "fue desarrollado por López y es conocido como el método de López. Definiendo una función de costo de la forma: Φ=F[ e(t),t] dt Donde F es una función "
+			+ "del error y del tiempo, se obtiene un valor que caracteriza la respuesta del sistema. Entre menor sea el valor de Φ, mejor será el desempeño del sistema "
+			+ "de control, por ello, un desempeño óptimo se obtiene cuando Φ es mínimo. Como Φ es una función de los parámetros del controlador ( Kc, Ti, Td ), el valor "
+			+ "mínimo de Φ se obtiene resolviendo las siguientes ecuaciones: Los criterios de desempeño utilizados por López fueron: Integral del error absoluto (IAE),  "
+			+ "Integral del error absoluto por el tiempo (ITAE) y Integral del error cuadrático (ISE). La optimización de los criterios de desempeño integrales de "
+			+ "López está basada en el mejor modelo de primer orden más tiempo muerto que se pueda obtener, para lazos de control que funcionan como reguladores con un "
+			+ "controlador PID-Ideal. Según el criterio de López los parámetros del PID se encuentran en base a la minimización de los índices de funcionamiento. "
 			+ "Para esto se asume que la respuesta se aproxima por una función de transferencia de primer orden con retardo.";
 	
 	private static double redondear(double numero) {
