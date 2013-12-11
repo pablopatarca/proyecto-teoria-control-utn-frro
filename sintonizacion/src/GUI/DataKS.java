@@ -13,7 +13,23 @@ public abstract class DataKS {
 						{"ITAE", constantesM[1][0], constantesM[1][1], constantesM[1][2], constantesM[1][3], constantesM[1][4], constantesM[1][5]},
 						{"ISE", constantesM[2][0], constantesM[2][1], constantesM[2][2], constantesM[2][3], constantesM[2][4], constantesM[2][5]} },
 						
-						new String[] {"Criterios","a", "b", "c", "d", "e", "f"} );
+						new String[] {"Criterios","a", "b", "c", "d", "e", "f"} ){
+				
+				private static final long serialVersionUID = 1L;
+				
+				Class[] columnTypes = new Class[] {
+					String.class, String.class, String.class, String.class, String.class, String.class, String.class
+				};
+				public Class getColumnClass(int columnIndex) {
+					return columnTypes[columnIndex];
+				}
+				boolean[] columnEditables = new boolean[] {
+					false, false, false, false, false, false, false
+				};
+				public boolean isCellEditable(int row, int column) {
+					return columnEditables[column];
+				};
+			};
 		}
 
 	

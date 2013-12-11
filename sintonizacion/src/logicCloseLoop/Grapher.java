@@ -15,6 +15,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.Timer;
+import javax.swing.filechooser.FileFilter;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -187,16 +188,36 @@ public class Grapher {
 	public void getImage() throws IOException{
 		
 		JFileChooser fc = new JFileChooser();
+		
+		fc.setFileFilter(new FileFilter() {
+			
+			@Override
+			public String getDescription() {
+				return "*.png, *.jpg";
+			}
+			@Override
+			public boolean accept(File f) {
+				
+				return (f.isDirectory()||f.getName().endsWith(".png")||f.getName().endsWith(".jpg"));
+			}
+		});
 		stop();
+
+		String fileDefaultName = "Graphic"+  System.currentTimeMillis() / 1000L;
+		
+		File defaultFile = new File(fileDefaultName);
+		
+		fc.setSelectedFile(defaultFile);
 		int returnVal = fc.showSaveDialog(fc);
 		start();
+		
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			System.out.println(fc.getSelectedFile().getPath());
             File file = fc.getSelectedFile();
             //This is where a real application would save the file.
             
             OutputStream in= new FileOutputStream(file.getPath()+".png");
             ChartUtilities.writeChartAsPNG(in,diagrama, 800,600);
-            
             
         }
 		

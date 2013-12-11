@@ -1,6 +1,7 @@
 package GUI;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,6 +25,7 @@ import javax.swing.table.TableModel;
 
 import logicOpenLoop.CurveGenerator;
 import logicOpenLoop.Grapher;
+
 import javax.swing.ScrollPaneConstants;
 
 public class MethodPanelView extends JPanel {
@@ -288,11 +290,17 @@ public class MethodPanelView extends JPanel {
 			btnConstants.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					
-					JDialog dialog =  new JDialog(mainView);
-					dialog.setTitle("Constantes Metodo de Lopez");
+					JDialog dialog =  new JDialog(mainView, true);
+					dialog.setMinimumSize(new Dimension(500,200));
+					if(method=="lopez"){
+						dialog.setTitle("Constantes Metodo de Lopez");
+					}else{
+						dialog.setTitle("Constantes Metodo de Kaya y Sheib");
+					}
+					
 				    dialog.getContentPane().add(new JScrollPane( dataTables.getConstantTable(method) ));
 				    dialog.setVisible(true);
-					dialog.setLocationRelativeTo(mainView);
+					//dialog.setLocationRelativeTo(mainView);
 					dialog.setBounds(100, 100, 500, 200);
 					
 				}
