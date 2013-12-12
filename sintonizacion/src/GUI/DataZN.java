@@ -68,14 +68,14 @@ public abstract class DataZN {
 	
 	private static String headTitle = "Método de Ziegler y Nichols - Sistema de lazo abierto";
 	
-	private static String description = "El Método consiste en obtener la respuesta de la señal medida a una entrada escalón en un sistema de lazo abierto. "
-										+ "Si la planta no contiene integradores ni polos dominantes complejos conjugados, la curva puede tener la forma de una S , "
-										+ "si la respuesta no exhibe dicha forma este método no es pertinente."
-										+"Tales curvas de respuesta se generan experimentalmente o a partir de una simulación dinámica de la planta y están "
-										+ "caracterizadas por dos parámetros: el tiempo de retardo L y la constante de tiempo T. Estos parámetros se determinan "
-										+ "dibujando una recta tangente en el punto de inflexión de la curva y determinando las intersecciones de esta tangente con "
-										+ "el eje del tiempo y la línea Y(t) = K; siendo K la ganancia aplicada.";
-	
+	private static String description = "El Método consiste en obtener la respuesta de una señal medida ante una entrada escalón en un sistema de lazo abierto./n" 
+	+"Si la planta no contiene integradores ni polos dominantes complejos conjugados, la curva puede tener la forma de una letra S. "
+	+"Si la respuesta no exhibe dicha forma este método no es pertinente./"
+	+"Tales curvas de respuesta se generan experimentalmente o a partir de una simulación dinámica de la planta y están caracterizadas por dos parámetros:/n" 
+	+"L: Tiempo de retardo./n"
+	+"T: Constante de tiempo./n" 
+	+"Estos parámetros se determinan dibujando una recta tangente en el punto de inflexión de la curva y determinando las intersecciones de la misma con "
+	+"el eje del tiempo y la línea Y(t) = K; siendo K la ganancia aplicada.";
 	
 	private static double redondear(double numero) {
 		return (Math.rint(numero*100)/100);
