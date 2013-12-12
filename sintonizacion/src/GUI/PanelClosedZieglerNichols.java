@@ -21,9 +21,6 @@ import logicCloseLoop.Grapher;
 
 public class PanelClosedZieglerNichols extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	int band = 0;
 	private JPanel mainPanel;
@@ -33,7 +30,7 @@ public class PanelClosedZieglerNichols extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelClosedZieglerNichols(final MainView ventana) {
+	public PanelClosedZieglerNichols(final MainView mainView) {
 		
 		int marginTop = 30;
 		int marginRight = 5;
@@ -183,12 +180,17 @@ public class PanelClosedZieglerNichols extends JPanel {
 		btnDescripcinDelMtodo.setBounds(647, 452, 240, 40);
 		aditionalInfo.add(btnDescripcinDelMtodo);
 		
+		JButton controllerSchema = new JButton("Ezquema del Controlador", new ImageIcon(MethodPanelView.class.getResource("/icons/icon_formula.png")));
+		controllerSchema.setHorizontalAlignment(SwingConstants.LEFT);
+		controllerSchema.setBounds(647, 452, 240, 40);
+		aditionalInfo.add(controllerSchema);
+		
 		
 		btnDescripcinDelMtodo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ModalMethodDescription dialog = new ModalMethodDescription(ventana, DataClosedZN.getDescription());
+				ModalMethodDescription dialog = new ModalMethodDescription(mainView, DataClosedZN.getDescription());
 				dialog.setVisible(true);
-				dialog.setLocationRelativeTo(ventana);
+				dialog.setLocationRelativeTo(mainView);
 			}
 		});
 		
@@ -270,6 +272,18 @@ public class PanelClosedZieglerNichols extends JPanel {
 						graficador.start();
 						band = 1;
 					}
+			}
+		});
+		
+		//Show Controller Schema******************************************
+		controllerSchema.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String title = "Ezquema del Controlador";
+				
+				ModalEquationView dialog = new ModalEquationView(mainView, title, "/icons/controllerSchemaClosedLoop.png");
+				dialog.setVisible(true);
+				dialog.setLocationRelativeTo(mainView);
 			}
 		});
 		

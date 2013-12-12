@@ -91,16 +91,16 @@ public abstract class DataLopez {
 			{1.495,-0.945,1.101,-0.771,0.560,1.006}};
 	
 	private static String description = "El primer método basado en criterios integrales que presentó ecuaciones para el cálculo de los parámetros del controlador fue desarrollado por López "
-	+"y es conocido como el método de López./n" 
+	+"y es conocido como el método de López.\n\n" 
 	+"López Define una función de costo de la forma: Φ=F[ e(t),t] dt ; Donde F es una función del error y del tiempo. Se obtiene un valor que caracteriza "
-	+"la respuesta del sistema./n" 
-	+"Entre menor sea el valor de Φ, mejor será el desempeño del sistema de control, por ello, un desempeño óptimo se obtiene cuando Φ es mínimo./n" 
+	+"la respuesta del sistema.\n\n" 
+	+"Entre menor sea el valor de Φ, mejor será el desempeño del sistema de control, por ello, un desempeño óptimo se obtiene cuando Φ es mínimo.\n\n" 
 	+"Los criterios de desempeño utilizados por López fueron: Integral del error absoluto (IAE),  Integral del error absoluto por el tiempo (ITAE) y Integral "
-	+"del error cuadrático (ISE)./n" 
+	+"del error cuadrático (ISE).\n\n" 
 	+"La optimización de los criterios de desempeño integrales de López está basada en el mejor modelo de primer orden más tiempo muerto que se pueda obtener, "
-	+"para lazos de control que funcionan como reguladores con un controlador PID-Ideal./n" 
+	+"para lazos de control que funcionan como reguladores con un controlador PID-Ideal.\n\n" 
 	+"Según el criterio de López los parámetros del PID se encuentran en base a la minimización de los índices de funcionamiento. Para esto se asume que la "
-	+"respuesta se aproxima por una función de transferencia de primer orden con retardo.";
+	+"respuesta se aproxima por una función de transferencia de primer orden con retardo. \n\n";
 	
 	private static double redondear(double numero) {
 		return (Math.rint(numero*100)/100);

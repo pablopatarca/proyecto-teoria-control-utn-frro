@@ -1,6 +1,7 @@
 package GUI;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.Toolkit;
@@ -34,8 +35,9 @@ public class ModalMethodDescription extends JDialog {
 		
 		setTitle("Descripci\u00F3n del m\u00E9todo");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ModalMethodDescription.class.getResource("/icons/imagen de respuessta transitoria.jpg")));
-		setResizable(true);
-		setBounds(100, 100, 429, 500);
+		setResizable(false);
+		setBounds(100, 100, 600, 500);
+		setMinimumSize(new Dimension(600, 500));
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -50,13 +52,14 @@ public class ModalMethodDescription extends JDialog {
 		JTextPane textPane = new JTextPane();
 		textPane.setText(mensaje);
 		JScrollPane scrollPane = new JScrollPane(textPane);
-		textPane.setBounds(40, 18, 350, 400);
-		scrollPane.setBounds(40, 18, 350, 400);
+		textPane.setBounds(40, 18, 550, 400);
+		scrollPane.setBounds(40, 18, 530, 400);
 		textPane.setEditable(false);
 		textPane.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		textPane.setBackground(SystemColor.control);
 		//textPane.setSize(textPane.getPreferredSize());
 		contentPanel.add(scrollPane);
+		textPane.setCaretPosition(0);
 		
 		
 		JButton btnAceptar = new JButton("Aceptar");
@@ -65,7 +68,7 @@ public class ModalMethodDescription extends JDialog {
 				dispose();
 			}
 		});
-		btnAceptar.setBounds(150, 420, 100, 40);
+		btnAceptar.setBounds(250, 420, 100, 40);
 		contentPanel.add(btnAceptar);
 	}
 }

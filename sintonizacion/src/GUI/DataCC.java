@@ -56,14 +56,14 @@ public abstract class DataCC {
 	
 	private static String headTitle = "Método de Cohen y Coon - Sistema de lazo abierto";
 	
-	private static String description = "El método de Cohen y Coon o método de la curva de reacción del proceso introduce un índice de auto regulación definido como μ = tm/τ./n" 
+	private static String description = "El método de Cohen y Coon o método de la curva de reacción del proceso introduce un índice de auto regulación definido como μ = tm/τ.\n\n" 
 	+"Cohen y Coon plantearon nuevas ecuaciones de sintonización basadas en el mejor modelo de primer orden más tiempo muerto que se pueda"
-	+"obtener para lazos de control que funcionan como regulador./n"
+	+"obtener para lazos de control que funcionan como regulador.\n\n"
 	+"Este método aproxima la respuesta del sistema real a un sistema equivalente. Para el cálculo de los parámetros se aplica un pequeño"
-	+"cambio escalón al lazo abierto y se grafica la curva de la variable medida./n" 
+	+"cambio escalón al lazo abierto y se grafica la curva de la variable medida.\n\n" 
 	+"Se puede observar que la sintonía mediante éste método tiene una acción de control proporcional más intensa que la obtenida por el "
-	+"método de Ziegler-Nichols./n"
-	+"Para compensar el método de Ziegler-Nichols tiene una constante de tiempo integral menor para hacer al lazo de control más robusto."
+	+"método de Ziegler-Nichols.\n\n"
+	+"Para compensar el método de Ziegler-Nichols tiene una constante de tiempo integral menor para hacer al lazo de control más robusto. \n\n"
 	+"La acción de control derivativa es más intensa.";
 	
 	private static double redondear(double numero) {

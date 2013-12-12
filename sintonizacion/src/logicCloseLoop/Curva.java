@@ -9,6 +9,10 @@ public abstract class Curva {
 	protected XYSeries dibujoCurva, dibujoPeriodo;
 	
 	protected double KCritico, PCritico, puntoXInicio, puntoXFin, puntoYInicio, puntoYFin;
+	protected String [] title;
+	protected TextTitle comment;
+	private static XYSeries entrada;
+	
 	protected double step[];
 	protected double ktest[];
 	
@@ -37,14 +41,11 @@ public abstract class Curva {
 	public ValueMarker[] getMarcadores() {
 		return marcadores;
 	}
-
-	protected TextTitle comentario;
-	private static XYSeries entrada;
 	
 	public Curva() {
 		dibujoCurva = new XYSeries(0);
 		dibujoPeriodo = new XYSeries(1);
-		comentario = new TextTitle();
+		comment = new TextTitle();
 	}
 	
 	public static void generarEntrada(double t) {
@@ -57,8 +58,13 @@ public abstract class Curva {
 		return entrada;
 	}
 	
-	public TextTitle getComentario() {
-		return comentario;
+	public TextTitle getComment() {
+		return comment;
+	}
+	public void setComment(int i) {
+	}
+	public void setComment() {
+		comment.setText(title[0]);
 	}
 	
 	public XYSeries getDibujoCurva() {

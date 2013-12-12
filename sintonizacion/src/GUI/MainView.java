@@ -15,7 +15,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -85,27 +84,6 @@ public class MainView extends JFrame {
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
-		
-		
-		/* Menú Principal */
-		final JMenu menuPrincipal = new JMenu("Inicio");
-		menuPrincipal.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				contentPane.removeAll();
-				contentPane.updateUI();
-				setLocationRelativeTo(null);
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				menuPrincipal.setSelected(false);
-		    }
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				menuPrincipal.setSelected(true);
-		    }
-		});
 		
 		/* Curva reacción - Ziegler and Nichols */
 		final JMenu curvaR = new JMenu("Curva Reacción Z-N");
@@ -293,9 +271,6 @@ public class MainView extends JFrame {
 		
 		
 		/* Agrego opciones del según orden */
-		//menuBar.setLayout(new FlowLayout(FlowLayout.LEFT, 15, 0));
-		
-		menuBar.add(menuPrincipal);
 		//Lazo abierto
 		menuBar.add(curvaR);		//Ziegler-Nichols
 		menuBar.add(cohenCoon);		//Cohen-Coon

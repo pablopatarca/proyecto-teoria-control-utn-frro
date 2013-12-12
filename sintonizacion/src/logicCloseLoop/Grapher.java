@@ -43,7 +43,6 @@ public class Grapher {
 	
 	public Grapher() {
 		
-		
 		conjuntoDatos = new XYSeriesCollection();
 		curvaActual = null;
 		bandera = true;
@@ -66,22 +65,20 @@ public class Grapher {
 		    	}
 		    	
 		    	if(t <= curvaActual.getStep(1) && band == 0){
-		    		System.out.println(curvaActual.getStep(0));
+		    		/*System.out.println(curvaActual.getStep(0));
 		    		tabla1.setModel(DataClosedZN.getControllerModel(curvaActual.getKtest(0), curvaActual.getKtest(0)));
 		    		tabla2.setModel(DataClosedZN.getTransientKPModel(curvaActual.getKtest(0), curvaActual.getKtest(0)));
-		    		tabla1.getColumnModel().getColumn(0).setPreferredWidth(106);
+		    		tabla1.getColumnModel().getColumn(0).setPreferredWidth(106);*/
 		    		band = 1;
 		    	}else if( t >= curvaActual.getStep(1) && t <= curvaActual.getStep(2) && band == 1){
-		    		System.out.println(curvaActual.getStep(1));
+		    		curvaActual.setComment(1);
+		    		/*System.out.println(curvaActual.getStep(1));
 		    		tabla1.setModel(DataClosedZN.getControllerModel(curvaActual.getKtest(1), curvaActual.getKtest(1)));
 		    		tabla2.setModel(DataClosedZN.getTransientKPModel(curvaActual.getKtest(1), curvaActual.getKtest(1)));
-		    		tabla1.getColumnModel().getColumn(0).setPreferredWidth(106);
+		    		tabla1.getColumnModel().getColumn(0).setPreferredWidth(106);*/
 		    		band = 2;
 		    	}else if(t > curvaActual.getStep(2) && band == 2){
-		    		System.out.println(curvaActual.getStep(2));
-		    		tabla1.setModel(DataClosedZN.getControllerModel(curvaActual.getKCritico(), curvaActual.getPCritico()));
-		    		tabla2.setModel(DataClosedZN.getKPModel(curvaActual.getKCritico(), curvaActual.getPCritico()));
-		    		tabla1.getColumnModel().getColumn(0).setPreferredWidth(106);
+		    		curvaActual.setComment(2);
 		    		band = 3;
 		    	}
 		    	
@@ -94,11 +91,11 @@ public class Grapher {
 	    				t += 0.01;
 	    		}
 	    		else if(!bandera){
-    				//tabla1.setModel(DataClosedZN.getControllerModel(curvaActual.getKCritico(), curvaActual.getPCritico()));
-					//tabla1.getColumnModel().getColumn(0).setPreferredWidth(106);
-					//tabla2.setModel(DataClosedZN.getKPModel(curvaActual.getKCritico(), curvaActual.getPCritico()));
-	    			//tabla2.getColumnModel().getColumn(0).setPreferredWidth(51);
-	    			//tabla2.getColumnModel().getColumn(1).setPreferredWidth(51);
+	    			
+	    			System.out.println(curvaActual.getStep(2));
+		    		tabla1.setModel(DataClosedZN.getControllerModel(curvaActual.getKCritico(), curvaActual.getPCritico()));
+		    		tabla2.setModel(DataClosedZN.getKPModel(curvaActual.getKCritico(), curvaActual.getPCritico()));
+		    		tabla1.getColumnModel().getColumn(0).setPreferredWidth(106);
 	    			
 					boton.setEnabled(true);
 					combo.setEnabled(true);
@@ -151,7 +148,7 @@ public class Grapher {
 		this.boton = boton;
 		this.combo = combo;
 		band = 0;
-		diagrama.addSubtitle(curvaActual.getComentario());
+		diagrama.addSubtitle(curvaActual.getComment());
 		for(ValueMarker marcador : curvaActual.getMarcadores())
 			diagrama.getXYPlot().addDomainMarker(marcador);
 		timer.stop();

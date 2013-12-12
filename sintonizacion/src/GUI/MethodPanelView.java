@@ -83,13 +83,13 @@ public class MethodPanelView extends JPanel {
 		//Reference data panle
 		JPanel referencePanel = new JPanel();
 		referencePanel.setBorder(new TitledBorder(null, "Referencias", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		referencePanel.setBounds(marginRight2, 320, 342, 86);
+		referencePanel.setBounds(645, 312, 342, 86);
 		mainPanel.add(referencePanel);
 		
 		//Aditional information panel
 		JPanel aditionalInfo = new JPanel();
 		aditionalInfo.setBorder(new TitledBorder(null, "Información Adicional", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		aditionalInfo.setBounds(645, 410, 342, 150);
+		aditionalInfo.setBounds(645, 395, 342, 165);
 		aditionalInfo.setAlignmentX(LEFT_ALIGNMENT);
 		mainPanel.add(aditionalInfo);
 		
@@ -106,7 +106,7 @@ public class MethodPanelView extends JPanel {
 		//Sintonization value panel *****************/
 		vControllerPanel = new JPanel();
 		vControllerPanel.setBorder(new TitledBorder(null, "Valores Sintonización", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		vControllerPanel.setBounds(marginRight2, 207, 349, 110);
+		vControllerPanel.setBounds(645, 198, 349, 110);
 		vControllerPanel.setLayout(new BorderLayout(0, 0));
 		//Define ScrollPane
 		JScrollPane scrollPane = new JScrollPane();
@@ -191,11 +191,15 @@ public class MethodPanelView extends JPanel {
 		
 		JButton btnConstants = new JButton("Constantes", new ImageIcon(MethodPanelView.class.getResource("/icons/icon_formula.png")));
 		btnConstants.setHorizontalAlignment(SwingConstants.LEFT);
-		btnConstants.setBounds(10, 69, 150, 40);
+		btnConstants.setBounds(10, 115, 150, 40);
 		
 		JButton btnDescription = new JButton("Descripci\u00F3n m\u00E9todo", new ImageIcon(MethodPanelView.class.getResource("/icons/icon_formula.png")));
 		btnDescription.setHorizontalAlignment(SwingConstants.LEFT);
 		btnDescription.setBounds(180, 69, 150, 40);
+		
+		JButton controllerSchema = new JButton("Ezquema del Controlador", new ImageIcon(MethodPanelView.class.getResource("/icons/icon_formula.png")));
+		controllerSchema.setHorizontalAlignment(SwingConstants.LEFT);
+		controllerSchema.setBounds(10, 69, 150, 40);
 		
 		
 		
@@ -209,8 +213,10 @@ public class MethodPanelView extends JPanel {
 		aditionalInfo.add(btnEquations);
 		if(method=="lopez" || method=="ks"){
 			aditionalInfo.add(btnConstants);
+			
 		}
 		aditionalInfo.add(btnDescription);
+		aditionalInfo.add(controllerSchema);
 		
 		
 /***********************  Define Labels  ********************************/
@@ -342,6 +348,18 @@ public class MethodPanelView extends JPanel {
 				dialog.setBounds(100, 100, 500, 200);
 				dialog.setLocationRelativeTo(mainView);
 				
+			}
+		});
+		
+		//Show Controller Schema******************************************
+		controllerSchema.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String title = "Ezquema del Controlador";
+				
+				ModalEquationView dialog = new ModalEquationView(mainView, title, "/icons/controllerSchemaOpenLoop.png");
+				dialog.setVisible(true);
+				dialog.setLocationRelativeTo(mainView);
 			}
 		});
 		

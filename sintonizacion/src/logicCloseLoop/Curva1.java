@@ -2,16 +2,23 @@ package logicCloseLoop;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import org.jfree.chart.plot.ValueMarker;
+import org.jfree.ui.junit.HorizontalAlignmentTests;
 
 public class Curva1 extends Curva {
 	
 	private double step[] = {0.0, 10.0, 20.0};
 	private double ktest[] = {1, 4, 10};
+	private String title[] = {	"  K = 1                                                                                      ",
+								"  K = 1                                   K = 4                                           ",
+								"                   K = 1                                  K = 4                                K crítica = 10      "}; 
 
 	public Curva1() {
 		super();
@@ -21,7 +28,7 @@ public class Curva1 extends Curva {
 		puntoXFin = puntoXInicio + PCritico;
 		puntoYInicio = -0.50;
 		puntoYFin = 2.25;
-		comentario.setText("    K = 1                                                          K = 4                                             K crítica = 10");
+		comment.setText(title[0]);
 		marcadores = new ValueMarker[2];
 		marcadores[0] = new ValueMarker(step[1]);
 		marcadores[1] = new ValueMarker(step[2]);
@@ -48,6 +55,17 @@ public class Curva1 extends Curva {
 		return step[i];
 			
 	}
+	
+	public void setComment(int i) {
+		if(i==0){
+		comment.setText(title[0]);
+		}else if(i==1){
+			comment.setText(title[1]);
+		}else if(i==2){
+			comment.setText(title[2]);
+		}
+	}
+	
 	@Override
 	public double getKtest(int i){
 		return ktest[i];

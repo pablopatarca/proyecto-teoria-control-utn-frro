@@ -11,6 +11,9 @@ public class Curva3 extends Curva{
 	
 	double step[] = {0.0, 4.0, 8.0};
 	private double ktest[] = {1, 6, 10};
+	private String title[] = {	"  K = 1                                                                                      ",
+			"  K = 1                                   K = 6                                           ",
+			"                   K = 1                                  K = 6                                K crítica = 10      "};
 	
 	public Curva3() {
 		super();
@@ -20,7 +23,7 @@ public class Curva3 extends Curva{
 		puntoXFin = puntoXInicio + PCritico;
 		puntoYInicio = 0.0;
 		puntoYFin = 1.80;
-		comentario.setText("    K = 1                                                          K = 6                                             K crítica = 10");
+		comment.setText(title[0]);
 		marcadores = new ValueMarker[2];
 		marcadores[0] = new ValueMarker(step[1]);
 		marcadores[1] = new ValueMarker(step[2]);
@@ -49,6 +52,16 @@ public class Curva3 extends Curva{
 	@Override
 	public double getKtest(int i){
 		return ktest[i];
+	}
+	
+	public void setComment(int i) {
+		if(i==0){
+		comment.setText(title[0]);
+		}else if(i==1){
+			comment.setText(title[1]);
+		}else if(i==2){
+			comment.setText(title[2]);
+		}
 	}
 	
 	private double funcionCurva3(double t) {
