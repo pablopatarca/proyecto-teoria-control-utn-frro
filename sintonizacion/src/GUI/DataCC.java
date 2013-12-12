@@ -58,6 +58,9 @@ public abstract class DataCC {
 	
 	private static String description = "El método de Cohen y Coon o método de la curva de reacción del proceso introduce un índice de auto regulación definido como μ = tm/τ.\n\n" 
 	+"Cohen y Coon plantearon nuevas ecuaciones de sintonización basadas en el mejor modelo de primer orden más tiempo muerto que se pueda"
+	+"Donde:/n"
+	+"tm: Tiempo muerto aparente/n"
+	*"τ: Constante de tiempo/n"
 	+"obtener para lazos de control que funcionan como regulador.\n\n"
 	+"Este método aproxima la respuesta del sistema real a un sistema equivalente. Para el cálculo de los parámetros se aplica un pequeño"
 	+"cambio escalón al lazo abierto y se grafica la curva de la variable medida.\n\n" 
