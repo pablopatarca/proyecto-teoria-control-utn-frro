@@ -89,9 +89,10 @@ public abstract class DataKS {
 			{1.11907,-0.89711,0.79870,-0.95480,0.54766,0.87798}};
 	
 	private static String description = "Mientras López desarrolló el método de sintonización para un controlador PID-Ideal, Kaya y Sheib realizaron lo mismo para "
-			+ "controladores que denominaron PID-Clásico (PID-Serie), PID- No Interactuante (una variación del PID-Paralelo) y PID-Industrial. El procedimiento de "
-			+ "sintonización está basado en el mejor modelo de primer orden más tiempo muerto que se pueda obtener para lazos de control que funcionan como reguladores. "
-			+ "El criterio de desempeño corresponde a la minimización de alguno de los criterios integrales y el controlador a uno de los indicados anteriormente.";
+	+"controladores que se denominaron PID-Clásico (PID-Serie), PID- No Interactuante (una variación del PID-Paralelo) y PID-Industrial./n" 
+	+"El procedimiento de sintonización está basado en el mejor modelo de primer orden más tiempo muerto que se pueda obtener para lazos de "
+	+"control que funcionan como reguladores. El criterio de desempeño corresponde a la minimización de alguno de los criterios integrales "
+	+"y el controlador a uno de los indicados anteriormente.";
 	
 	private static double redondear(double numero) {
 		return (Math.rint(numero*100)/100);
