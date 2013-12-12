@@ -131,7 +131,7 @@ public static DefaultTableModel getTransientKPModel(double vK, double vP){
 	+"respuesta rápida ante cambios de setpoint y cambios de carga./n" 
 	+"Las oscilaciones de la variable de proceso seguido de cambios de setpoint y de carga son atenuadas con cada pico de onda "
 	+"siendo esta aproximadamente un cuarto de la amplitud del pico anterior./n"  
-	"Las reglas dadas por Ziegler y Nichols describen una relación real entre los parámetros de sintonización y las características "
+	+"Las reglas dadas por Ziegler y Nichols describen una relación real entre los parámetros de sintonización y las características "
 	+"operacionales del proceso. Para que el proceso oscile constantemente la ganancia del controlador debería ser alguna fracción de "
 	+"la ganancia necesaria y la constante de tiempo integral debería ser proporcional a la constante de tiempo del proceso.";
 		
