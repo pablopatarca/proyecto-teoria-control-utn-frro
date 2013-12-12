@@ -119,18 +119,21 @@ public static DefaultTableModel getTransientKPModel(double vK, double vP){
 		
 	}
 	
-	private static String description = "Un procedimiento de sintonización a lazo cerrado  implica deshabilitar cualquier acción integral o derivativa del controlador, "
-			+ "ir aumentando la ganancia del controlador hasta que empiece que la variable de proceso empiece a oscilar. La cantidad de ganancia necesaria para generar "
-			+ "oscilaciones sostenidas (amplitud constante) es llamada “ultima ganancia” del proceso, mientras que el tiempo (periodo) entre cada pico de oscilación es "
-			+ "llamado “último periodo” del proceso. \n"
-			+ "Las recomendaciones de Ziegler y Nichols indican cómo se debe configurar la ganancia del controlador con un valor de la mitad de la última ganancia (K): \n Kp = 0.5Ku \n"
-			+ "Dónde: \n Kp: ganancia del controlador, \n Ku: Ultima ganancia determinada incrementando la ganancia del controlador hasta lograr oscilación auto-sostenibles. \n"
-			+ "Una ganancia del controlador a la mitad de la “última ganancia” determinada experimentalmente resulta una razonable respuesta rápida ante cambios de "
-			+ "setpoint y cambios de carga. Las oscilaciones de la variable de proceso seguido de cambios de setpoint y de carga son típicamente atenuadas con "
-			+ "cada pico de onda siendo esta aproximadamente un cuarto de la amplitud del pico anterior. \n"
-			+ "Las reglas dadas por Ziegler y Nichols describen una relación real entre los parámetros de sintonización y las características operacionales del proceso. "
-			+ "La ganancia del controlador debería ser alguna fracción de la ganancia necesaria para que el proceso oscile constantemente. La constante de tiempo integral debería "
-			+ "ser proporcional a la constante de tiempo del proceso.";
+	private static String description = "Un procedimiento de sintonización a lazo cerrado  implica deshabilitar cualquier acción integral o derivativa del controlador./n"
+	+"Consiste en ir aumentando la ganancia del controlador hasta que la variable de proceso empiece a oscilar. La cantidad de ganancia "
+	+"necesaria para generar oscilaciones sostenidas (amplitud constante) es llamada “ultima ganancia” del proceso, mientras que el tiempo "
+	+"(periodo) entre cada pico de oscilación es llamado “último periodo” del proceso./n"
+	+"Ziegler y Nichols indican cómo se debe configurar la ganancia del controlador con un valor de la mitad de la última ganancia.  "
+	+"Kp = 0.5 Ku /n" 
+	+"Kp: Ganancia del controlador /n"
+	+"Ku: Ultima ganancia determinada incrementando la ganancia del controlador hasta lograr oscilación auto-sostenibles./n"
+	+"Una ganancia del controlador a la mitad de la “última ganancia” determinada experimentalmente, resulta una razonable "
+	+"respuesta rápida ante cambios de setpoint y cambios de carga./n" 
+	+"Las oscilaciones de la variable de proceso seguido de cambios de setpoint y de carga son atenuadas con cada pico de onda "
+	+"siendo esta aproximadamente un cuarto de la amplitud del pico anterior./n"  
+	"Las reglas dadas por Ziegler y Nichols describen una relación real entre los parámetros de sintonización y las características "
+	+"operacionales del proceso. Para que el proceso oscile constantemente la ganancia del controlador debería ser alguna fracción de "
+	+"la ganancia necesaria y la constante de tiempo integral debería ser proporcional a la constante de tiempo del proceso.";
 		
 	public static String getDescription(){
 		return description;
