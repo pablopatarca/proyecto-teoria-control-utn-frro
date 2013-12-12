@@ -121,8 +121,8 @@ public static DefaultTableModel getTransientKPModel(double vK, double vP){
 	
 	private static String description = "Un procedimiento de sintonización a lazo cerrado  implica deshabilitar cualquier acción integral o derivativa del controlador.\n\n"
 	+"Consiste en ir aumentando la ganancia del controlador hasta que la variable de proceso empiece a oscilar. La cantidad de ganancia "
-	+"necesaria para generar oscilaciones sostenidas (amplitud constante) es llamada “ultima ganancia” del proceso, mientras que el tiempo "
-	+"(periodo) entre cada pico de oscilación es llamado “último periodo” del proceso.\n\n"
+	+"necesaria para generar oscilaciones sostenidas (amplitud constante) es llamada “ganancia ultima ” del proceso, mientras que el tiempo "
+	+"(período) entre cada pico de oscilación es llamado “período último ” del proceso.\n\n"
 	+"Ziegler y Nichols indican cómo se debe configurar la ganancia del controlador con un valor de la mitad de la última ganancia.  "
 	+"Kp = 0.5 Ku \n\n" 
 	+"Kp: Ganancia del controlador \n\n"
