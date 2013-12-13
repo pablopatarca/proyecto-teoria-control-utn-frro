@@ -18,7 +18,7 @@ public class Curva1 extends Curva {
 	private double ktest[] = {1, 4, 10};
 	private String title[] = {	"  K = 1                                                                                      ",
 								"  K = 1                                   K = 4                                           ",
-								"                   K = 1                                  K = 4                                K crítica = 10      "}; 
+								"                   K = 1                                  K = 4                                K último = 10      "}; 
 
 	public Curva1() {
 		super();

@@ -121,7 +121,7 @@ public class PanelCompare extends JPanel {
 		
 		//Create comparer container Panel
 		containerPanel = new JPanel();
-		containerPanel.setBorder(new TitledBorder(null, "Methods", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		containerPanel.setBorder(new TitledBorder(null, "Métodos", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		containerPanel.setBounds(223, 33, 800, 545);
 		add(containerPanel);
 		containerPanel.setLayout(null);

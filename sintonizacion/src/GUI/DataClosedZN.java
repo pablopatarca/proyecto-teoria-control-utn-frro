@@ -8,7 +8,7 @@ public abstract class DataClosedZN {
 		
 		return new DefaultTableModel(
 				new Object[][] {{null, null}},
-				new String[] {"K cr\u00EDtica", "P cr\u00EDtico"}){
+				new String[] {"K último", "P último"}){
 					private static final long serialVersionUID = 1L;
 				Class[] columnTypes = new Class[] {
 					Double.class, Double.class
@@ -28,7 +28,7 @@ public abstract class DataClosedZN {
 public static DefaultTableModel getTransientKPModel(double vK, double vP){
 		
 		return new DefaultTableModel(
-				new Object[][] {{vK, vP}},
+				new Object[][] {{round(vK), round(vP)}},
 				new String[] {"K", "P"}){
 					private static final long serialVersionUID = 1L;
 				Class[] columnTypes = new Class[] {
@@ -49,8 +49,8 @@ public static DefaultTableModel getTransientKPModel(double vK, double vP){
 	public static DefaultTableModel getKPModel(double vK, double vP){
 		
 		return new DefaultTableModel(
-				new Object[][] {{vK, vP}},
-				new String[] {"K cr\u00EDtica", "P cr\u00EDtico"}){
+				new Object[][] {{round(vK), round(vP)}},
+				new String[] {"K último", "P último"}){
 					private static final long serialVersionUID = 1L;
 				Class[] columnTypes = new Class[] {
 					Double.class, Double.class
@@ -95,9 +95,9 @@ public static DefaultTableModel getTransientKPModel(double vK, double vP){
 		
 		return new DefaultTableModel(
 				new Object[][] {
-						{"P", 0.5*criticK, null, null},
-						{"PI", 0.45*criticK, (1.0/1.2)*criticP, null},
-						{"PID", 0.6*criticK, 0.5*criticP, 0.125*criticP},
+						{"P", round(0.5*criticK), null, null},
+						{"PI", round(0.45*criticK), round((1.0/1.2)*criticP), null},
+						{"PID", round(0.6*criticK), round(0.5*criticP), round(0.125*criticP)},
 				},
 				new String[] {"Tipo de controlador", "Kc", "Ti", "Td"}){
 				
@@ -117,6 +117,10 @@ public static DefaultTableModel getTransientKPModel(double vK, double vP){
 				};
 			};
 		
+	}
+	
+	private static double round(double numero) {
+		return (Math.rint(numero*100)/100);
 	}
 	
 	private static String description = "Un procedimiento de sintonización a lazo cerrado  implica deshabilitar cualquier acción integral o derivativa del controlador.\n\n"

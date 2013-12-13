@@ -23,6 +23,7 @@ public class PanelClosedZieglerNichols extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	int band = 0;
+	public JLabel progress;
 	private JPanel mainPanel;
 	private Grapher graficador;
 	private JTable valoresZieglerNichols;
@@ -38,7 +39,7 @@ public class PanelClosedZieglerNichols extends JPanel {
 		
 		String headTitle = "M\u00E9todo de Ziegler y Nichols de oscilaciones sostenidas";
 		
-		graficador = new Grapher();
+		graficador = new Grapher(this);
 
 		
 		mainPanel = new JPanel();
@@ -118,6 +119,10 @@ public class PanelClosedZieglerNichols extends JPanel {
 		labelTitle.setBounds(marginRight, 5, 500, 20);
 		mainPanel.add(labelTitle);
 		
+		progress = new JLabel("");
+		progress.setBounds(645, 172, 380, 15);
+		mainPanel.add(progress);
+		
 		JLabel rojo = new JLabel("New label");
 		rojo.setBounds(120, 26, 24, 7);
 		rojo.setIcon(new ImageIcon(MainView.class.getResource("/icons/azul.png")));
@@ -180,7 +185,7 @@ public class PanelClosedZieglerNichols extends JPanel {
 		btnDescripcinDelMtodo.setBounds(647, 452, 240, 40);
 		aditionalInfo.add(btnDescripcinDelMtodo);
 		
-		JButton controllerSchema = new JButton("Ezquema del Controlador", new ImageIcon(MethodPanelView.class.getResource("/icons/icon_formula.png")));
+		JButton controllerSchema = new JButton("Esquema del Controlador", new ImageIcon(MethodPanelView.class.getResource("/icons/icon_formula.png")));
 		controllerSchema.setHorizontalAlignment(SwingConstants.LEFT);
 		controllerSchema.setBounds(647, 452, 240, 40);
 		aditionalInfo.add(controllerSchema);
@@ -199,6 +204,9 @@ public class PanelClosedZieglerNichols extends JPanel {
 		 */
 		funcionesTransferencias.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				graficador = new Grapher(PanelClosedZieglerNichols.this);
+				
 				graficador.stop();
 				switch(funcionesTransferencias.getSelectedIndex()) {
 				case 0: ftLabel.setIcon(null); 
@@ -215,7 +223,7 @@ public class PanelClosedZieglerNichols extends JPanel {
 				}
 			}
 		});
-
+		
 		/**
 		 * INSERTAR UNA CURVA
 		 */
@@ -223,10 +231,11 @@ public class PanelClosedZieglerNichols extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				if(funcionesTransferencias.getSelectedIndex() != 0) {
 					
+					graficador = new Grapher(PanelClosedZieglerNichols.this);
+					
 					band = 1;
 					
 					valoresZieglerNichols.setModel(DataClosedZN.getControllerModel());
-					
 					valoresZieglerNichols.getColumnModel().getColumn(0).setPreferredWidth(106);
 					valoresKP.setModel(DataClosedZN.getKPModel());
 					
@@ -235,9 +244,9 @@ public class PanelClosedZieglerNichols extends JPanel {
 					btnDibujar.setEnabled(false);
 					funcionesTransferencias.setEnabled(false);
 					graficador.insertarCurva(funcionesTransferencias.getSelectedIndex());
-					/**
-					 * DIBUJO EL GRAFICO
-					 */
+					
+					// DIBUJO EL GRAFICO
+					
 					grafico.removeAll();
 					grafico.add(graficador.getDiagrama(),BorderLayout.CENTER);
 					grafico.validate();
@@ -279,7 +288,7 @@ public class PanelClosedZieglerNichols extends JPanel {
 		controllerSchema.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String title = "Ezquema del Controlador";
+				String title = "Esquema del Controlador";
 				
 				ModalEquationView dialog = new ModalEquationView(mainView, title, "/icons/controllerSchemaClosedLoop.png");
 				dialog.setVisible(true);
@@ -289,10 +298,13 @@ public class PanelClosedZieglerNichols extends JPanel {
 		
 	};
 	
+	public JLabel getProgress(){
+		return progress;
+	}
+	
 	
 	public JPanel getMainPanel() {
 		// TODO Auto-generated method stub
 		return mainPanel;
 	}
-
 }

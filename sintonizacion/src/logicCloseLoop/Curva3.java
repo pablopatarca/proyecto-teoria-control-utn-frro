@@ -13,7 +13,7 @@ public class Curva3 extends Curva{
 	private double ktest[] = {1, 6, 10};
 	private String title[] = {	"  K = 1                                                                                      ",
 			"  K = 1                                   K = 6                                           ",
-			"                   K = 1                                  K = 6                                K crítica = 10      "};
+			"                   K = 1                                  K = 6                                K último = 10      "};
 	
 	public Curva3() {
 		super();

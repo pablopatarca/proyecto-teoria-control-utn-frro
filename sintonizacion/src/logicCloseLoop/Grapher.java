@@ -26,6 +26,7 @@ import org.jfree.chart.plot.ValueMarker;
 import org.jfree.data.xy.XYSeriesCollection;
 
 import GUI.DataClosedZN;
+import GUI.PanelClosedZieglerNichols;
 
 public class Grapher {
 	
@@ -40,23 +41,29 @@ public class Grapher {
 	private JTable tabla1, tabla2;
 	private JButton boton;
 	private JComboBox<String> combo;
+	private String loader;
+	private PanelClosedZieglerNichols view;
 	
-	public Grapher() {
+	public Grapher(final PanelClosedZieglerNichols view) {
 		
+		this.view = view;
 		conjuntoDatos = new XYSeriesCollection();
 		curvaActual = null;
 		bandera = true;
 		tabla1 = null;
+		loader = "Calculando: ";
 		
-		timer = new Timer (1, new ActionListener () {
+		
+		timer = new Timer (0, new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
+		    	
 		    	
 		    	if(t <= tiempoDeCurva && bandera) {
 		        	curvaActual.dibujarCurva(t);
 		        	if(curvaActual.getTipoCurva() != 3)
-		        		t += 0.04;
+		        		t += 0.03;
 		        	else
-		        		t += 0.015;
+		        		t += 0.01;
 		        }
 		    	else {
 		    		if(bandera)
@@ -83,23 +90,42 @@ public class Grapher {
 		    	}
 		    	
 	    		if(t <= curvaActual.getPuntoXFin() && !bandera) {
+	    			
 	    			curvaActual.dibujarPeriodo(t);
 	    			
 	    			if(curvaActual.getTipoCurva() != 3)
 	    				t += 0.03;
 	    			else
-	    				t += 0.01;
+	    				t += 0.03;
 	    		}
-	    		else if(!bandera){
+	    		else if(!bandera && t<tiempoDeCurva){
 	    			
-	    			System.out.println(curvaActual.getStep(2));
-		    		tabla1.setModel(DataClosedZN.getControllerModel(curvaActual.getKCritico(), curvaActual.getPCritico()));
-		    		tabla2.setModel(DataClosedZN.getKPModel(curvaActual.getKCritico(), curvaActual.getPCritico()));
-		    		tabla1.getColumnModel().getColumn(0).setPreferredWidth(106);
+	    			tabla2.setModel(DataClosedZN.getKPModel(curvaActual.getKCritico(), curvaActual.getPCritico()));
 	    			
-					boton.setEnabled(true);
-					combo.setEnabled(true);
-					stop();
+	    			boton.setEnabled(true);
+	    			combo.setEnabled(true);
+	    			
+	    			timer.setDelay(500);
+	    			
+	    			
+	    			loader += "|||||||";
+	    			view.getProgress().setText(loader);
+	    			
+	    			 
+	    			band += 1;
+	    			
+	    			
+	    			
+	    			
+				}
+	    		if(band == 14){
+	    			
+	    			System.out.println("STOP");
+	    			tabla1.setModel(DataClosedZN.getControllerModel(curvaActual.getKCritico(), curvaActual.getPCritico()));
+	    			tabla1.getColumnModel().getColumn(0).setPreferredWidth(106);
+	    			
+	    			stop();
+	    			
 	    		}
 		     }
 		});
@@ -151,8 +177,10 @@ public class Grapher {
 		diagrama.addSubtitle(curvaActual.getComment());
 		for(ValueMarker marcador : curvaActual.getMarcadores())
 			diagrama.getXYPlot().addDomainMarker(marcador);
+		
 		timer.stop();
 		timer.start();
+		
 	}
 	
 	public Curva getCurvaActual() {
@@ -160,6 +188,7 @@ public class Grapher {
 	}
 
 	public void limpiar() {
+		view.getProgress().setText("");
 		curvaActual = null;
 		conjuntoDatos.removeAllSeries();
 		t = 0.0;
@@ -172,14 +201,6 @@ public class Grapher {
 	
 	public void start() {
 		timer.start();
-	}
-	
-	public void clean() {
-		curvaActual = null;
-		conjuntoDatos.removeAllSeries();
-		t = 0;
-		//timerCurve = null;
-		//resetTimer();
 	}
 	
 	public void getImage() throws IOException{
@@ -218,5 +239,8 @@ public class Grapher {
             
         }
 		
+	}
+	private static double round(double numero) {
+		return (Math.rint(numero*100)/100);
 	}
 }

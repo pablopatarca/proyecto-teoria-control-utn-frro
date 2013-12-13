@@ -197,7 +197,7 @@ public class MethodPanelView extends JPanel {
 		btnDescription.setHorizontalAlignment(SwingConstants.LEFT);
 		btnDescription.setBounds(180, 69, 150, 40);
 		
-		JButton controllerSchema = new JButton("Ezquema del Controlador", new ImageIcon(MethodPanelView.class.getResource("/icons/icon_formula.png")));
+		JButton controllerSchema = new JButton("Esquema del Controlador", new ImageIcon(MethodPanelView.class.getResource("/icons/icon_formula.png")));
 		controllerSchema.setHorizontalAlignment(SwingConstants.LEFT);
 		controllerSchema.setBounds(10, 69, 150, 40);
 		
@@ -355,7 +355,7 @@ public class MethodPanelView extends JPanel {
 		controllerSchema.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String title = "Ezquema del Controlador";
+				String title = "Esquema del Controlador";
 				
 				ModalEquationView dialog = new ModalEquationView(mainView, title, "/icons/controllerSchemaOpenLoop.png");
 				dialog.setVisible(true);
