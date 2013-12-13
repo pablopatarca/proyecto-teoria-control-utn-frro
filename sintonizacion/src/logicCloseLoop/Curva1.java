@@ -2,15 +2,7 @@ package logicCloseLoop;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Rectangle;
-import java.awt.geom.Rectangle2D;
-
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-
 import org.jfree.chart.plot.ValueMarker;
-import org.jfree.ui.junit.HorizontalAlignmentTests;
 
 public class Curva1 extends Curva {
 	
