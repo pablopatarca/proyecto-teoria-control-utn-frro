@@ -103,11 +103,11 @@ public abstract class DataLopez {
 	+"respuesta se aproxima por una función de transferencia de primer orden con retardo.\n\n"
 	+"La sintonia de controladores PID para procesos industriales está basada normalmente "
 	+"en especificaciones nominales sobre determinadas características de la respuesta del "
-	+"sistema en lazo cerrado a cambios bruscos en el punto de consigna o en la carga./n/n"
+	+"sistema en lazo cerrado a cambios bruscos en el punto de consigna o en la carga.\n\n"
 	+"También es usual basar el diseño en criterios de optimización sobre la señal de error, "
 	+"tratando de minimizar alguna de las cuatro integrales típicas de la señal de error: la "
 	+"integral del error (IE), la integral del cuadrado del error (ISE), la integral del valor "
-	+"absoluto del error (IAE) y la integral del valor absoluto del error ponderado en el tiempo (ITAE)./n/n";
+	+"absoluto del error (IAE) y la integral del valor absoluto del error ponderado en el tiempo (ITAE).\n\n";
 	
 	private static double redondear(double numero) {
 		return (Math.rint(numero*100)/100);
