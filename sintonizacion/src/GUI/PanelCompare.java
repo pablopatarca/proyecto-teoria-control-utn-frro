@@ -144,9 +144,12 @@ public class PanelCompare extends JPanel {
 		
 		if(inputA.getText() != "" && inputB.getText() != ""){
 			
+			String val1 = (inputA.getText()).replace(",", ".");
+			String val2 = (inputB.getText()).replace(",", ".");
+			
 			Pattern pat = Pattern.compile("^\\d+|^\\d+\\.?\\d+");
-			Matcher mat1 = pat.matcher(inputA.getText());
-		    Matcher mat2 = pat.matcher(inputB.getText());
+			Matcher mat1 = pat.matcher(val1);
+		    Matcher mat2 = pat.matcher(val2);
 		     
 		     //Number Validate
 		     if (mat1.matches() && mat2.matches()) {
@@ -163,8 +166,8 @@ public class PanelCompare extends JPanel {
 				
 				containerPanel.removeAll();
 				
-				double Kp = Double.parseDouble(inputA.getText());
-				double tau = Double.parseDouble(inputB.getText());
+				double Kp = Double.parseDouble(val1);
+				double tau = Double.parseDouble(val2);
 				
 				if(Kp > 0 && tau > 0){
 					if(Kp < 20.0 && tau < 20.0) {

@@ -383,17 +383,22 @@ public class MethodPanelView extends JPanel {
 				
 				//Empty Validate
 				if(modelo.getValueAt(0, 1) != null && modelo.getValueAt(0, 0) != null){
+					
+					String val1 = ((String) modelo.getValueAt(0, 0)).replace(",", ".");
+					String val2 = ((String) modelo.getValueAt(0, 1)).replace(",", ".");
+					
+					
 				
 					Pattern pat = Pattern.compile("^\\d+|^\\d+\\.?\\d+");
-				     Matcher mat1 = pat.matcher((String) modelo.getValueAt(0, 0));
-				     Matcher mat2 = pat.matcher((String) modelo.getValueAt(0, 1));
+				     Matcher mat1 = pat.matcher(val1);
+				     Matcher mat2 = pat.matcher(val2);
 				     
 				     //Number Validate
 				     if (mat1.matches() && mat2.matches()) {
 				         System.out.println("Are Numbers");
 				         
-				        double kp = Double.parseDouble((String) "0"+modelo.getValueAt(0,0));
-						double tau = Double.parseDouble((String) "0"+modelo.getValueAt(0,1));
+				        double kp = Double.parseDouble((String) "0"+val1);
+						double tau = Double.parseDouble((String) "0"+val2);
 					
 					//Validate
 					if(kp > 0.0 && tau > 0.0) {
