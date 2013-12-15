@@ -169,9 +169,9 @@ public class MethodPanelView extends JPanel {
 		btnDraw.setHorizontalAlignment(SwingConstants.LEFT);
 		btnDraw.setBounds(850, marginTop, 140, 40);
 		
-		JButton btnLimpiar = new JButton("  Limpiar", new ImageIcon(MethodPanelView.class.getResource("/icons/icon_limpiar.png")));
-		btnLimpiar.setHorizontalAlignment(SwingConstants.LEFT);
-		btnLimpiar.setBounds(850, marginTop+40, 140, 40);
+		JButton btnClean = new JButton("  Limpiar", new ImageIcon(MethodPanelView.class.getResource("/icons/icon_limpiar.png")));
+		btnClean.setHorizontalAlignment(SwingConstants.LEFT);
+		btnClean.setBounds(850, marginTop+40, 140, 40);
 		
 		JButton btnSave = new JButton("  Guardar", new ImageIcon(MethodPanelView.class.getResource("/icons/icon_guardar.png")));
 		btnSave.setHorizontalAlignment(SwingConstants.LEFT);
@@ -204,7 +204,7 @@ public class MethodPanelView extends JPanel {
 		
 		
 		//Add Buttons to panels		
-		mainPanel.add(btnLimpiar);
+		mainPanel.add(btnClean);
 		mainPanel.add(btnDraw);
 		mainPanel.add(btnSave);
 		mainPanel.add(btnStop);
@@ -390,12 +390,12 @@ public class MethodPanelView extends JPanel {
 					
 				
 					Pattern pat = Pattern.compile("^\\d+|^\\d+\\.?\\d+");
-				     Matcher mat1 = pat.matcher(val1);
-				     Matcher mat2 = pat.matcher(val2);
+				    Matcher mat1 = pat.matcher(val1);
+				    Matcher mat2 = pat.matcher(val2);
 				     
 				     //Number Validate
-				     if (mat1.matches() && mat2.matches()) {
-				         System.out.println("Are Numbers");
+				    if (mat1.matches() && mat2.matches()) {
+				        System.out.println("Are Numbers");
 				         
 				        double kp = Double.parseDouble((String) "0"+val1);
 						double tau = Double.parseDouble((String) "0"+val2);
@@ -406,6 +406,9 @@ public class MethodPanelView extends JPanel {
 						if(kp < 20.0 && tau < 20.0) {
 					
 						band = 1;
+						
+						//Clean Tables
+						limpiaGrafica(graphicPanel);
 					
 					//Draw Graphic
 						
@@ -455,7 +458,7 @@ public class MethodPanelView extends JPanel {
 		/**
 		 * LIMPIA GRAFICA
 		 */
-		btnLimpiar.addActionListener(new ActionListener() {
+		btnClean.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				limpiaGrafica(graphicPanel);
 				band = 0;
@@ -503,14 +506,25 @@ public class MethodPanelView extends JPanel {
 			double vT = curvaActual.getT();
 			double vL = curvaActual.getL();
 			
-			
-			vTableControllers.setModel(dataTables.getModelControllers(method, vL, vT, kp, tau));
-			vTableControllers.getColumnModel().getColumn(0).setPreferredWidth(106);
-			
 			tableTL.setModel(dataTables.getModelLT(vL, vT));
 			
 		}
 		
+	}
+	
+	public void completeTableController(Grapher graph, double kp, double tau){
+		
+		if(graficador.getCurvaActual() != null) {
+			CurveGenerator curvaActual = graficador.getCurvaActual();
+			
+			double vT = curvaActual.getT();
+			double vL = curvaActual.getL();
+			
+			
+			vTableControllers.setModel(dataTables.getModelControllers(method, vL, vT, kp, tau));
+			vTableControllers.getColumnModel().getColumn(0).setPreferredWidth(106);
+			
+		}
 	}
 	
 	private void limpiaGrafica(JPanel panel){

@@ -111,10 +111,7 @@ public class Grapher {
 	    			loader += "|||||||";
 	    			view.getProgress().setText(loader);
 	    			
-	    			 
 	    			band += 1;
-	    			
-	    			
 	    			
 	    			
 				}

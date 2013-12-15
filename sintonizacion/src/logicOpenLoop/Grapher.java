@@ -141,15 +141,20 @@ public Grapher() {
 		    		}
 		    	}
 		    	
-		    	if(flag==4){
+		    	if(flag >= 4){
 		    		
 		    		globalPanelView.completeTables(graph, kPlant, curveTime);
+		    		
+		    		timerCurve.setDelay(500);
+		    		
+		    		flag += 1;
+		    		
+		    		System.out.println(flag);
+		    		if(flag==15){
+			    		globalPanelView.completeTableController(graph, kPlant, curveTime);
+			    		stop();
+			    	}
 		    				    		
-		    	}else{
-		    		if(flag==4){
-		    			t=0;
-	    				flag = 5;
-		    		}
 		    	}
 	    		
 		     }
