@@ -25,27 +25,6 @@ public abstract class DataClosedZN {
 			};
 	}
 	
-public static DefaultTableModel getTransientKPModel(double vK, double vP){
-		
-		return new DefaultTableModel(
-				new Object[][] {{round(vK), round(vP)}},
-				new String[] {"K", "P"}){
-					private static final long serialVersionUID = 1L;
-				Class[] columnTypes = new Class[] {
-					Double.class, Double.class
-				};
-				public Class getColumnClass(int columnIndex) {
-					return columnTypes[columnIndex];
-				}
-				boolean[] columnEditables = new boolean[] {
-					false, false
-				};
-				public boolean isCellEditable(int row, int column) {
-					return columnEditables[column];
-				};
-			};
-	}
-	
 	public static DefaultTableModel getKPModel(double vK, double vP){
 		
 		return new DefaultTableModel(
@@ -69,9 +48,9 @@ public static DefaultTableModel getTransientKPModel(double vK, double vP){
 	
 	public static DefaultTableModel getControllerModel(){
 		return new DefaultTableModel(
-				new Object[][] {{"P", "0.5 Kcr", null, null},
-								{"PI", "0.45 Kcr", "(1/1.2) Pcr", null},
-								{"PID", "0.6 Kcr", "0.5 Pcr", "0.125 Pcr"}},
+				new Object[][] {{"P", "0.5 Ku", null, null},
+								{"PI", "0.45 Ku", "(1/1.2) Pu", null},
+								{"PID", "0.6 Ku", "0.5 Pu", "0.125 Pu"}},
 				new String[] {"Tipo de controlador", "Kc", "Ti", "Td"}){
 				
 				private static final long serialVersionUID = 1L;
@@ -130,7 +109,7 @@ public static DefaultTableModel getTransientKPModel(double vK, double vP){
 	+"Ziegler y Nichols indican cómo se debe configurar la ganancia del controlador con un valor de la mitad de la última ganancia.  "
 	+"Kp = 0.5 Ku \n\n" 
 	+"Kp: Ganancia del controlador \n\n"
-	+"Ku: Ultima ganancia determinada incrementando la ganancia del controlador hasta lograr oscilación auto-sostenibles.\n\n"
+	+"Ku: Ultima ganancia, determinada incrementando la ganancia del controlador hasta lograr oscilación auto-sostenibles.\n\n"
 	+"Una ganancia del controlador a la mitad de la “última ganancia” determinada experimentalmente, resulta una razonable "
 	+"respuesta rápida ante cambios de setpoint y cambios de carga.\n\n" 
 	+"Las oscilaciones de la variable de proceso seguido de cambios de setpoint y de carga son atenuadas con cada pico de onda "

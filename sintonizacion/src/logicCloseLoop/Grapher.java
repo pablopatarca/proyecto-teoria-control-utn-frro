@@ -41,7 +41,6 @@ public class Grapher {
 	private JTable tabla1, tabla2;
 	private JButton boton;
 	private JComboBox<String> combo;
-	private String loader;
 	private PanelClosedZieglerNichols view;
 	
 	public Grapher(final PanelClosedZieglerNichols view) {
@@ -51,7 +50,6 @@ public class Grapher {
 		curvaActual = null;
 		bandera = true;
 		tabla1 = null;
-		loader = "Calculando: ";
 		
 		
 		timer = new Timer (0, new ActionListener () {
@@ -108,8 +106,8 @@ public class Grapher {
 	    			timer.setDelay(500);
 	    			
 	    			
-	    			loader += "|||||||";
-	    			view.getProgress().setText(loader);
+	    			//loader += "|||||||";
+	    			//view.getProgress().setText(loader);
 	    			
 	    			band += 1;
 	    			
@@ -185,7 +183,7 @@ public class Grapher {
 	}
 
 	public void limpiar() {
-		view.getProgress().setText("");
+		
 		curvaActual = null;
 		conjuntoDatos.removeAllSeries();
 		t = 0.0;

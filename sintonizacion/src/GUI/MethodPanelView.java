@@ -408,7 +408,7 @@ public class MethodPanelView extends JPanel {
 						band = 1;
 						
 						//Clean Tables
-						limpiaGrafica(graphicPanel);
+						limpiar(graphicPanel);
 					
 					//Draw Graphic
 						
@@ -460,7 +460,7 @@ public class MethodPanelView extends JPanel {
 		 */
 		btnClean.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				limpiaGrafica(graphicPanel);
+				limpiarTodo(graphicPanel);
 				band = 0;
 			}
 		});
@@ -527,8 +527,23 @@ public class MethodPanelView extends JPanel {
 		}
 	}
 	
-	private void limpiaGrafica(JPanel panel){
+	private void limpiarTodo(JPanel panel){
 		inputTable.setModel( getInputTableModel() );
+		graficador.clean();
+		/**
+		 * DIBUJO EL GRAFICO
+		 */
+		panel.removeAll();
+		panel.add(graficador.getDiagrama(),BorderLayout.CENTER);
+		panel.validate();
+		
+		vTableControllers.setModel( dataTables.getModelValuesControllers() );
+		vTableControllers.getColumnModel().getColumn(0).setPreferredWidth(106);
+			
+		tableTL.setModel( dataTables.getModelLT() );
+	}
+	
+	private void limpiar(JPanel panel){
 		graficador.clean();
 		/**
 		 * DIBUJO EL GRAFICO

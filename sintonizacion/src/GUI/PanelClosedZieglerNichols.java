@@ -119,10 +119,11 @@ public class PanelClosedZieglerNichols extends JPanel {
 		labelTitle.setBounds(marginRight, 5, 500, 20);
 		mainPanel.add(labelTitle);
 		
+		/*
 		progress = new JLabel("");
 		progress.setBounds(645, 172, 380, 15);
 		mainPanel.add(progress);
-		
+		*/
 		JLabel rojo = new JLabel("New label");
 		rojo.setBounds(120, 26, 24, 7);
 		rojo.setIcon(new ImageIcon(MainView.class.getResource("/icons/azul.png")));
@@ -298,9 +299,9 @@ public class PanelClosedZieglerNichols extends JPanel {
 		
 	};
 	
-	public JLabel getProgress(){
+	/*public JLabel getProgress(){
 		return progress;
-	}
+	}*/
 	
 	
 	public JPanel getMainPanel() {

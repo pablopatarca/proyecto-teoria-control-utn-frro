@@ -56,14 +56,13 @@ public abstract class DataCC {
 	
 	private static String headTitle = "Método de Cohen y Coon - Sistema de lazo abierto";
 	
-	private static String description = "El método de Cohen y Coon o método de la curva de reacción del proceso introduce un índice de auto regulación definido como μ = L/τ.\n\n" 
-	+"Cohen y Coon plantearon nuevas ecuaciones de sintonización basadas en el mejor modelo de primer orden más tiempo muerto que se pueda obtener para lazos de control que "
-	+ "funcionan como regulador. \n"
+	private static String description = "El método de Cohen y Coon o método de la curva de reacción del proceso introduce un índice de auto regulación definido como μ = L/τ.\n\n"
 	+"Donde:\n"
 	+"L: Tiempo muerto aparente (tm)\n"
 	+"τ: Constante de tiempo\n\n"
-	+".\n\n"
-	+"Este método aproxima la respuesta del sistema real a un sistema equivalente. Para el cálculo de los parámetros se aplica un pequeño"
+	+"Cohen y Coon plantearon nuevas ecuaciones de sintonización basadas en el mejor modelo de primer orden más un tiempo muerto que se pueda obtener para lazos de control que "
+	+ "funcionan como regulador. \n\n"
+	+"Este método aproxima la respuesta del sistema real a un sistema equivalente. Para el cálculo de los parámetros se aplica un pequeño "
 	+"cambio escalón al lazo abierto y se grafica la curva de la variable medida.\n\n" 
 	+"Se puede observar que la sintonía mediante éste método tiene una acción de control proporcional más intensa que la obtenida por el "
 	+"método de Ziegler-Nichols.\n\n"
