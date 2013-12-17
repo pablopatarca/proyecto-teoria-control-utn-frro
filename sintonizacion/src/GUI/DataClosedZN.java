@@ -104,19 +104,19 @@ public abstract class DataClosedZN {
 	
 	private static String description = "Un procedimiento de sintonización a lazo cerrado  implica deshabilitar cualquier acción integral o derivativa del controlador.\n\n"
 	+"Consiste en ir aumentando la ganancia del controlador hasta que la variable de proceso empiece a oscilar. La cantidad de ganancia "
-	+"necesaria para generar oscilaciones sostenidas (amplitud constante) es llamada “ganancia ultima ” del proceso, mientras que el tiempo "
-	+"(período) entre cada pico de oscilación es llamado “período último ” del proceso.\n\n"
-	+"Ziegler y Nichols indican cómo se debe configurar la ganancia del controlador con un valor de la mitad de la última ganancia.  "
+	+"necesaria para generar oscilaciones sostenidas (amplitud constante) es llamada “Ganancia última” del proceso, mientras que el tiempo "
+	+"(período) entre cada pico de oscilación es llamado “Período último” del proceso.\n\n"
+	+"Ziegler y Nichols indican cómo se debe configurar la ganancia del controlador con un valor de la mitad de la ganancia última.  "
 	+"Kp = 0.5 Ku \n\n" 
 	+"Kp: Ganancia del controlador \n\n"
-	+"Ku: Ultima ganancia, determinada incrementando la ganancia del controlador hasta lograr oscilación auto-sostenibles.\n\n"
-	+"Una ganancia del controlador a la mitad de la “última ganancia” determinada experimentalmente, resulta una razonable "
+	+"Ku: Ganancia última , determinada incrementando la ganancia del controlador hasta lograr oscilación auto-sostenibles.\n\n"
+	+"Una ganancia del controlador a la mitad de la “Ganancia última” determinada experimentalmente resulta una razonable "
 	+"respuesta rápida ante cambios de setpoint y cambios de carga.\n\n" 
-	+"Las oscilaciones de la variable de proceso seguido de cambios de setpoint y de carga son atenuadas con cada pico de onda "
-	+"siendo esta aproximadamente un cuarto de la amplitud del pico anterior.\n\n"  
+	+"Las oscilaciones de la variable de proceso a cambios de setpoint y de carga son atenuadas con cada pico de onda "
+	+"siendo aproximadamente un cuarto de la amplitud del pico anterior.\n\n"  
 	+"Las reglas dadas por Ziegler y Nichols describen una relación real entre los parámetros de sintonización y las características "
 	+"operacionales del proceso. Para que el proceso oscile constantemente la ganancia del controlador debería ser alguna fracción de "
-	+"la ganancia necesaria y la constante de tiempo integral debería ser proporcional a la constante de tiempo del proceso. \n\n";
+	+"la ganancia última y la constante de tiempo integral debería ser proporcional a la constante de tiempo del proceso. \n\n";
 		
 	public static String getDescription(){
 		return description;
