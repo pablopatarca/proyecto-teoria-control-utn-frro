@@ -102,14 +102,14 @@ public abstract class DataClosedZN {
 		return (Math.rint(numero*100)/100);
 	}
 	
-	private static String description = "Un procedimiento de sintonización a lazo cerrado  implica deshabilitar cualquier acción integral o derivativa del controlador.\n\n"
+	private static String description = "Un procedimiento de sintonización a lazo cerrado implica deshabilitar cualquier acción integral o derivativa del controlador.\n\n"
 	+"Consiste en ir aumentando la ganancia del controlador hasta que la variable de proceso empiece a oscilar. La cantidad de ganancia "
-	+"necesaria para generar oscilaciones sostenidas (amplitud constante) es llamada “ganancia ultima ” del proceso, mientras que el tiempo "
+	+"necesaria para generar oscilaciones sostenidas (amplitud constante) es llamada “ganancia ultima” del proceso, mientras que el tiempo "
 	+"(período) entre cada pico de oscilación es llamado “período último” del proceso.\n\n"
 	+"Ziegler y Nichols indican cómo se debe configurar la ganancia del controlador con un valor de la mitad de la ganancia última.  "
 	+"Kp = 0.5 Ku \n\n"
 	+"Kp: Ganancia del controlador \n\n"
-	+"Ku: Ultima ganancia, determinada incrementando la ganancia del controlador hasta lograr oscilación auto-sostenibles.\n\n"
+	+"Ku: Ganancia última, determinada incrementando la ganancia del controlador hasta lograr oscilación auto-sostenibles.\n\n"
 	+"Una ganancia del controlador a la mitad de la “ganancia última” determinada experimentalmente resulta una razonable "
 	+"respuesta rápida ante cambios de setpoint y cambios de carga.\n\n" 
 	+"Las oscilaciones de la variable de proceso a cambios de setpoint y de carga son atenuadas con cada pico de onda "

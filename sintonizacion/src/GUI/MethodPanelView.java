@@ -359,6 +359,10 @@ public class MethodPanelView extends JPanel {
 				
 				ModalEquationView dialog = new ModalEquationView(mainView, title, "/icons/controllerSchemaOpenLoop.png");
 				
+				String sourceText = "http://blog.opticontrols.com/archives/477";
+				dialog.setSource(sourceText);
+				dialog.repaint();
+				
 				dialog.setVisible(true);
 				dialog.setLocationRelativeTo(mainView);
 			}
