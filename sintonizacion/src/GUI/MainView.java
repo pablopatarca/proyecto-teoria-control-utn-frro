@@ -1,5 +1,16 @@
 package GUI;
 
+/*
+ * Sistema Educativo - Teoría de Control
+ * 
+ * Tema: Sintonización de Controladores
+ * 
+ * Director: Ing. Darío Weitz
+ * Autor: Pablo Patarca, Leandro Lambertucci
+ * 
+ * Fecha de lamzamiento: 17/12/2013
+ */
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -19,6 +30,7 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+
 
 public class MainView extends JFrame {
 	
@@ -253,9 +265,7 @@ public class MainView extends JFrame {
 		mnExit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				int decision = JOptionPane.showConfirmDialog(frame, "¿Seguro que desea salir?", "Aviso", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null);
-				if(decision == 0)
-					System.exit(0);
+				System.exit(0);
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {

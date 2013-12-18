@@ -1,5 +1,16 @@
 package GUI;
 
+/*
+ * Sistema Educativo - Teoría de Control
+ * 
+ * Tema: Sintonización de Controladores
+ * 
+ * Director: Ing. Darío Weitz
+ * Autor: Pablo Patarca, Leandro Lambertucci
+ * 
+ * Fecha de lamzamiento: 17/12/2013
+ */
+
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -292,6 +303,11 @@ public class PanelClosedZieglerNichols extends JPanel {
 				String title = "Esquema del Controlador";
 				
 				ModalEquationView dialog = new ModalEquationView(mainView, title, "/icons/controllerSchemaClosedLoop.png");
+				
+				String sourceText = "http://kurser.iha.dk/m/mtpri1/control/3_PID/f_ziegler/ziegler_nichols_method.html";
+				dialog.setSource(sourceText);
+				dialog.repaint();
+				
 				dialog.setVisible(true);
 				dialog.setLocationRelativeTo(mainView);
 			}

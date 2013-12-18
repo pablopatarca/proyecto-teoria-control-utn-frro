@@ -358,6 +358,7 @@ public class MethodPanelView extends JPanel {
 				String title = "Esquema del Controlador";
 				
 				ModalEquationView dialog = new ModalEquationView(mainView, title, "/icons/controllerSchemaOpenLoop.png");
+				
 				dialog.setVisible(true);
 				dialog.setLocationRelativeTo(mainView);
 			}

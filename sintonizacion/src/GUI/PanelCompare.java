@@ -1,5 +1,17 @@
 package GUI;
 
+/*
+ * Sistema Educativo - Teoría de Control
+ * 
+ * Tema: Sintonización de Controladores
+ * 
+ * Director: Ing. Darío Weitz
+ * Autor: Pablo Patarca, Leandro Lambertucci
+ * 
+ * Fecha de lamzamiento: 17/12/2013
+ *
+ */
+
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;

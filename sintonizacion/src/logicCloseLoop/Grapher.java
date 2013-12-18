@@ -52,16 +52,16 @@ public class Grapher {
 		tabla1 = null;
 		
 		
-		timer = new Timer (0, new ActionListener () {
+		timer = new Timer (20, new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
 		    	
 		    	
 		    	if(t <= tiempoDeCurva && bandera) {
 		        	curvaActual.dibujarCurva(t);
 		        	if(curvaActual.getTipoCurva() != 3)
-		        		t += 0.03;
+		        		t += 0.04;
 		        	else
-		        		t += 0.01;
+		        		t += 0.04;
 		        }
 		    	else {
 		    		if(bandera)
