@@ -24,7 +24,6 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
@@ -67,8 +66,7 @@ public class MainView extends JFrame {
 		Dimension d = new Dimension();
 		d.setSize(minW, minH);
 		this.setMinimumSize(d);
-		
-		
+
 		try
 		{
 		    JFrame.setDefaultLookAndFeelDecorated(true);
@@ -109,7 +107,7 @@ public class MainView extends JFrame {
 				//contentPane.add(panel.getContentPane(), BorderLayout.CENTER);
 				contentPane.add(panel.getMainPanel(), BorderLayout.CENTER);
 				contentPane.updateUI();
-				setLocationRelativeTo(null);
+				//setLocationRelativeTo(null);
 				//Focus first field
 				JTable tabla = panel.getInputTable();
 				tabla.requestFocus();
@@ -137,7 +135,7 @@ public class MainView extends JFrame {
 				MethodPanelView panel = new MethodPanelView(frame, "cc");
 				contentPane.add(panel.getMainPanel(), BorderLayout.CENTER);
 				contentPane.updateUI();
-				setLocationRelativeTo(null);
+				//setLocationRelativeTo(null);
 				//Focus first field
 				JTable tabla = panel.getInputTable();
 				tabla.requestFocus();
@@ -164,7 +162,7 @@ public class MainView extends JFrame {
 				MethodPanelView panel = new MethodPanelView(frame, "lopez");
 				contentPane.add(panel.getMainPanel(), BorderLayout.CENTER);
 				contentPane.updateUI();
-				setLocationRelativeTo(null);
+				//setLocationRelativeTo(null);
 				//Focus first field
 				JTable tabla = panel.getInputTable();
 				tabla.requestFocus();
@@ -191,7 +189,7 @@ public class MainView extends JFrame {
 				MethodPanelView panel = new MethodPanelView(frame, "ks");
 				contentPane.add(panel.getMainPanel(), BorderLayout.CENTER);
 				contentPane.updateUI();
-				setLocationRelativeTo(null);
+				//setLocationRelativeTo(null);
 				//Focus first field
 				JTable tabla = panel.getInputTable();
 				tabla.requestFocus();
@@ -218,7 +216,7 @@ public class MainView extends JFrame {
 				PanelClosedZieglerNichols panel = new PanelClosedZieglerNichols(frame);
 				contentPane.add(panel.getMainPanel(), BorderLayout.CENTER);
 				contentPane.updateUI();
-				setLocationRelativeTo(null);
+				//setLocationRelativeTo(null);
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {

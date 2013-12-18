@@ -431,7 +431,7 @@ public class MethodPanelView extends JPanel {
 	  				graficador.iniciarGraficoCurva();
 	  				graficador.insertarDerivada();
 	  				
-/****************************************************************************************/
+	  				/****************************************************************************************/
 					
 	  				//completeTables(graficador, kp, tau);
 	  				
